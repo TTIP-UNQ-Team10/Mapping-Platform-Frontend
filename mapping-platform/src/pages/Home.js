@@ -9,10 +9,10 @@ const getHospitals = () => {
 
 const Home = () => {
 
-  const [show, setShow] = useState(false);
+  const [data, setData] = useState(false);
 
-  const showMap = () => {
-    setShow(true)
+  const showHospitals = () => {
+    setData(getHospitals())
   }
 
   return (
@@ -25,13 +25,13 @@ const Home = () => {
             <button
               className="btn btn-outline-success my-2 my-sm-0"
               type="submit"
-              onClick={showMap}
+              onClick={showHospitals}
             >Ver Hospitales
             </button>
           <br/>
           {
-            show ?
-              <MapComponent data={getHospitals()}/> :
+            true ?
+              <MapComponent data={data}/> :
               null
           }
         </div>

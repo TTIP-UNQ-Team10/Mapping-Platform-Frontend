@@ -51,21 +51,23 @@ const MapComponent = (props) => {
     }
   }
 
-  const [hospitalData, setHospitalData] = useState(null)
+  const [map, setMap] = useState(null);
 
   const { data } = props;
 
   useEffect(() => {
-    setHospitalData(data)
-  }, [data])
+    if (!map) {
+      const mapa = generateMap();
+      setMap(mapa);
+      settingLayerMap(mapa);
+    }
+  }, [map])
 
   useEffect(() => {
-    if (hospitalData) {
-      const map = generateMap();
-      settingLayerMap(map);
-      generateMarksFromData(hospitalData, map)
+    if (data) {
+      generateMarksFromData(data, map)
     }
-  }, [hospitalData])
+  }, [data, map])
 
   return (
     <div style={styles.map} id="mapid"></div>
