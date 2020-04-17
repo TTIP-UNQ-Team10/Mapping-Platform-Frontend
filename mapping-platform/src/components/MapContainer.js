@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Leaflet from 'leaflet';
-import datos from './datos.js';
 
-const accessToken = 'pk.eyJ1IjoibGVvbmFyZG92YXEiLCJhIjoiY2s5MXZ0dGM2MDIyMTNmbWtnem5rZG44bCJ9.j2qDwrJT0mdcjLFq6gjBNQ';
+const accessToken = "pk.eyJ1IjoibGVvbmFyZG92YXEiLCJhIjoiY2s5MXZ0dGM2MDIyMTNmbWtnem5rZG44bCJ9.j2qDwrJT0mdcjLFq6gjBNQ";
 const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
 const license = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 
 const generateMap = () => {
-  return Leaflet.map('mapid').setView([-34.6131516, -58.3772316], 13);
+  return Leaflet.map('mapid').setView([-34.6131516, -58.3772316], 12);
 }
 
 const settingLayerMap = map => {
@@ -44,22 +43,37 @@ const generateMarksFromData = (data, map) => {
   )
 }
 
-const MapComponent = () => {
+const MapComponent = (props) => {
   const styles = {
     map: {
       height: '75vh',
       width: '100%'
     }
   }
+
+  const [hospitalData, setHospitalData] = useState(null)
+
+  const { data } = props;
+
   useEffect(() => {
-    const map = generateMap();
-    settingLayerMap(map);
-    generateMarksFromData(datos.features, map)
-  })
+    setHospitalData(data)
+  }, [data])
+
+  useEffect(() => {
+    if (hospitalData) {
+      const map = generateMap();
+      settingLayerMap(map);
+      generateMarksFromData(hospitalData, map)
+    }
+  }, [hospitalData])
 
   return (
     <div style={styles.map} id="mapid"></div>
   );
+}
+
+MapComponent.defaultProps = {
+  data: null
 }
 
 export default MapComponent;
