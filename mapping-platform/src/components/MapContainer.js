@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Leaflet from 'leaflet';
 
-const accessToken = "pk.eyJ1IjoibGVvbmFyZG92YXEiLCJhIjoiY2s5MXZ0dGM2MDIyMTNmbWtnem5rZG44bCJ9.j2qDwrJT0mdcjLFq6gjBNQ";
+const accessToken = process.env.REACT_APP_OSM_API_KEY;
 const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
 const license = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 

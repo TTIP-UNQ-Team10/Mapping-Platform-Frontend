@@ -9,7 +9,7 @@ const getHospitals = () => {
 
 const Home = () => {
 
-  const [data, setData] = useState(false);
+  const [data, setData] = useState(null);
 
   const showHospitals = () => {
     setData(getHospitals())
@@ -29,11 +29,7 @@ const Home = () => {
             >Ver Hospitales
             </button>
           <br/>
-          {
-            true ?
-              <MapComponent data={data}/> :
-              null
-          }
+          <MapComponent data={data}/>
         </div>
       </div>
     </div>
