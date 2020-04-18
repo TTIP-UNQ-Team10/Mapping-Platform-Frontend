@@ -1,0 +1,81 @@
+import React, { useEffect, useState } from 'react';
+import Leaflet from 'leaflet';
+
+const accessToken = process.env.REACT_APP_OSM_API_KEY;
+const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
+const license = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+
+const generateMap = () => {
+  return Leaflet.map('mapid').setView([-34.6131516, -58.3772316], 12);
+}
+
+const settingLayerMap = map => {
+  Leaflet.tileLayer(uri, {
+      attribution: license,
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: accessToken
+  }).addTo(map);
+}
+
+const generateText = hospital => (
+  `
+    ${hospital.properties.NOMBRE ? `<b>${hospital.properties.NOMBRE}</b>` : ''}<br/>
+    ${hospital.properties.TIPO_ESPEC ? `<p><b>Especialidad:</b> ${hospital.properties.TIPO_ESPEC}</p>` : ''}
+    ${hospital.properties.DIRECTOR ? `<p><b>Director:</b> ${hospital.properties.DIRECTOR}</p> `: ''}
+    ${hospital.properties.TELEFONO ? `<p><b>Teléfono:</b> ${hospital.properties.TELEFONO}</p>` : ''}
+    ${hospital.properties.GUARDIA ? `<p><b>Guardia:</b> ${hospital.properties.GUARDIA}</p> `: ''}
+    ${hospital.properties.DOM_NORMA ? `<p><b>Dirección:</b> ${hospital.properties.DOM_NORMA}, ${hospital.properties.COD_POSTAL}</p>` : ''}
+    ${hospital.properties.FAX ? `<p><b>Fax:</b> ${hospital.properties.FAX}</p>` : ''}
+    ${hospital.properties.WEB ? `<p><b>Web:</b> ${hospital.properties.WEB}</p>` : ''}
+  `
+)
+
+const generateMarksFromData = (data, map) => {
+  data.map(
+    hospital => {
+      return Leaflet.marker(hospital.geometry.coordinates.reverse())
+        .addTo(map)
+        .bindPopup(generateText(hospital))
+    }
+  )
+}
+
+const MapComponent = (props) => {
+  const styles = {
+    map: {
+      height: '75vh',
+      width: '100%'
+    }
+  }
+
+  const [map, setMap] = useState(null);
+
+  const { data } = props;
+
+  useEffect(() => {
+    if (!map) {
+      const mapa = generateMap();
+      setMap(mapa);
+      settingLayerMap(mapa);
+    }
+  }, [map])
+
+  useEffect(() => {
+    if (data) {
+      generateMarksFromData(data, map)
+    }
+  }, [data, map])
+
+  return (
+    <div style={styles.map} id="mapid"></div>
+  );
+}
+
+MapComponent.defaultProps = {
+  data: null
+}
+
+export default MapComponent;
