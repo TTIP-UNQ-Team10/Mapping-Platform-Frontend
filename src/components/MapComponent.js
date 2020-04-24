@@ -20,23 +20,24 @@ const settingLayerMap = map => {
   }).addTo(map);
 }
 
-const generateText = hospital => (
-  `
-    ${hospital.properties.NOMBRE ? `<b>${hospital.properties.NOMBRE}</b>` : ''}<br/>
-    ${hospital.properties.TIPO_ESPEC ? `<p><b>Especialidad:</b> ${hospital.properties.TIPO_ESPEC}</p>` : ''}
-    ${hospital.properties.DIRECTOR ? `<p><b>Director:</b> ${hospital.properties.DIRECTOR}</p> `: ''}
-    ${hospital.properties.TELEFONO ? `<p><b>Teléfono:</b> ${hospital.properties.TELEFONO}</p>` : ''}
-    ${hospital.properties.GUARDIA ? `<p><b>Guardia:</b> ${hospital.properties.GUARDIA}</p> `: ''}
-    ${hospital.properties.DOM_NORMA ? `<p><b>Dirección:</b> ${hospital.properties.DOM_NORMA}, ${hospital.properties.COD_POSTAL}</p>` : ''}
-    ${hospital.properties.FAX ? `<p><b>Fax:</b> ${hospital.properties.FAX}</p>` : ''}
-    ${hospital.properties.WEB ? `<p><b>Web:</b> ${hospital.properties.WEB}</p>` : ''}
-  `
-)
+const generateText = hospital => {
+  const { name, type, address, addressNumber, phone, website, postalCode } = hospital;
+
+  return (
+    `
+      ${name ? `<b>${name}</b>` : ''}<br/>
+      ${type ? `<p><b>Especialidad:</b> ${type}</p>` : ''}
+      ${phone ? `<p><b>Teléfono:</b> ${phone}</p>` : ''}
+      ${address ? `<p><b>Dirección:</b> ${address} ${addressNumber}, ${postalCode}</p>` : ''}
+      ${website ? `<p><b>Web:</b> ${website}</p>` : ''}
+    `
+  )
+}
 
 const generateMarksFromData = (data, map) => {
   data.map(
     hospital => {
-      return Leaflet.marker(hospital.geometry.coordinates.reverse())
+      return Leaflet.marker(hospital.coordinate)
         .addTo(map)
         .bindPopup(generateText(hospital))
     }
