@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
-import MapComponent from '../components/MapContainer.js'
+import MapComponent from '../components/MapComponent.js'
 import api from '../api';
 
-
-const getHospitals = () => {
-  return api.getHospitals();
-}
 
 const Home = () => {
 
@@ -13,6 +9,13 @@ const Home = () => {
 
   const showHospitals = () => {
     setData(getHospitals())
+  }
+
+  const getHospitals = () => {
+    api.getHospitals()
+      .then(response => {
+        setData(response)
+      })
   }
 
   return (
