@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import Home from './pages/Home.js'
+// import Home from './pages/Home.js'
+import Login from './pages/Login.js'
+// const APP_LOGO = '/mapping-platform-logo.svg'
 
-function App() {
+const App = () => {
+
   return (
     <div className="App">
-      <Home />
+      <Login />
     </div>
   );
 }
