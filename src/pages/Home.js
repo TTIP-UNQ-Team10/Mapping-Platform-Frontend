@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import MapComponent from '../components/MapComponent.js'
-import api from '../api';
+import Navbar from '../components/Navbar.js'
+import api from '../api'
 
 
 const Home = () => {
@@ -20,9 +21,7 @@ const Home = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-primary bg-primary">
-        <h2>Mapping Platform</h2>
-      </nav>
+      <Navbar />
       <div className="container-fluid">
         <div className="flex-column form-inline d-flex justify-content-center">
             <button
