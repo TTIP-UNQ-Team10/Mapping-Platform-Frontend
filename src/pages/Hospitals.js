@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import MapComponent from '../components/MapComponent.js'
 import Navbar from '../components/Navbar.js'
+import SideBarMenu from '../components/SideBarMenu.js'
 import api from '../api'
 
 
-const Home = () => {
+const Hospitals = () => {
 
   const [data, setData] = useState(null);
 
@@ -22,10 +23,11 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <div className="container-fluid">
+      <SideBarMenu />
+      <div className="container-fluid base__home_body">
         <div className="flex-column form-inline d-flex justify-content-center">
             <button
-              className="btn btn-outline-success my-2 my-sm-0"
+              className="btn btn-outline-dark my-2 my-sm-0"
               type="submit"
               onClick={showHospitals}
             >Ver Hospitales
@@ -38,4 +40,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default Hospitals;
