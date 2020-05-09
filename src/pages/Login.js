@@ -41,34 +41,34 @@ const LoginCard = () => {
   }
 
   return (
-    <div class={styles.form__container}>
-        <div class={styles.login__form}>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
+    <div className={styles.form__container}>
+        <div className={styles.login__form}>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="basic-addon1">
                 <i className="fa fa-user" />
               </span>
             </div>
             <input type="text"
               required
               name="username"
-              class="form-control"
+              className="form-control"
               placeholder="Usuario"
               aria-label="Username"
               aria-describedby="basic-addon1"
               onInput={e => handlerInput(e, setUsername)}
             />
           </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text" id="basic-addon1">
                 <i className="fa fa-lock" />
               </span>
             </div>
             <input type="password"
               required
               name="password"
-              class="form-control"
+              className="form-control"
               placeholder="Contraseña"
               aria-label="Password"
               aria-describedby="basic-addon1"
@@ -76,7 +76,7 @@ const LoginCard = () => {
             />
           </div>
         </div>
-        <button type="submit" class="btn btn-dark" onClick={onClickLogin}>Iniciar Sesión</button>
+        <button type="submit" className="btn btn-dark" onClick={onClickLogin}>Iniciar Sesión</button>
     </div>
   )
 }
