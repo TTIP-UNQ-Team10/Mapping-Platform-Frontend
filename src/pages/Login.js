@@ -26,7 +26,6 @@ const LoginCard = () => {
     }
 
     const onSuccess = response => {
-      console.log('Usuario Logeado: ', response)
       const Storage = window.localStorage
       Storage.setItem('token', response.token)
       history.push('/')
