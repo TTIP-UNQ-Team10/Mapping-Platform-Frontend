@@ -1,11 +1,13 @@
 import {
   fetchAPI,
-  getHospitals
+  getHospitals,
+  login
 } from './api.js';
 
 const api = {
   fetchAPI,
-  getHospitals
+  getHospitals,
+  login
 }
 
 export default api
