@@ -2,10 +2,14 @@
 
 const BASE_API = process.env.REACT_APP_API_BASE;
 const HOSPITAL_API = BASE_API + '/necessities'
+const LOGIN_API = BASE_API + '/auth'
+const Storage = window.localStorage
+const token = Storage.getItem('token')
 
 const createHeaders = () => {
   const headers = new Headers();
   headers.set('Content-Type', 'application/json');
+  headers.set('Auth', token)
   return headers
 }
 
@@ -13,8 +17,8 @@ export const fetchAPI = async ({
   url,
   method,
   body,
-  headers,
   onSuccess,
+  headers,
   onError,
   parse = x => x
 }) => {
@@ -25,7 +29,6 @@ export const fetchAPI = async ({
       headers: headers ? headers : createHeaders(),
       body: JSON.stringify(body)
     };
-    console.log(url, method)
     const response = await fetch(url, request);
     const json = await response.json();
     const parsed = parse(json);
@@ -43,6 +46,8 @@ export const fetchAPI = async ({
   }
 }
 
-export const getHospitals = () => {
-  return fetchAPI({url: HOSPITAL_API, method: 'GET'})
-}
+export const getHospitals = () => fetchAPI({url: HOSPITAL_API, method: 'GET'})
+
+export const login = (user, onSuccess) => fetchAPI({url: LOGIN_API, method: 'POST', body: user, onSuccess: onSuccess})
+
+export const logout = () => Storage.clear()
