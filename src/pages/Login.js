@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import api from '../api/'
+import { useHistory } from 'react-router-dom'
 
 const APP_LOGO = '/mapping-platform-logo.svg'
 
@@ -13,20 +14,25 @@ const LoginCard = () => {
       marginTop: 50
     }
   }
+  const history = useHistory()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const login = () => {
+  const onClickLogin = async () => {
     const userData = {
-      username: username,
-      passowrd: password
+      email: username,
+      password: password
     }
 
-    console.log('Usuario: ', userData)
-    api.login(userData, () => {
-      console.log('Usuario Logeado!')
-    })
+    const onSuccess = response => {
+      console.log('Usuario Logeado: ', response)
+      const Storage = window.localStorage
+      Storage.setItem('token', response.token)
+      history.push('/')
+    }
+
+    await api.login(userData, onSuccess)
   }
 
   const handlerInput = (event, handlerFunction) => {
@@ -36,7 +42,6 @@ const LoginCard = () => {
 
   return (
     <div class={styles.form__container}>
-      <form onSubmit={login}>
         <div class={styles.login__form}>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -71,8 +76,7 @@ const LoginCard = () => {
             />
           </div>
         </div>
-        <button type="submit" class="btn btn-dark">Iniciar Sesión</button>
-      </form>
+        <button type="submit" class="btn btn-dark" onClick={onClickLogin}>Iniciar Sesión</button>
     </div>
   )
 }
