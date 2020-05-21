@@ -1,23 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { AppContext } from '../store/Store.js'
 import MapComponent from '../components/MapComponent.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
+import { createShowErrorNotificationAction } from '../store/actions/notification.js'
+import { selectUserAuthToken } from '../store/selectors/user.js'
 import api from '../api'
 
 
 const Hospitals = () => {
 
   const [data, setData] = useState(null);
+  const { state, dispatch } = useContext(AppContext)
 
   const showHospitals = () => {
     setData(getHospitals())
   }
 
-  const getHospitals = () => {
-    api.getHospitals()
-      .then(response => {
-        setData(response)
-      })
+  const getHospitals = async () => {
+
+    const onSuccess = async (response) => {
+      const data = await response
+      setData(data)
+    }
+
+    const onError = async (error) => {
+      dispatch(createShowErrorNotificationAction({
+        header: '¡Error!',
+        message: 'No se han podido obtener los Hospitales'
+      }))
+    }
+
+    const headers = {
+      'Auth': selectUserAuthToken(state)
+    }
+
+    await api.getHospitals(headers, onSuccess, onError)
   }
 
   return (

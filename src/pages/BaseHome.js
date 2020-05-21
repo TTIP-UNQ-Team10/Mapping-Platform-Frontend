@@ -20,6 +20,15 @@ const BaseHome = () => {
             </div>
           </div>
         </Link>
+        <Link to="/hospitals" className="container card__router">
+          <div className="card">
+            <div className="card-body">
+              <div className="card-title">
+                <h3>Agregar una Categoría</h3>
+              </div>
+            </div>
+          </div>
+        </Link>
       </div>
     </div>
   )

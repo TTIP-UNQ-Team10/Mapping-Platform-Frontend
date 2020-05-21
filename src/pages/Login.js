@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import api from '../api/'
 import { useHistory } from 'react-router-dom'
+import { AppContext } from '../store/Store.js'
+import { createLoginSuccessAction, createLoginErrorAction } from '../store/actions/user.js'
+import { createShowErrorNotificationAction } from '../store/actions/notification.js'
 
 const APP_LOGO = '/mapping-platform-logo.svg'
 
@@ -16,8 +19,11 @@ const LoginCard = () => {
   }
   const history = useHistory()
 
+  const { dispatch } = useContext(AppContext)
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
 
   const onClickLogin = async () => {
     const userData = {
@@ -26,12 +32,24 @@ const LoginCard = () => {
     }
 
     const onSuccess = response => {
-      const Storage = window.localStorage
-      Storage.setItem('token', response.token)
-      history.push('/')
+      dispatch(createLoginSuccessAction({
+         id: 1,
+         name: userData.email,
+         email: userData.email,
+         authToken: response.token
+       }))
+      history.push('/home')
     }
 
-    await api.login(userData, onSuccess)
+    const onError = (error) => {
+      dispatch(createLoginErrorAction())
+      dispatch(createShowErrorNotificationAction({
+        header: '¡Error de Autenticación!',
+        message: 'El Usuario o la Contraseña son incorrectas'
+      }))
+    }
+
+    await api.login(userData, onSuccess, onError)
   }
 
   const handlerInput = (event, handlerFunction) => {

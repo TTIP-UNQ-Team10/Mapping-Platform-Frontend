@@ -34,21 +34,24 @@ const generateText = hospital => {
   )
 }
 
-const generateMarksFromData = (data, map) => {
-  data.map(
-    hospital => {
-      return Leaflet.marker(hospital.coordinate)
-        .addTo(map)
-        .bindPopup(generateText(hospital))
-    }
-  )
+const generateMarksFromData = async (data, map) => {
+  const hospitalData = await data
+  if (hospitalData) {
+    hospitalData.map(
+      hospital => {
+        return Leaflet.marker(hospital.coordinate)
+          .addTo(map)
+          .bindPopup(generateText(hospital))
+      }
+    )
+  }
 }
 
 const MapComponent = (props) => {
   const styles = {
     map: {
-      height: '75vh',
-      width: '100%'
+      height: '60vh',
+      width: '60%'
     }
   }
 
