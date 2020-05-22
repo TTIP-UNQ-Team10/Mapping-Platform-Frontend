@@ -3,6 +3,7 @@ import { createLogoutAction } from '../store/actions/user.js'
 const BASE_API = process.env.REACT_APP_API_BASE;
 const HOSPITAL_API = BASE_API + '/necessities'
 const LOGIN_API = BASE_API + '/auth'
+const CATEGORY_API = BASE_API + '/categories'
 
 const createHeaders = () => {
   const headers = new Headers();
@@ -54,3 +55,7 @@ export const getHospitals = (headers, onSuccess, onError) => fetchAPI({url: HOSP
 export const login = (user, onSuccess, onError) => fetchAPI({url: LOGIN_API, method: 'POST', body: user, onSuccess: onSuccess, onError: onError})
 
 export const logout = () => createLogoutAction()
+
+export const createCatetory = (category, headers, onSuccess, onError) => fetchAPI({url: CATEGORY_API, method: 'POST', body: category, onSuccess: onSuccess, onError: onError, headers: headers})
+
+export const getCategories = (headers, onError) => fetchAPI({url: CATEGORY_API, method: 'GET', headers: headers, onError: onError})
