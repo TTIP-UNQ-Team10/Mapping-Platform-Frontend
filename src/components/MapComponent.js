@@ -1,50 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import Leaflet from 'leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 const accessToken = process.env.REACT_APP_OSM_API_KEY;
 const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
 const license = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+const mapCenter = [-34.6131516, -58.3772316]
 
-const generateMap = () => {
-  return Leaflet.map('mapid').setView([-34.6131516, -58.3772316], 12);
-}
-
-const settingLayerMap = map => {
-  Leaflet.tileLayer(uri, {
-      attribution: license,
-      maxZoom: 18,
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      zoomOffset: -1,
-      accessToken: accessToken
-  }).addTo(map);
-}
-
-const generateText = hospital => {
-  const { name, type, address, addressNumber, phone, website, postalCode } = hospital;
-
+const settingLayerMap = (hospitalData) => {
   return (
-    `
-      ${name ? `<b>${name}</b>` : ''}<br/>
-      ${type ? `<p><b>Especialidad:</b> ${type}</p>` : ''}
-      ${phone ? `<p><b>Teléfono:</b> ${phone}</p>` : ''}
-      ${address ? `<p><b>Dirección:</b> ${address} ${addressNumber}, ${postalCode}</p>` : ''}
-      ${website ? `<p><b>Web:</b> ${website}</p>` : ''}
-    `
+      <TileLayer
+        id={'mapbox/streets-v11'}
+        url={uri}
+        attribution={license}
+        accessToken={accessToken}
+        tileSize={512}
+        maxZoom={18}
+        zoomOffset={-1}
+      />
+
   )
 }
 
-const generateMarksFromData = async (data, map) => {
-  const hospitalData = await data
-  if (hospitalData) {
-    hospitalData.map(
-      hospital => {
-        return Leaflet.marker(hospital.coordinate)
-          .addTo(map)
-          .bindPopup(generateText(hospital))
-      }
-    )
-  }
+const generateText = hospital => {
+  const { name, type, address, addressNumber, phone, website, postalCode } = hospital
+  return (
+    <Popup>
+      <b>{name ? name: ''}</b><br/>
+      {type ? <p><b>Especialidad:</b> {type}</p> : ''}
+      {phone ? <p><b>Teléfono:</b> {phone}</p> : ''}
+      {address ? <p><b>Dirección:</b> {address} {addressNumber}, {postalCode}</p> : ''}
+      {website ? <p><b>Web:</b> {website}</p> : ''}
+    </Popup>
+  )
 }
 
 const MapComponent = (props) => {
@@ -55,29 +42,36 @@ const MapComponent = (props) => {
     }
   }
 
-  const [map, setMap] = useState(null);
+  const [hospitalData, setHospitalData] = useState(null)
 
   const { data } = props;
 
   useEffect(() => {
-    if (!map) {
-      const mapa = generateMap();
-      setMap(mapa);
-      settingLayerMap(mapa);
-    }
-  }, [map])
-
-  useEffect(() => {
     if (data) {
-      generateMarksFromData(data, map)
+      Promise.resolve(data)
+        .then(res => {
+          setHospitalData(res)
+        })
     }
-  }, [data, map])
+  }, [data])
 
   return (
-    <div style={styles.map} id="mapid"></div>
-  );
+    <Map center={mapCenter} zoom={12} id="mapid" style={styles.map}>
+        {settingLayerMap(hospitalData)}
+        { hospitalData ?
+          hospitalData.map(
+            hospital => {
+              return (
+                <Marker position={hospital.coordinate}>
+                  {generateText(hospital)}
+                </Marker>
+              )
+            }
+          ) : null
+        }
+    </Map>
+    )
 }
-
 MapComponent.defaultProps = {
   data: null
 }
