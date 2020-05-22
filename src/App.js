@@ -4,6 +4,7 @@ import { selectNotificationState } from './store/selectors/notification.js'
 import Login from './pages/Login.js'
 import BaseHome from './pages/BaseHome.js'
 import Hospitals from './pages/Hospitals.js'
+import Category from './pages/Category.js'
 import { Notification } from './components/Notification.js'
 import AuthProvider from './components/AuthProvider.js'
 import {
@@ -30,6 +31,12 @@ const App = () => {
             <Route path="/home"
               render={props => (
                 <AuthProvider Component={BaseHome} {...props} />
+              )}
+            />
+            <Route
+              path="/categories"
+              render={props => (
+                <AuthProvider Component={Category} {...props}/>
               )}
             />
             <Route path="/hospitals">

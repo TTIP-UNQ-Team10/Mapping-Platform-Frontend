@@ -1,7 +1,12 @@
 import React from 'react'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
-import { Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 const BaseHome = () => {
@@ -11,7 +16,7 @@ const BaseHome = () => {
       <SideBarMenu />
       <div className="base__home_body">
         <h1>Bienvenido a Kintun</h1>
-        <Link to="/hospitals" className="container card__router">
+        <Link to="/hospitals" className="card__router">
           <div className="card">
             <div className="card-body">
               <div className="card-title">
@@ -20,11 +25,11 @@ const BaseHome = () => {
             </div>
           </div>
         </Link>
-        <Link to="/hospitals" className="container card__router">
+        <Link to="/categories" className="card__router">
           <div className="card">
             <div className="card-body">
               <div className="card-title">
-                <h3>Agregar una Categoría</h3>
+                <h3>Categorías</h3>
               </div>
             </div>
           </div>

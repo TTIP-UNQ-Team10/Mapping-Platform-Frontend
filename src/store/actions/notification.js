@@ -17,5 +17,6 @@ export const closeNotificationAction = notification => ({
 
 export const NotificationAction = {
   createShowErrorNotificationAction,
-  createShowSuccessNotificationAction
+  createShowSuccessNotificationAction,
+  closeNotificationAction
 }
