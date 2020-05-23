@@ -93,9 +93,8 @@ const Category = () => {
     const onSuccess = response => {
       dispatch(createShowSuccessNotificationAction({
         header: '¡Categoría creada con éxito!',
-        message: `La categoría ${response.data.name} se creó con éxito`
+        message: 'La categoría se creó con éxito'
       }))
-      console.log('suceesss', response)
     }
 
     const onError = error => {

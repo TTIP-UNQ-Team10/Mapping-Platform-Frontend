@@ -25,21 +25,31 @@ const App = () => {
       <div>
         <Router>
           <Switch>
-            <Route path="/login">
+            <Route path="/login" exact={true}>
               <Login />
             </Route>
-            <Route path="/home"
+            <Route
+              path="/"
+              exact={true}
+              render={props => (
+                <AuthProvider Component={BaseHome} {...props} />
+              )}
+            />
+            <Route
+              path="/home"
+              exact={true}
               render={props => (
                 <AuthProvider Component={BaseHome} {...props} />
               )}
             />
             <Route
               path="/categories"
+              exact={true}
               render={props => (
                 <AuthProvider Component={Category} {...props}/>
               )}
             />
-            <Route path="/hospitals">
+            <Route path="/hospitals" exact={true}>
               <Hospitals />
             </Route>
           </Switch>

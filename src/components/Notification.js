@@ -7,7 +7,7 @@ import { closeNotificationAction } from '../store/actions/notification.js'
 export const Notification = () => {
 
   const { state, dispatch } = useContext(AppContext)
-  const { showNotification, header, message, type } = selectNotificationState(state)
+  const { showNotification, header, message, color } = selectNotificationState(state)
 
   const hideNotification = () => {
     if (showNotification) {
@@ -19,7 +19,7 @@ export const Notification = () => {
 
   const getNotificationType = () => {
     const types = ["alert-success", "alert-danger"]
-    return type === 'success' ? types[0] : types[1]
+    return color === 'success' ? types[0] : types[1]
   }
 
   useState(() => {
