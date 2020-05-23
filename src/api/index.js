@@ -1,13 +1,19 @@
 import {
   fetchAPI,
   getHospitals,
-  login
+  login,
+  logout,
+  createCatetory,
+  getCategories
 } from './api.js';
 
 const api = {
   fetchAPI,
   getHospitals,
-  login
+  login,
+  logout,
+  createCatetory,
+  getCategories
 }
 
 export default api
