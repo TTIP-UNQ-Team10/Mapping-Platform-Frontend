@@ -14,13 +14,14 @@ const SideBarMenu = () => {
   }
 
   return (
-    <div className="collapse sidenav" id="sidebarMenu" style={styles.sidebar__menu}>
+    <nav className="collapse sidenav" id="sidebarMenu" style={styles.sidebar__menu}>
       <div className="list-unstyled">
         <Link to="/home"><span className="side__menu__text">Home</span></Link>
         <Link to="/hospitals"><span className="side__menu__text">Hospitales</span></Link>
+        <Link to="/categories"><span className="side__menu__text">Categorías</span></Link>
         <Link to="/login"><span className="side__menu__text">Salir</span></Link>
       </div>
-    </div>
+    </nav>
   )
 }
 
