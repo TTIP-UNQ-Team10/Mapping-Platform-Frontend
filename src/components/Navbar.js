@@ -4,17 +4,19 @@ import { selectUserState } from '../store/selectors/user.js'
 import config from '../config.js'
 const APP_LOGO = config.appLogo
 
+const { colors } = config
+
 const userInformation = (user) => {
   const styles = {
     user__icon: {
       fontSize: 26,
-      color: config.colors.navBarOptions.activeColor,
+      color: colors.navBarOptions.activeColor,
       marginRight: 10,
       verticalAlign: 'middle'
     },
     user__name: {
       fontSize: 12,
-      color: config.colors.navBarOptions.activeColor,
+      color: colors.navBarOptions.activeColor,
       margin: '0 auto',
       verticalAlign: 'middle'
     }
@@ -28,13 +30,22 @@ const userInformation = (user) => {
   )
 }
 
-const openSideBarButton = (
-  <a className="btn btn-sm btn-dark"
-    data-toggle="collapse" href="#sidebarMenu"
-    role="button" aria-expanded="false"
-    aria-controls="collapseExample"
-  ><i className="fa fa-bars"/></a>
-)
+const openSideBarButton = () => {
+  const styles = {
+    button__sidebar: {
+      backgroundColor: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor
+    }
+  }
+
+  return (
+    <a className="btn btn-sm" style={styles.button__sidebar}
+      data-toggle="collapse" href="#sidebarMenu"
+      role="button" aria-expanded="false"
+      aria-controls="collapseExample"
+    ><i className="fa fa-bars"/></a>
+  )
+}
 
 
 const Navbar = () => {
@@ -47,7 +58,8 @@ const Navbar = () => {
       marginLeft: 10
     },
     navbar: {
-      backgroundColor: config.colors.navBarOptions.backgroundColor
+      backgroundColor: colors.navBarOptions.backgroundColor,
+      color: colors.buttonColor.textColor
     }
   }
 
@@ -57,9 +69,10 @@ const Navbar = () => {
   return (
     <nav className="navbar mb-0" style={styles.navbar}>
     <div className="ds-flex flex-row">
-      {openSideBarButton}
+      {openSideBarButton()}
         <img src={APP_LOGO} alt="mapping-platform-logo" style={styles.image__logo}/>
       </div>
+      <h4>{config.name}</h4>
       <div>
         {userInformation(user)}
       </div>

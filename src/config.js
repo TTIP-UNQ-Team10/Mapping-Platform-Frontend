@@ -18,6 +18,8 @@ if (customizationObj) {
     appLogo,
   } = customizationObj
 
+  console.log(customizationObj)
+
   config = {
     appId: appId || 'kintun.wingu.org',
     appLogo: appLogo || '/mapping-platform-logo.svg',
@@ -32,6 +34,10 @@ if (customizationObj) {
       },
       panelBackgroundColor: {
         backgroundColor: backgroundColor || '#343a40'
+      },
+      buttonColor: {
+        backgroundColor: backgroundColor || '#343a40',
+        textColor: activeColor || '#f3f3f3'
       },
       primaryText: {
         color: primaryText || '#343a40'

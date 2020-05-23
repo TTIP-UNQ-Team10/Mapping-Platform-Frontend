@@ -6,9 +6,19 @@ import SideBarMenu from '../components/SideBarMenu.js'
 import { createShowErrorNotificationAction } from '../store/actions/notification.js'
 import { selectUserAuthToken } from '../store/selectors/user.js'
 import api from '../api'
+import config from '../config.js'
+
+const { colors } = config
 
 
 const Hospitals = () => {
+
+  const styles = {
+    buttons: {
+      backgroundColor: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor
+    }
+  }
 
   const [data, setData] = useState(null);
   const { state, dispatch } = useContext(AppContext)
@@ -45,7 +55,8 @@ const Hospitals = () => {
       <div className="container-fluid base__home_body">
         <div className="flex-column form-inline d-flex justify-content-center">
             <button
-              className="btn btn-outline-dark my-2 my-sm-0"
+              className="btn my-2 my-sm-0"
+              style={styles.buttons}
               type="submit"
               onClick={showHospitals}
             >Ver Hospitales

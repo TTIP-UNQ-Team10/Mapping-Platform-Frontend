@@ -8,25 +8,50 @@ import {
   createShowErrorNotificationAction
 } from '../store/actions/notification.js'
 import api from '../api'
+import config from '../config.js'
+
+const { colors } = config
 
 const categoryList = (categories) => {
 
+  const styles = {
+    table__head: {
+      backgroundColor: colors.navBarOptions.backgroundColor,
+      color: colors.buttonColor.textColor
+    }
+  }
+
   return (
-    categories.map(category => {
-      return (
-        <li>
-          <p>Nombre de categoría</p>
-          <p>categoria 1</p>
-          <p>Subcategoria</p>
-          <p>subcategoria 1</p>
-        </li>
-      )
-    })
+    <table className="table table-striped">
+      <thead className="thead" style={styles.table__head}>
+        <th>Categoría</th>
+        <th>Sub Categoría</th>
+      </thead>
+      <tbody>
+        {
+          categories.map(category => {
+            return (
+              <tr id={`category:${category.id}`}>
+                <th>{category.name}</th>
+                <th>{category.subCategory.name}</th>
+              </tr>
+            )
+          })
+        }
+      </tbody>
+    </table>
   )
 }
 
 
 const Category = () => {
+
+  const styles = {
+    button__create: {
+      backgroundColor: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor
+    }
+  }
 
   const [categoryName, setCategoryName] = useState('')
   const [subCategoryName, setSubCategoryName] = useState('')
@@ -40,42 +65,47 @@ const Category = () => {
 
   const fetchCategories = async () => {
     const response = await api.getCategories(headers)
-    console.log('response data: ', response)
-    return response.data
+    setCategories(response)
   }
 
 
   useState(() => {
-    console.log('useState')
-    setCategories(fetchCategories())
-    console.log(categories)
+    fetchCategories()
   })
+
+  const clearForm = () => {
+    setCategoryName('')
+    setSubCategoryName('')
+  }
 
 
   const onClickCategory = async () => {
 
     const categoryData = {
       name: categoryName,
-      subCategory: subCategoryName
+      subCategory: {name: subCategoryName}
     }
 
-    const onSucces = (response) => {
+    clearForm()
+    categories.push(categoryData)
+    setCategories(categories)
+
+    const onSuccess = response => {
       dispatch(createShowSuccessNotificationAction({
         header: '¡Categoría creada con éxito!',
         message: `La categoría ${response.data.name} se creó con éxito`
       }))
-      categories.push(response.data)
-      setCategories(categories)
+      console.log('suceesss', response)
     }
 
-    const onError = (error) => {
+    const onError = error => {
       dispatch(createShowErrorNotificationAction({
         header: '¡Error al crear una categoría!',
         message: 'Ha ocurrido un error cuando se intentaba crear la categoría'
       }))
     }
 
-    await api.createCatetory(categoryData, headers, onSucces, onError)
+    await api.createCatetory(categoryData, onSuccess, headers, onError)
   }
 
 
@@ -89,34 +119,43 @@ const Category = () => {
     <div>
       <Navbar />
       <SideBarMenu />
-      <h5>Lista de Categorías</h5>
-      {
-        categories.length > 0 ?
-        <ul>
-          {categoryList(categories)}
-        </ul> :
-        <bold>No hay categorías</bold>
-      }
-      <div>
-        <input type="text"
-          required
-          name="categoryName"
-          className="form-control"
-          placeholder="Ingrese un nombre de categoría"
-          aria-label="Categoría"
-          aria-describedby="basic-addon1"
-          onInput={e => handlerInput(e, setCategoryName)}
-        />
-        <input type="text"
-          required
-          name="subCategory"
-          className="form-control"
-          placeholder="Ingrese un nombre de subcategoría"
-          aria-label="Username"
-          aria-describedby="basic-addon1"
-          onInput={e => handlerInput(e, setSubCategoryName)}
-        />
-        <button type="submit" className="btn btn-dark" onClick={onClickCategory}>Guardar Categoría</button>
+      <div className="container mt-5">
+        <h2>Lista de Categorías</h2>
+        {
+          categories.length === 0 ? <bold>No hay categorías</bold> :
+          <div className="container">
+            {categoryList(categories)}
+          </div>
+        }
+      </div>
+      <div className="container">
+        <div className="mb-3">
+          <label className="pull-left">Nombre de Categoría</label>
+          <input type="text"
+            required
+            value={categoryName}
+            name="categoryName"
+            className="form-control"
+            placeholder="Ingrese un nombre de categoría"
+            aria-label="Categoría"
+            aria-describedby="basic-addon1"
+            onInput={e => handlerInput(e, setCategoryName)}
+          />
+        </div>
+        <div className="mb-5 mt-2">
+          <label className="pull-left">Nombre de Subcategoría</label>
+          <input type="text"
+            required
+            value={subCategoryName}
+            name="subCategory"
+            className="form-control"
+            placeholder="Ingrese un nombre de subcategoría"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+            onInput={e => handlerInput(e, setSubCategoryName)}
+          />
+        </div>
+        <button type="submit" className="btn btn-dark mt-5" style={styles.button__create} onClick={onClickCategory}>Guardar Categoría</button>
       </div>
     </div>
   )

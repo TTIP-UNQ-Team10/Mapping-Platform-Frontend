@@ -32,11 +32,13 @@ export const fetchAPI = async ({
     const json = await response.json();
     const parsed = parse(json);
 
-    if (response.ok && onSuccess) {
+    const { ok } = response
+
+    if (ok && onSuccess) {
       onSuccess(parsed);
     }
 
-    if (!response.ok && onError) {
+    if (!ok && onError) {
       onError(parsed)
     }
 
@@ -56,6 +58,6 @@ export const login = (user, onSuccess, onError) => fetchAPI({url: LOGIN_API, met
 
 export const logout = () => createLogoutAction()
 
-export const createCatetory = (category, headers, onSuccess, onError) => fetchAPI({url: CATEGORY_API, method: 'POST', body: category, onSuccess: onSuccess, onError: onError, headers: headers})
+export const createCatetory = (category, onSuccess, headers, onError) => fetchAPI({url: CATEGORY_API, method: 'POST', body: category, onSuccess: onSuccess, onError: onError, headers: headers})
 
 export const getCategories = (headers, onError) => fetchAPI({url: CATEGORY_API, method: 'GET', headers: headers, onError: onError})
