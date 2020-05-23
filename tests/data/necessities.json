@@ -1,0 +1,290 @@
+[
+    {
+        "name": "HOSPITAL DE QUEMADOS DR. ARTURO UMBERTO ILLIA",
+        "mappingName": "HOSP. DE QUEMADOS A. U. ILLIA",
+        "type": "HOSPITAL",
+        "address": "PEDRO GOYENA",
+        "addressNumber": "369",
+        "geolocationAddress": "369 GOYENA, PEDRO AV.",
+        "phone": "4923-3022",
+        "website": "www.buenosaires.gov.ar/areas/salud/hospital_quemados/?menu_id=24263",
+        "postalCode": "C1424BSD",
+        "coordinate": [
+            -34.62550319524827,
+            -58.43239669502435
+        ],
+        "id": "039ee06a-6d18-4b1c-911f-6a4b9cb8694c"
+    },
+    {
+        "name": "HOSPITAL MUNICIPAL DE ONCOLOGIA MARIE CURIE",
+        "mappingName": "HOSP. CURIE",
+        "type": "HOSPITAL",
+        "address": "PATRICIAS ARGENTINAS",
+        "addressNumber": "150",
+        "geolocationAddress": "150  PATRICIAS ARGENTINAS AV.",
+        "phone": "4982-1731 / 1831",
+        "website": null,
+        "postalCode": "C1405BWU",
+        "coordinate": [
+            -34.60705076038664,
+            -58.43324843812948
+        ],
+        "id": "08f332fe-9ac1-47ec-9247-4822b21cbb91"
+    },
+    {
+        "name": "HOSPITAL DE SALUD MENTAL BRAULIO MOYANO",
+        "mappingName": "HOSP. MOYANO",
+        "type": "HOSPITAL",
+        "address": "BRANDSEN",
+        "addressNumber": "2570",
+        "geolocationAddress": "2570 BRANDSEN",
+        "phone": "4301-3655 / 3659",
+        "website": "www.moyano.org.ar",
+        "postalCode": "C1287ABJ",
+        "coordinate": [
+            -34.63940413164838,
+            -58.3851559118889
+        ],
+        "id": "1345d60b-b020-4600-9f3a-4e0694873c33"
+    },
+    {
+        "name": "HOSPITAL DE ODONTOLOGIA INFANTIL DON BENITO QUINQUELA MARTIN",
+        "mappingName": "HOSP. ODONTOLOGICO INFANTIL QUINQUELA MARTIN",
+        "type": "HOSPITAL",
+        "address": "DON PEDRO DE MENDOZA",
+        "addressNumber": "1795",
+        "geolocationAddress": "1795 DON PEDRO DE MENDOZA AV.",
+        "phone": "4360- 3900 / 4301-4870 / 4834 / 4302-9492 / 9510",
+        "website": null,
+        "postalCode": "C1169AAB",
+        "coordinate": [
+            -34.63889173208335,
+            -58.36012012714547
+        ],
+        "id": "1ba47692-0fb8-4a51-8248-de4972ffbd85"
+    },
+    {
+        "name": "INSTITUTO DE ZOONOSIS L. PASTEUR",
+        "mappingName": "INST. PASTEUR",
+        "type": "HOSPITAL",
+        "address": "DIAZ VELEZ",
+        "addressNumber": "4821",
+        "geolocationAddress": "4821 DIAZ VELEZ AV.",
+        "phone": "4958-9900",
+        "website": null,
+        "postalCode": "C1405DCD",
+        "coordinate": [
+            -34.60847212574127,
+            -58.43494334798185
+        ],
+        "id": "49d30f73-fd13-493b-9e13-51a9e402c8f9"
+    },
+    {
+        "name": "HOSPITAL DE ODONTOLOGIA DR. RAMON CARRILLO (EX NACIONAL)",
+        "mappingName": "HOSP. ODONTOLOGICO CARRILLO",
+        "type": "HOSPITAL",
+        "address": "SANCHEZ DE BUSTAMANTE",
+        "addressNumber": "2529",
+        "geolocationAddress": "2529 SANCHEZ DE BUSTAMANTE",
+        "phone": "4805-5521 / 7533",
+        "website": null,
+        "postalCode": "C1425DUY",
+        "coordinate": [
+            -34.584528335750555,
+            -58.40272765478279
+        ],
+        "id": "50395b43-039e-476d-a660-53213014072e"
+    },
+    {
+        "name": "HOSPITAL DE OFTALMOLOGIA SANTA LUCIA",
+        "mappingName": "HOSP. SANTA LUCIA",
+        "type": "HOSPITAL",
+        "address": "SAN JUAN",
+        "addressNumber": "2021",
+        "geolocationAddress": "2021 SAN JUAN AV.",
+        "phone": "4127-3100 / 4941-5555",
+        "website": "www.hospitalsantalucia.com.ar",
+        "postalCode": "C1232AAC",
+        "coordinate": [
+            -34.62271250751245,
+            -58.39406416047465
+        ],
+        "id": "53aac93f-d701-4abb-a4ef-b7a87dd94f35"
+    },
+    {
+        "name": "HOSPITAL DE SALUD MENTAL J. T. BORDA",
+        "mappingName": "HOSP. BORDA",
+        "type": "HOSPITAL",
+        "address": "DOCTOR RAMON CARRILLO",
+        "addressNumber": "375",
+        "geolocationAddress": "375 CARRILLO, RAMON, DR.",
+        "phone": "4305-6485",
+        "website": null,
+        "postalCode": "C1275AHG",
+        "coordinate": [
+            -34.63643505465687,
+            -58.38212837469582
+        ],
+        "id": "6770a7c6-e771-4dfc-a56a-7f26d4e0fc74"
+    },
+    {
+        "name": "HOSPITAL INFANTO JUVENIL C. TOBAR GARCIA",
+        "mappingName": "HOSP. TOBAR GARCIA",
+        "type": "HOSPITAL",
+        "address": "DOCTOR RAMON CARRILLO",
+        "addressNumber": "315",
+        "geolocationAddress": "315 CARRILLO, RAMON, DR.",
+        "phone": "4305-6108",
+        "website": null,
+        "postalCode": "C1275AHG",
+        "coordinate": [
+            -34.63570223515591,
+            -58.38232845094876
+        ],
+        "id": "721c6aaa-8e02-4ab8-a80e-d97d52fbec55"
+    },
+    {
+        "name": "HOSPITAL OFTALMOLOGICO DR. PEDRO LAGLEYZE",
+        "mappingName": "HOSP. LAGLEYZE",
+        "type": "HOSPITAL",
+        "address": "JUAN B. JUSTO",
+        "addressNumber": "4151",
+        "geolocationAddress": "4151 JUSTO, JUAN B. AV.",
+        "phone": "4582-1278 / 4581-7766 / 0645",
+        "website": null,
+        "postalCode": "C1416DJI",
+        "coordinate": [
+            -34.60543427502074,
+            -58.460185577552785
+        ],
+        "id": "7a3cbfbd-23a3-4e13-9d33-0c74733e020b"
+    },
+    {
+        "name": "INSTITUTO DE REHABILITACION PSICOFISICA (I.R.E.P.)",
+        "mappingName": "INST. DE REHAB. PSICOFISICA",
+        "type": "HOSPITAL",
+        "address": "ECHEVERRIA",
+        "addressNumber": "955",
+        "geolocationAddress": "955 ECHEVERRIA",
+        "phone": "4781-6071 al 74",
+        "website": null,
+        "postalCode": "C1428DQG",
+        "coordinate": [
+            -34.553896331647266,
+            -58.44098823824388
+        ],
+        "id": "9b3810b8-4968-4837-ad94-4e47f94e5a68"
+    },
+    {
+        "name": "HOSPITAL MATERNO INFANTIL R. SARDA",
+        "mappingName": "HOSP. SARDA",
+        "type": "HOSPITAL",
+        "address": "ESTEBAN DE LUCA",
+        "addressNumber": "2151",
+        "geolocationAddress": "2151 LUCA, ESTEBAN DE",
+        "phone": "4943-3567",
+        "website": "www.sarda.org.ar",
+        "postalCode": "C1246ABQ",
+        "coordinate": [
+            -34.63485630841497,
+            -58.402750627537664
+        ],
+        "id": "9b5376ba-eafc-4365-b5c8-4fc86e7c2ee9"
+    },
+    {
+        "name": "HOSPITAL DE REHABILITACION M. ROCCA",
+        "mappingName": "HOSP. DE REHAB. ROCCA",
+        "type": "HOSPITAL",
+        "address": "SEGUROLA",
+        "addressNumber": "1949",
+        "geolocationAddress": "1949 SEGUROLA AV.",
+        "phone": "4630-4700 / 4800",
+        "website": null,
+        "postalCode": "C1407AOM",
+        "coordinate": [
+            -34.61798175405912,
+            -58.50214492222224
+        ],
+        "id": "b75d425c-a907-49e6-8353-1d24bebef946"
+    },
+    {
+        "name": "HOSPITAL DE GASTROENTEROLOGIA B. UDAONDO",
+        "mappingName": "HOSP. UDAONDO",
+        "type": "HOSPITAL",
+        "address": "CASEROS",
+        "addressNumber": "2061",
+        "geolocationAddress": "2061 CASEROS AV.",
+        "phone": "4306-4641 al 4649",
+        "website": null,
+        "postalCode": "C1264AAA",
+        "coordinate": [
+            -34.63415357600019,
+            -58.39131144065348
+        ],
+        "id": "bc45d259-ab1b-4c81-90db-d7e3af51311c"
+    },
+    {
+        "name": "HOSPITAL GENERAL DE NIÑOS RICARDO GUTIERREZ",
+        "mappingName": "HOSP. GUTIERREZ",
+        "type": "HOSPITAL",
+        "address": "GALLO",
+        "addressNumber": "1330",
+        "geolocationAddress": "1330 GALLO",
+        "phone": "4962-9247 / 9248 / 9280",
+        "website": "www.guti.gov.ar",
+        "postalCode": "C1425EFD",
+        "coordinate": [
+            -34.594191972639294,
+            -58.41207007694563
+        ],
+        "id": "d6af8bbd-1621-43e0-89e1-11f6dea3aa82"
+    },
+    {
+        "name": "HOSPITAL GENERAL DE NIÑOS PEDRO DE ELIZALDE",
+        "mappingName": "HOSP. DE ELIZALDE",
+        "type": "HOSPITAL",
+        "address": "MANUEL A. MONTES DE OCA",
+        "addressNumber": "40",
+        "geolocationAddress": "40 MONTES DE OCA, MANUEL AV.",
+        "phone": "4307-5842 / 5844",
+        "website": "www.elizalde.gov.ar",
+        "postalCode": "C1270AAN",
+        "coordinate": [
+            -34.62884736038815,
+            -58.37755084884431
+        ],
+        "id": "eab2d820-3447-438e-be40-2269f5e1838a"
+    },
+    {
+        "name": "HOSPITAL DE REHABILITACION RESPIRATORIA MARIA FERRER",
+        "mappingName": "HOSP. FERRER",
+        "type": "HOSPITAL",
+        "address": "DOCTOR ENRIQUE FINOCHIETTO",
+        "addressNumber": "849",
+        "geolocationAddress": "849 FINOCHIETTO ENRIQUE DR.",
+        "phone": "4307-1445 / 4677 / 6777 / 6738 / 7474",
+        "website": null,
+        "postalCode": "C1272AAA",
+        "coordinate": [
+            -34.63021120444947,
+            -58.3758433488021
+        ],
+        "id": "ed856065-5b58-40c7-afe8-a5efbc40a1c3"
+    },
+    {
+        "name": "HOSPITAL DE ODONTOLOGIA  JOSE DUEÑAS",
+        "mappingName": "HOSP. ODONTOLOGICO DUEÑAS",
+        "type": "HOSPITAL",
+        "address": "MUÑIZ",
+        "addressNumber": "15",
+        "geolocationAddress": "15 MUÑIZ",
+        "phone": "4983-0392 / 4983-8983",
+        "website": null,
+        "postalCode": "C1212AAA",
+        "coordinate": [
+            -34.6146348348429,
+            -58.42765975428369
+        ],
+        "id": "ef2b38b8-6dd7-4f2f-aba0-6a3ce2a84cee"
+    }
+]

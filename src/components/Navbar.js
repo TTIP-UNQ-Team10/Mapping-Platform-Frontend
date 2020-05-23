@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../store/Store.js'
 import { selectUserState } from '../store/selectors/user.js'
 import config from '../config.js'
-const APP_LOGO = config.appLogo
+const APP_LOGO = config.appLogo || '/mapping-platform-logo.svg'
 
 const userInformation = (user) => {
   const styles = {

@@ -1,4 +1,9 @@
-const customizationObj = JSON.parse(process.env.REACT_APP_CUSTOMIZATION)
+let customizationObj = null
+try {
+  customizationObj = JSON.parse(process.env.REACT_APP_CUSTOMIZATION)
+}
+catch (e) {}
+
 let config = null
 
 if (customizationObj) {
@@ -41,6 +46,32 @@ if (customizationObj) {
       }
     },
     name: appName,
+  }
+}
+else {
+  config = {
+    appId: 'kintun.wingu.org',
+    appLogo: '/mapping-platform-logo.svg',
+    colors: {
+      appBackgroundColor: {
+        backgroundColor: '#343a40'
+      },
+      navBarOptions: {
+        activeColor: '#f3f3f3',
+        backgroundColor: '#343a40',
+        inactiveColor: '#808080'
+      },
+      panelBackgroundColor: {
+        backgroundColor: '#343a40'
+      },
+      primaryText: {
+        color: '#343a40'
+      },
+      secondaryText: {
+        color: '#04d38b'
+      }
+    },
+    name: "KINTUN",
   }
 }
 

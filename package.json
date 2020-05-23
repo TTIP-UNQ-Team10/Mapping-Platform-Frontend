@@ -20,8 +20,17 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ],
+    "transform": {
+      "^.+\\.(tsx|ts|js)$": "babel-jest"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,5 +47,13 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "babel-jest": "^26.0.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^26.0.1"
+  }
 }
