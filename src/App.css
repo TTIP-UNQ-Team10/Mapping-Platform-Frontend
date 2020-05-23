@@ -64,7 +64,6 @@
 
 .card__router:hover {
   text-decoration: none;
-  color: #343a40;
 }
 
 .card {
@@ -73,8 +72,6 @@
 }
 
 .card:hover {
-  background-color: #343a40;
-  color: #f3f3f3;
   transition: 0.15s;
 }
 

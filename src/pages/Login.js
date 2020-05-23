@@ -4,8 +4,11 @@ import { useHistory } from 'react-router-dom'
 import { AppContext } from '../store/Store.js'
 import { createLoginSuccessAction, createLoginErrorAction } from '../store/actions/user.js'
 import { createShowErrorNotificationAction } from '../store/actions/notification.js'
+import config from '../config.js'
 
-const APP_LOGO = '/mapping-platform-logo.svg'
+const { colors } = config
+
+const APP_LOGO = config.appLogo
 
 
 const LoginCard = () => {
@@ -15,6 +18,10 @@ const LoginCard = () => {
     },
     form__container: {
       marginTop: 50
+    },
+    button__login: {
+      backgroundColor: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor
     }
   }
   const history = useHistory()
@@ -93,7 +100,7 @@ const LoginCard = () => {
             />
           </div>
         </div>
-        <button type="submit" className="btn btn-dark" onClick={onClickLogin}>Iniciar Sesión</button>
+        <button type="submit" className="btn" style={styles.button__login} onClick={onClickLogin}>Iniciar Sesión</button>
     </div>
   )
 }
