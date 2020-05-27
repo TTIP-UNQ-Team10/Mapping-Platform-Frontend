@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../store/Store.js'
+import { useHistory } from 'react-router-dom'
 import { selectUserState } from '../store/selectors/user.js'
 import config from '../config.js'
 const APP_LOGO = config.appLogo
 
 const { colors } = config
 
-const userInformation = (user) => {
+const userInformation = (user, isLogged, history) => {
   const styles = {
     user__icon: {
       fontSize: 26,
@@ -19,13 +20,26 @@ const userInformation = (user) => {
       color: colors.navBarOptions.activeColor,
       margin: '0 auto',
       verticalAlign: 'middle'
+    },
+    button__login: {
+      backgroundColor: colors.buttonColor.textColor,
+      color: colors.buttonColor.backgroundColor,
     }
+  }
+
+  const goToLoginPage = () => {
+    history.push('/login')
   }
 
   return (
     <div className="col col-md-12 col-sm-4 ds-flex flex-row">
-      <i className="fa fa-user-circle" style={styles.user__icon} aria-hidden="true" />
-      <span style={styles.user__name}>{user.name}</span>
+      { isLogged ?
+        <div>
+          <i className="fa fa-user-circle" style={styles.user__icon} aria-hidden="true" />
+          <span style={styles.user__name}>{user.name}</span>
+        </div> :
+          <button className="btn" style={styles.button__login} onClick={goToLoginPage}>Login</button>
+      }
     </div>
   )
 }
@@ -64,17 +78,18 @@ const Navbar = () => {
   }
 
   const { state } = useContext(AppContext)
-  const { user } = selectUserState(state)
+  const { user, isLogged } = selectUserState(state)
+  const history = useHistory()
 
   return (
     <nav className="navbar mb-0" style={styles.navbar}>
     <div className="ds-flex flex-row">
-      {openSideBarButton()}
+      { isLogged ? openSideBarButton() : null}
         <img src={APP_LOGO} alt="mapping-platform-logo" style={styles.image__logo}/>
       </div>
       <h4>{config.name}</h4>
       <div>
-        {userInformation(user)}
+        {userInformation(user, isLogged, history)}
       </div>
     </nav>
   )
