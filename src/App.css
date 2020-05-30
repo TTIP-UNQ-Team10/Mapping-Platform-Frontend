@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   height: inherit;
+  position: relative;
 }
 
 #map {
@@ -103,11 +104,53 @@ hr {
   transition: 0.15s;
 }
 
+.edit__icon {
+  color: #2999f4;
+  margin: 0px 8px 0px 8px;
+  font-size: 20px !important;
+  opacity: 0.5;
+}
+
+.edit__icon:hover {
+  cursor: pointer;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.times__icon {
+  color: #f42929;
+  margin: 0px 8px 0px 8px;
+  font-size: 20px !important;
+  opacity: 0.5;
+}
+
+.times__icon:hover {
+  cursor: pointer;
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+thead th {
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+tbody th {
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: normal;
+}
+
 @media (max-width: 576px) {
   .card {
     margin-top: .5em;
     margin-bottom: 1em;
     text-decoration: none;
+  }
+
+  table {
+    margin-top: 3em;
+    width: 100%;
   }
 }
 
