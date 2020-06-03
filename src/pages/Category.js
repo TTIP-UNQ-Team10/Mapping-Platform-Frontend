@@ -13,12 +13,10 @@ import api from '../api'
 
 const Category = () => {
 
-  const [categoryName, setCategoryName] = useState('')
-  const [subCategoryName, setSubCategoryName] = useState('')
   const [categories, setCategories] = useState([])
-  const { dispatch } = useContext(AppContext)
+  const { state, dispatch } = useContext(AppContext)
   const headers = {
-    'Auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3YTM3MWEyYy0yYjVlLTRjMTYtOTE0NC1lOGVhMTM3YTVkOTQiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MDg2NTkyNSwiZXhwIjoxNTkwODY5NTI1fQ.00zlGCbh8Lo3of7yewO6V9eBr-zaJ6JQ4cokZ5bIork",
+    'Auth': selectUserAuthToken(state),
     'Content-Type': 'application/json'
   }
 
@@ -33,11 +31,6 @@ const Category = () => {
     fetchCategories()
   })
 
-  const clearForm = () => {
-    setCategoryName('')
-    setSubCategoryName('')
-  }
-
 
   const onClickCategory = async (categoryData) => {
 
@@ -46,7 +39,6 @@ const Category = () => {
         header: '¡Categoría creada con éxito!',
         message: 'La categoría se creó con éxito'
       }))
-      clearForm()
       categories.push(categoryData)
       setCategories(categories)
     }
@@ -76,8 +68,8 @@ const Category = () => {
         <hr/>
         <div className="row justify-content-between mt-5">
           <CategoryForm
-          onInputHandler={handlerInput}
-          onClickHandler={onClickCategory}
+            onInputHandler={handlerInput}
+            onClickHandler={onClickCategory}
           />
           <div className="col-md-8 col-sm-12">
             <CategoryTable data={categories}/>
