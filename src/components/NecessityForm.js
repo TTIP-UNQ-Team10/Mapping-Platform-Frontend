@@ -12,19 +12,16 @@ const NecessityForm = ({ onInputHandler, onClickHandler }) => {
     }
   }
 
-  const [categoryName, setCategoryName] = useState('')
-  const [subCategoryName, setSubCategoryName] = useState('')
+  const [necesssityTypeName, setNecessityTypeName] = useState('')
+
 
   const clearForm = () => {
-    setCategoryName('')
-    setSubCategoryName('')
+    setNecessityTypeName('')
   }
 
+
   const onSubmitHandler = async () => {
-    const categoryData = {
-      name: categoryName,
-      subCategory: {name: subCategoryName}
-    }
+    const categoryData = { name: necesssityTypeName }
     await onClickHandler(categoryData)
     clearForm()
   }
@@ -36,20 +33,20 @@ const NecessityForm = ({ onInputHandler, onClickHandler }) => {
         <label className="pull-left">Nombre de Necesidad</label>
         <input type="text"
           required
-          value={categoryName}
-          name="categoryName"
+          value={necesssityTypeName}
+          name="necesssityTypeName"
           className="form-control"
-          placeholder="Ingrese un nombre de categoría"
-          aria-label="Categoría"
+          placeholder="Ingrese un nombre para la necesidad"
+          aria-label="Necesidad"
           aria-describedby="basic-addon1"
-          onInput={e => onInputHandler(e, setCategoryName)}
+          onInput={e => onInputHandler(e, setNecessityTypeName)}
         />
       </div>
-      
+
       <button type="submit"
         className="btn btn-block btn-dark"
         style={styles.button__create}
-        onClick={onSubmitHandler}>Guardar Categoría</button>
+        onClick={onSubmitHandler}>Guardar Necesidad</button>
     </div>
   )
 }
