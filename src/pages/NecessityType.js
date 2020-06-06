@@ -6,7 +6,7 @@ import SideBarMenu from '../components/SideBarMenu.js'
 import NecessityTable from '../components/NecessityTable.js'
 import NecessityForm from '../components/NecessityForm.js'
 import { selectUserAuthToken } from '../store/selectors/user.js'
-import { handlerInput } from '../utils/utils.js'
+import { handlerInput, updateStringValue } from '../utils/utils.js'
 import api from '../api'
 import {
   createShowSuccessNotificationAction,
@@ -16,7 +16,7 @@ import {
 
 const NecessityType = () => {
 
-  const [necessityType, setNecessityType] = useState([])
+  const [necessityTypes, setNecessityTypes] = useState([])
   const { state, dispatch } = useContext(AppContext)
   const history = useHistory()
 
@@ -28,7 +28,7 @@ const NecessityType = () => {
 
   const fetchCategories = async () => {
     const response = await api.getNecessityTypes(headers)
-    response && !response.error ? setNecessityType(response) : history.push('/login')
+    response && !response.error ? setNecessityTypes(response) : history.push('/login')
   }
 
 
@@ -38,8 +38,8 @@ const NecessityType = () => {
 
 
   const onCreateNecessityType = async (necessityTypeData) => {
-    necessityType.push(necessityTypeData)
-    setNecessityType(necessityType)
+    necessityTypes.push(necessityTypeData)
+    setNecessityTypes(necessityTypes)
 
     const onSuccess = response => {
       dispatch(createShowSuccessNotificationAction({
@@ -59,8 +59,7 @@ const NecessityType = () => {
   }
 
 
-  const onDeleteNecessityType = async (necessityTypeId) => {
-
+  const onDeleteNecessityType = async (idx, necessityTypeId) => {
     const onSuccess = response => {
       dispatch(createShowSuccessNotificationAction({
         header: '¡Success!',
@@ -76,10 +75,11 @@ const NecessityType = () => {
     }
 
     await api.removeNecessityType(necessityTypeId, headers, onSuccess, onError)
+    necessityTypes.splice(idx, 1)
   }
 
 
-  const onEditNeccesityType = async (necessityTypeId) => {
+  const onEditNeccesityType = async (necessityType) => {
     const onSuccess = response => {
       dispatch(createShowSuccessNotificationAction({
         header: '¡Success!',
@@ -94,7 +94,7 @@ const NecessityType = () => {
       }))
     }
 
-    await api.updateNecessityType(necessityTypeId, headers, onSuccess, onError)
+    await api.updateNecessityType(necessityType.id, necessityType,  headers, onSuccess, onError)
   }
 
 
@@ -105,12 +105,12 @@ const NecessityType = () => {
       <div className="home__body container-fluid">
         <h1>Administración de Necesidades</h1>
         <hr/>
-        <div className="container row">
+        <div className="container-fluid row">
           <NecessityForm onClickHandler={onCreateNecessityType} onInputHandler={handlerInput}/>
           <div className="col-md-8">
-            <NecessityTable data={necessityType}
-              onDeleteNecessityType={() => {console.log('AAA')}}
-              onEditNeccesityType={() => {}}
+            <NecessityTable data={necessityTypes}
+              onDeleteNecessityType={onDeleteNecessityType}
+              onEditNeccesityType={onEditNeccesityType}
             />
           </div>
         </div>
