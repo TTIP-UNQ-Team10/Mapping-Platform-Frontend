@@ -120,13 +120,17 @@ export const createNecessity = (necessity, headers, onSuccess, onError) => fetch
   onError: onError
 })
 
-export const removeNecessityType = (id, headers, onSuccess, onError) => fetchAPI({
-  url: `${NECESITY_TYPE_API}/${id}`,
-  method: 'DELETE',
-  headers: headers,
-  onSuccess: onSuccess,
-  onError: onError
-})
+export const removeNecessityType = (id, headers, onSuccess, onError) => {
+  const url = `${NECESITY_TYPE_API}/${id}`
+  console.log(url)
+  fetchAPI({
+    url: url,
+    method: 'DELETE',
+    headers: headers,
+    onSuccess: onSuccess,
+    onError: onError
+  })
+}
 
 export const updateNecessityType = (id, necessityType, headers, onSuccess, onError) => fetchAPI({
   url: `${NECESITY_TYPE_API}/${id}`,
