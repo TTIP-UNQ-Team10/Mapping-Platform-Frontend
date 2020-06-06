@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { handlerInput, updateStringValue } from '../utils/utils.js'
 import config from '../config.js'
 
 const { colors } = config
@@ -65,14 +66,30 @@ const NecessityTable = ({ data, onDeleteNecessityType, onEditNeccesityType }) =>
     }
   }
 
+  const editModeStates = new Array(data.length).fill(false)
 
-  const deleteNecessityType = async (necessityTypeId) => {
-    await onDeleteNecessityType(necessityTypeId)
+  const [editMode, setEditMode] = useState(editModeStates)
+  const [necessityEditName, setNecessityEditName] = useState('')
+
+
+  const onClickDelete = async (idx, necessityType) => {
+    await onDeleteNecessityType(idx, necessityType.id)
   }
 
 
-  const updateNecessityType = async (necessityType) => {
-    await onEditNeccesityType(necessityType.id, necessityType)
+  const onClickEdit = async (idx, necessityType) => {
+    if (!editMode[idx]) {
+      editModeStates[idx] = true
+      setEditMode(editModeStates)
+    } else {
+      editModeStates[idx] = false
+      if (necessityEditName !== '') {
+        data[idx]['name'] = necessityEditName
+        await onEditNeccesityType(necessityType)
+      }
+      setEditMode(editModeStates)
+      setNecessityEditName('')
+    }
   }
 
 
@@ -88,12 +105,28 @@ const NecessityTable = ({ data, onDeleteNecessityType, onEditNeccesityType }) =>
           data.map(necessityType => {
             const idx = data.indexOf(necessityType).toString()
             return (
-              <tr id={`necessityType:${necessityType.id}`}>
-                <th>{necessityType.name}</th>
+              <tr id={`necessityType:${necessityType.id}`} key={`necessity${idx}`}>
+                {
+                  editMode[idx] ?
+                    <input type="text"
+                      value={necessityEditName}
+                      name="updateNecesssityTypeName"
+                      className="form-control table__input"
+                      placeholder={necessityType.name}
+                      aria-label="Necesidad"
+                      aria-describedby="basic-addon1"
+                      onInput={e => handlerInput(e, setNecessityEditName)}
+                    /> :
+                    <th>{necessityType.name}</th>
+                }
                 <th>{renderNecessityCategories(necessityType, idx)}</th>
                 <th className="row">
-                  <i className="fa fa-edit edit__icon" title="Editar" onClick={updateNecessityType(necessityType)}/>
-                  <i className="fa fa-times times__icon" title="Eliminar" onClick={deleteNecessityType(necessityType.id)}/>
+                  {
+                    !editMode[idx] ?
+                      <i className="fa fa-edit edit__icon" title="Editar" onClick={() => onClickEdit(idx, necessityType)}/> :
+                      <i className="fa fa-save edit__icon" title="Finalizar Edición" onClick={() => onClickEdit(idx, necessityType)}/>
+                  }
+                  <i className="fa fa-times times__icon" title="Eliminar" onClick={() => onClickDelete(idx, necessityType)}/>
                 </th>
               </tr>
             )
@@ -103,5 +136,6 @@ const NecessityTable = ({ data, onDeleteNecessityType, onEditNeccesityType }) =>
     </table>
   )
 }
+
 
 export default NecessityTable
