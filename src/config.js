@@ -18,7 +18,6 @@ if (customizationObj) {
     appLogo,
   } = customizationObj
 
-  console.log(customizationObj)
 
   config = {
     appId: appId || 'kintun.wingu.org',

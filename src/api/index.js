@@ -4,7 +4,13 @@ import {
   login,
   logout,
   createCatetory,
-  getCategories
+  getCategories,
+  getNecessities,
+  getNecessityTypes,
+  createNecessityType,
+  createNecessity,
+  removeNecessityType,
+  updateNecessityType
 } from './api.js';
 
 const api = {
@@ -13,7 +19,13 @@ const api = {
   login,
   logout,
   createCatetory,
-  getCategories
+  getCategories,
+  getNecessities,
+  getNecessityTypes,
+  createNecessityType,
+  createNecessity,
+  removeNecessityType,
+  updateNecessityType
 }
 
 export default api
