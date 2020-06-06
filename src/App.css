@@ -141,6 +141,11 @@ tbody th {
   font-weight: normal;
 }
 
+.table__input {
+  width: 50% !important;
+  margin: 0 auto !important;
+}
+
 @media (max-width: 576px) {
   .card {
     margin-top: .5em;
