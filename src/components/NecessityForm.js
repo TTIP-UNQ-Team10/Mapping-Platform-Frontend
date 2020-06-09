@@ -14,14 +14,15 @@ const NecessityForm = ({ onInputHandler, onClickHandler }) => {
 
   const [necesssityTypeName, setNecessityTypeName] = useState('')
 
-
   const clearForm = () => {
     setNecessityTypeName('')
   }
 
 
   const onSubmitHandler = async () => {
-    const categoryData = { name: necesssityTypeName }
+    const categoryData = {
+      name: necesssityTypeName
+     }
     await onClickHandler(categoryData)
     clearForm()
   }
@@ -46,7 +47,7 @@ const NecessityForm = ({ onInputHandler, onClickHandler }) => {
       <button type="submit"
         className="btn btn-block btn-dark"
         style={styles.button__create}
-        onClick={onSubmitHandler}>Guardar Necesidad</button>
+        onClick={onSubmitHandler}>Crear Tipo de Necesidad</button>
     </div>
   )
 }

@@ -18,12 +18,17 @@ const renderCategoriesModal = (necessity, idx) => {
             </button>
           </div>
           <div className="modal-body">
-            { categories && categories.length > 0 ?
-                categories.map(category => {
-                  return (
-                    <div><span>{category.name}</span><br/></div>
-                  )
-                }) :
+            {
+              categories && categories.length > 0 ?
+              <ul class="list-group">
+                {
+                  categories.map(category => {
+                    return (
+                      <li class="list-group-item">{category.name}</li>
+                    )
+                  })
+                }
+                </ul> :
                 <span>Sin Categorías</span>
             }
           </div>
@@ -40,16 +45,23 @@ const renderNecessityCategories = (necessity, idx) => {
       backgroundColor: 'transparent',
       border: `1px solid ${colors.buttonColor.backgroundColor}`,
       color: colors.buttonColor.backgroundColor
+    },
+    badge: {
+      backgroundColor: colors.buttonColor.backgroundColor,
+      opacity: 0.7,
+      color: colors.buttonColor.textColor,
+      marginRight: 10
     }
   }
 
   return (
     <div>
+      <span class="badge badge-pill" style={styles.badge}>{necessity.categories.length}</span>
       <button type="button" className="btn btn-sm"
       style={styles.button__show_categories}
         data-toggle="modal" data-target={`#modal-${idx}`}
       >
-      <span>Ver </span><i className="fa fa-eye"/>
+        <span>Ver </span><i className="fa fa-eye"/>
       </button>
       {renderCategoriesModal(necessity, idx)}
     </div>
