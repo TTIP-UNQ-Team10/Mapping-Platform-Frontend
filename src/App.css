@@ -141,6 +141,10 @@ tbody th {
   font-weight: normal;
 }
 
+.table td .table th {
+  border-top: 0px;
+}
+
 .table__input {
   width: 50% !important;
   margin: 0 auto !important;

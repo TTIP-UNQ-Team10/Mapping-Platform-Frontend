@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { handlerInput } from '../utils/utils.js'
 import config from '../config.js'
 
 const { colors } = config
 
-const categoryList = ({ data }) => {
 
+const CategoryTable = ({ categories, onDeleteCategory, onEditCategory}) => {
   const styles = {
     table__head: {
       backgroundColor: colors.navBarOptions.backgroundColor,
@@ -13,21 +14,67 @@ const categoryList = ({ data }) => {
     }
   }
 
+  const editModeStates = new Array(categories.length).fill(false)
+
+  const [editMode, setEditMode] = useState(editModeStates)
+  const [categoryEditName, setCategoryEditName] = useState('')
+
+
+  const onClickDelete = async (idx, category) => {
+      await onDeleteCategory(idx, category)
+  }
+
+
+  const onClickEdit = async (idx, category) => {
+    if (!editMode[idx]) {
+      editModeStates[idx] = true
+      setEditMode(editModeStates)
+    } else {
+      editMode[idx] = false
+      if (categoryEditName !== '') {
+        categories[idx]['name'] = categoryEditName
+        await onEditCategory(category)
+      }
+      setEditMode(editModeStates)
+      setCategoryEditName('')
+    }
+  }
+
+
   return (
     <table className="table table-striped table-md" >
       <thead className="thead" style={styles.table__head}>
-        <th style={{width: '90%'}}>Categorías</th>
+        <th style={{width: '65%'}}>Categorías</th>
+        <th style={{width: '10%'}}/>
         <th style={{width: '10%'}}></th>
       </thead>
       <tbody>
         {
-          data.map(category => {
+          categories.map(category => {
+            const idx = categories.indexOf(category).toString()
             return (
-              <tr id={`category:${category.id}`}>
-                <th>{category.name}</th>
+              <tr id={`category:${category.id}`} key={`category${idx}`}>
+                {
+                  editMode[idx] ?
+                    <input type="text"
+                      value={categoryEditName}
+                      name="updateCategoryName"
+                      className="form-control table__input"
+                      placeholder={category.name}
+                      aria-label="Categoría"
+                      aria-describedby="basic-addon1"
+                      onInput={e => handlerInput(e, setCategoryEditName)}
+                    /> :
+                    <th>{category.name}</th>
+                }
+                <th/>
                 <th className="row">
-                  <i className="fa fa-edit edit__icon" title="Editar"/>
-                  <i className="fa fa-times times__icon" title="Eliminar"/>
+                {
+                  !editMode[idx] ?
+                  <i className="fa fa-edit edit__icon" title="Editar" onClick={() => onClickEdit(idx, category)} /> :
+                  <i className="fa fa-save edit__icon" title="Finalizar Edición" onClick={() => onClickEdit(idx, category)} />
+                }
+                <i className="fa fa-times times__icon" title="Eliminar" onClick={() => onClickDelete(idx, category)} />
                 </th>
               </tr>
             )
@@ -35,20 +82,6 @@ const categoryList = ({ data }) => {
         }
       </tbody>
     </table>
-  )
-}
-
-
-const CategoryTable = (categories) => {
-  return (
-    <div>
-      {
-        categories.length === 0 ? <bold>No hay categorías</bold> :
-        <div className="container">
-          {categoryList(categories)}
-        </div>
-      }
-    </div>
   )
 }
 
