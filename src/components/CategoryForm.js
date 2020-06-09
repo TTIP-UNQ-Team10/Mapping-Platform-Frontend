@@ -4,7 +4,7 @@ import config from '../config.js'
 const { colors } = config
 
 
-const CategoryForm = ({ onInputHandler, onClickHandler }) => {
+const CategoryForm = ({ onInputHandler, onClickHandler, necessityTypes }) => {
   const styles = {
     button__create: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -13,21 +13,24 @@ const CategoryForm = ({ onInputHandler, onClickHandler }) => {
   }
 
   const [categoryName, setCategoryName] = useState('')
-  const [subCategoryName, setSubCategoryName] = useState('')
+  const [necessityType, setNecessityType] = useState(null)
 
   const clearForm = () => {
     setCategoryName('')
-    setSubCategoryName('')
+    setNecessityType(null)
   }
 
   const onSubmitHandler = async () => {
     const categoryData = {
       name: categoryName,
-      subCategory: {name: subCategoryName}
+      necessityType: necessityType
     }
     await onClickHandler(categoryData)
     clearForm()
   }
+
+
+  const handleNecessityTypeInput = event => setNecessityType(event.target.value)
 
 
   return (
@@ -45,23 +48,23 @@ const CategoryForm = ({ onInputHandler, onClickHandler }) => {
           onInput={e => onInputHandler(e, setCategoryName)}
         />
       </div>
-      <div className="mb-5 mt-2">
-        <label className="pull-left">Nombre de Subcategoría</label>
-        <input type="text"
-          required
-          value={subCategoryName}
-          name="subCategory"
-          className="form-control"
-          placeholder="Ingrese un nombre de subcategoría"
-          aria-label="Username"
-          aria-describedby="basic-addon1"
-          onInput={e => onInputHandler(e, setSubCategoryName)}
-        />
-      </div>
+      <label className="pull-left">Categorías</label>
+      <small className="form-text text-muted pull-left">Mantener apretado la tecla Ctrl para seleccionar varias categorías</small>
+      <select class="form-control" onChange={handleNecessityTypeInput}>
+        <option value={null}>Elija un tipo de Necesidad</option>
+        {
+          necessityTypes.map(necessityType => {
+            const { necessityTypeName } = necessityType.name
+            return (
+              <option value={necessityTypeName}>{necessityTypeName}</option>
+            )
+          })
+        }
+      </select>
       <button type="submit"
         className="btn btn-block btn-dark"
         style={styles.button__create}
-        onClick={onSubmitHandler}>Guardar Categoría</button>
+        onClick={onSubmitHandler}>Crear Categoría</button>
     </div>
   )
 }
