@@ -41,10 +41,12 @@ const renderOptions = (buttonsStates) => {
 
   const getCardStyleClass = (card) => {
     switch (card) {
-      case 'necessity':
-        return buttonsStates.necessityButton ? styles.action__card_hover : styles.action__card
+      case 'necessity-type':
+        return buttonsStates.necessityTypeButton ? styles.action__card_hover : styles.action__card
       case 'category':
         return buttonsStates.categoryButton ? styles.action__card_hover : styles.action__card
+      case 'necessity':
+        return buttonsStates.necessityButton ? styles.action__card_hover : styles.action__card
       default:
     }
   }
@@ -52,16 +54,16 @@ const renderOptions = (buttonsStates) => {
   return (
     <div className="home__body">
       <div className="row">
-        <Link to="/necessities"
+        <Link to="/necessity-types"
           className="card card__router"
-          style={getCardStyleClass('necessity')}
-          onMouseEnter={() => buttonsStates.setNecessityButton(true)}
-          onMouseLeave={() => buttonsStates.setNecessityButton(false)}
+          style={getCardStyleClass('necessity-type')}
+          onMouseEnter={() => buttonsStates.setNecessityTypeButton(true)}
+          onMouseLeave={() => buttonsStates.setNecessityTypeButton(false)}
         >
           <div className="col">
             <img src="/necessities.svg" alt="" style={styles.image__card} className="image__card"/>
             <div>
-              <h4>Necesidades</h4>
+              <h4>Tipo de Necesidad</h4>
             </div>
           </div>
         </Link>
@@ -79,19 +81,36 @@ const renderOptions = (buttonsStates) => {
             </div>
           </div>
         </Link>
+
+        <Link to="/necessities"
+          className="card card__router"
+          style={getCardStyleClass('necessity')}
+          onMouseEnter={() => buttonsStates.setNecessityButton(true)}
+          onMouseLeave={() => buttonsStates.setNecessityButton(false)}
+        >
+          <div className="col mt-2">
+            <img src="/necessities.svg" alt="" style={styles.image__card} className="image__card"/>
+            <div className="mt-2">
+              <h4>Necesidades</h4>
+            </div>
+          </div>
+        </Link>
       </div>
     </div>
   )
 }
 
 const BaseHome = () => {
-  const [necessityButtonHoverState, setNecessityButtonHoverState] = useState(false)
+  const [necessityTypeHoverState, setNecessityTypeHoverState] = useState(false)
   const [categoryButtonHoverState, setCategoryButtonHoverState] = useState(false)
+  const [necessityHoverState, setNecessityHoverButton] = useState(false)
   const buttonsStates = {
-    necessityButton: necessityButtonHoverState,
-    setNecessityButton: setNecessityButtonHoverState,
+    necessityTypeButton: necessityTypeHoverState,
+    setNecessityTypeButton: setNecessityTypeHoverState,
     categoryButton: categoryButtonHoverState,
-    setCategoryButton: setCategoryButtonHoverState
+    setCategoryButton: setCategoryButtonHoverState,
+    necessityButton: necessityHoverState,
+    setNecessityButton: setNecessityHoverButton
   }
 
   return (

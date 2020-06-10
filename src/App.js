@@ -6,6 +6,7 @@ import BaseHome from './pages/BaseHome.js'
 import Hospitals from './pages/Hospitals.js'
 import Category from './pages/Category.js'
 import NecessityType from './pages/NecessityType.js'
+import Necessity from './pages/Necessity.js'
 import { Notification } from './components/Notification.js'
 import AuthProvider from './components/AuthProvider.js'
 import {
@@ -45,7 +46,7 @@ const App = () => {
               )}
             />
             <Route
-              path="/necessities"
+              path="/necessity-types"
               exact={true}
               render={props => (
                 // <AuthProvider Component={NecessityType} {...props}/>
@@ -58,6 +59,14 @@ const App = () => {
               render={props => (
                 // <AuthProvider Component={Category} {...props}/>
                 <Category/>
+              )}
+            />
+            <Route
+              path="/necessities"
+              exact={true}
+              render={props => (
+                // <AuthProvider Component={Category} {...props}/>
+                <Necessity />
               )}
             />
             <Route path="/hospitals" exact={true}>

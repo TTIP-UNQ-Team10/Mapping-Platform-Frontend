@@ -38,7 +38,7 @@ const MapComponent = (props) => {
   const styles = {
     map: {
       height: '60vh',
-      width: '60%'
+      width: '100%'
     }
   }
 
