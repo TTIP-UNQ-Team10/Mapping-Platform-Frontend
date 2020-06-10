@@ -48,13 +48,12 @@ const CategoryForm = ({ onInputHandler, onClickHandler, necessityTypes }) => {
           onInput={e => onInputHandler(e, setCategoryName)}
         />
       </div>
-      <label className="pull-left">Categorías</label>
-      <small className="form-text text-muted pull-left">Mantener apretado la tecla Ctrl para seleccionar varias categorías</small>
+      <label className="pull-left">Tipo de Necesidad</label>
       <select class="form-control" onChange={handleNecessityTypeInput}>
         <option value={null}>Elija un tipo de Necesidad</option>
         {
           necessityTypes.map(necessityType => {
-            const { necessityTypeName } = necessityType.name
+            const necessityTypeName = necessityType.name
             return (
               <option value={necessityTypeName}>{necessityTypeName}</option>
             )
