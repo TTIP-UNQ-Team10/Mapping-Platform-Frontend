@@ -3,6 +3,7 @@ import { AppContext } from '../store/Store.js'
 import MapComponent from '../components/MapComponent.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
+import { Popup } from 'react-leaflet'
 import { createShowErrorNotificationAction } from '../store/actions/notification.js'
 import { selectUserAuthToken } from '../store/selectors/user.js'
 import api from '../api'
@@ -48,6 +49,21 @@ const Hospitals = () => {
     await api.getHospitals(headers, onSuccess, onError)
   }
 
+
+  const generateHostipalPopups = data => {
+    const { name, type, address, addressNumber, phone, website, postalCode } = data
+    return (
+      <Popup>
+        <b>{name ? name: ''}</b><br/>
+        {type ? <p><b>Especialidad:</b> {type.name}</p> : ''}
+        {phone ? <p><b>Teléfono:</b> {phone}</p> : ''}
+        {address ? <p><b>Dirección:</b> {address} {addressNumber}, {postalCode}</p> : ''}
+        {website ? <p><b>Web:</b> {website}</p> : ''}
+      </Popup>
+    )
+  }
+
+
   return (
     <div>
       <Navbar />
@@ -62,7 +78,7 @@ const Hospitals = () => {
             >Ver Hospitales
             </button>
           <br/>
-          <MapComponent data={data}/>
+          <MapComponent data={data} generatePopupFunction={generateHostipalPopups}/>
         </div>
       </div>
     </div>

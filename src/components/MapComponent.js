@@ -6,7 +6,7 @@ const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 const license = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 const mapCenter = [-34.6131516, -58.3772316]
 
-const settingLayerMap = (hospitalData) => {
+const settingLayerMap = (dataObject) => {
   return (
       <TileLayer
         id={'mapbox/streets-v11'}
@@ -21,18 +21,18 @@ const settingLayerMap = (hospitalData) => {
   )
 }
 
-const generateText = hospital => {
-  const { name, type, address, addressNumber, phone, website, postalCode } = hospital
+const generateDefaultPopupFunction = () => {
   return (
     <Popup>
-      <b>{name ? name: ''}</b><br/>
-      {type ? <p><b>Especialidad:</b> {type}</p> : ''}
-      {phone ? <p><b>Teléfono:</b> {phone}</p> : ''}
-      {address ? <p><b>Dirección:</b> {address} {addressNumber}, {postalCode}</p> : ''}
-      {website ? <p><b>Web:</b> {website}</p> : ''}
+      <b>Título</b><br/>
+      <p><b>item:</b>1</p>
+      <p><b>item::</b>2</p>
+      <p><b>item:</b>3</p>
+      <p><b>item:</b>4</p>
     </Popup>
   )
 }
+
 
 const MapComponent = (props) => {
   const styles = {
@@ -42,28 +42,28 @@ const MapComponent = (props) => {
     }
   }
 
-  const [hospitalData, setHospitalData] = useState(null)
+  const [dataObject, setDataObject] = useState(null)
 
-  const { data } = props;
+  const { data, generatePopupFunction } = props;
 
   useEffect(() => {
     if (data) {
       Promise.resolve(data)
         .then(res => {
-          setHospitalData(res)
+          setDataObject(res)
         })
     }
   }, [data])
 
   return (
     <Map center={mapCenter} zoom={12} id="mapid" style={styles.map}>
-        {settingLayerMap(hospitalData)}
-        { hospitalData ?
-          hospitalData.map(
-            hospital => {
+        {settingLayerMap(dataObject)}
+        { dataObject ?
+          dataObject.map(
+            data => {
               return (
-                <Marker position={hospital.coordinate}>
-                  {generateText(hospital)}
+                <Marker position={data.location.coordinates}>
+                  {generatePopupFunction(data)}
                 </Marker>
               )
             }
@@ -73,7 +73,8 @@ const MapComponent = (props) => {
     )
 }
 MapComponent.defaultProps = {
-  data: null
+  data: null,
+  generatePopupFunction: generateDefaultPopupFunction
 }
 
 export default MapComponent;
