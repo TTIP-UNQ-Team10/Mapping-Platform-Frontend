@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { handlerInput, updateStringValue } from '../utils/utils.js'
+import { handlerInput } from '../utils/utils.js'
 import config from '../config.js'
 
 const { colors } = config
