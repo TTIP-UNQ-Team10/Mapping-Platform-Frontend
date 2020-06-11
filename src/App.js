@@ -3,7 +3,7 @@ import { AppContext } from './store/Store.js'
 import { selectNotificationState } from './store/selectors/notification.js'
 import Login from './pages/Login.js'
 import BaseHome from './pages/BaseHome.js'
-import Hospitals from './pages/Hospitals.js'
+import NecessitiesPublicMap from './pages/NecessitiesPublicMap.js'
 import Category from './pages/Category.js'
 import NecessityType from './pages/NecessityType.js'
 import Necessity from './pages/Necessity.js'
@@ -65,8 +65,8 @@ const App = () => {
                 <AuthProvider Component={Necessity} {...props}/>
               )}
             />
-            <Route path="/hospitals" exact={true}>
-              <Hospitals />
+            <Route path="/mapa-necesidades" exact={true}>
+              <NecessitiesPublicMap />
             </Route>
           </Switch>
         </Router>
