@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import config from '../config.js'
+import config from '../../config.js'
 
 const { colors } = config
 
 
-const NecessityForm = ({ onInputHandler, onClickHandler }) => {
+const NecessityTypeForm = ({ onInputHandler, onClickHandler }) => {
   const styles = {
     button__create: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -52,4 +52,4 @@ const NecessityForm = ({ onInputHandler, onClickHandler }) => {
   )
 }
 
-export default NecessityForm
+export default NecessityTypeForm

@@ -3,8 +3,8 @@ import { AppContext } from '../store/Store.js'
 import { useHistory } from 'react-router-dom'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
-import CategoryTable from '../components/CategoryTable.js'
-import CategoryForm from '../components/CategoryForm.js'
+import CategoryTable from '../components/Category/CategoryTable.js'
+import CategoryForm from '../components/Category/CategoryForm.js'
 import { selectUserAuthToken } from '../store/selectors/user.js'
 import {
   createShowSuccessNotificationAction,

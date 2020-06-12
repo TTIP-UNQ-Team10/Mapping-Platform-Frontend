@@ -6,6 +6,12 @@ const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 const license = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 const mapCenter = [-34.6131516, -58.3772316]
 
+
+const control = {
+  position: 'bottomright'
+}
+
+
 const settingLayerMap = (dataObject) => {
   return (
       <TileLayer
@@ -16,6 +22,7 @@ const settingLayerMap = (dataObject) => {
         tileSize={512}
         maxZoom={18}
         zoomOffset={-1}
+        control={control}
       />
 
   )
@@ -44,7 +51,7 @@ const MapComponent = (props) => {
 
   const [dataObject, setDataObject] = useState(null)
 
-  const { data, generatePopupFunction } = props;
+  const { data, generatePopupFunction, onClickMapHandler } = props;
 
   useEffect(() => {
     if (data) {
@@ -55,8 +62,22 @@ const MapComponent = (props) => {
     }
   }, [data])
 
+
+  const onClickMap = (event) => {
+    const { latlng } = event
+    console.log('MAP ', latlng);
+    onClickMapHandler(latlng)
+  }
+
+
   return (
-    <Map center={mapCenter} zoom={12} id="mapid" style={styles.map}>
+    <Map
+      style={styles.map}
+      center={mapCenter}
+      zoom={12}
+      id="mapid"
+      onClick={onClickMap}
+    >
         {settingLayerMap(dataObject)}
         { dataObject ?
           dataObject.map(

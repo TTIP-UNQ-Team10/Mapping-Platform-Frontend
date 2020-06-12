@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import config from '../config.js'
+import config from '../../config.js'
 
 const { colors } = config
 

@@ -150,6 +150,19 @@ tbody th {
   margin: 0 auto !important;
 }
 
+.necessities__table {
+  height: 60vh;
+  overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+.necessities__table table tbody th:hover {
+  cursor: pointer;
+  background-color: rgba(0,0,0,0.2);
+}
+
+
 @media (max-width: 576px) {
   .card {
     margin-top: .5em;

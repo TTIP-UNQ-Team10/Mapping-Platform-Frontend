@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../store/Store.js'
-import MapComponent from '../components/MapComponent.js'
+import MapComponent from '../components/Map/MapComponent.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import { Popup } from 'react-leaflet'
