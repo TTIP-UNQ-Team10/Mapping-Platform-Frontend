@@ -17,6 +17,7 @@ import {
 const NecessityType = () => {
 
   const [necessityTypes, setNecessityTypes] = useState([])
+  const [categories, setCategories] = useState(null)
 
   const { state, dispatch } = useContext(AppContext)
   const history = useHistory()
@@ -26,27 +27,36 @@ const NecessityType = () => {
     'Content-Type': 'application/json'
   }
 
+  const checkingLoginStatus = (response, fn) => {
+    response && !response.error ? fn(response) : history.push('/login')
+  }
+
 
   const fetchNecessityTypes = async () => {
     const response = await api.getNecessityTypes(headers)
-    response && !response.error ? setNecessityTypes(response) : history.push('/login')
+    checkingLoginStatus(response, setNecessityTypes)
+  }
+
+  const fetchCategories = async () => {
+    const response = await api.getCategories(headers)
+    checkingLoginStatus(response, setCategories)
   }
 
 
   useState(() => {
     fetchNecessityTypes()
+    fetchCategories()
   })
 
 
   const onCreateNecessityType = async (necessityTypeData) => {
-    necessityTypes.push(necessityTypeData)
-    setNecessityTypes(necessityTypes)
-
     const onSuccess = response => {
       dispatch(createShowSuccessNotificationAction({
         header: '!Tipo de Necesidad Creada!',
         message: 'El tipo de necesidad se creó con éxito'
       }))
+      necessityTypes.push(response)
+      setNecessityTypes(necessityTypes)
     }
 
     const onError = error => {
@@ -104,10 +114,14 @@ const NecessityType = () => {
       <Navbar />
       <SideBarMenu />
       <div className="home__body container-fluid">
-        <h1>Administración de Necesidades</h1>
+        <h1>Administración de Tipos de Necesidades</h1>
         <hr/>
         <div className="container-fluid row">
-          <NecessityTypeForm onClickHandler={onCreateNecessityType} onInputHandler={handlerInput} />
+          <NecessityTypeForm
+            onClickHandler={onCreateNecessityType}
+            onInputHandler={handlerInput}
+            categoriesData={categories}
+          />
           <div className="col-md-8">
             <NecessityTypeTable data={necessityTypes}
               onDeleteNecessityType={onDeleteNecessityType}

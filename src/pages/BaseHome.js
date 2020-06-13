@@ -63,7 +63,7 @@ const renderOptions = (buttonsStates) => {
           <div className="col">
             <img src="/necessities.svg" alt="" style={styles.image__card} className="image__card"/>
             <div>
-              <h4>Tipo de Necesidad</h4>
+              <h4>Tipos de Necesidades</h4>
             </div>
           </div>
         </Link>
