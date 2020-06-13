@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { AppContext } from '../store/Store.js'
-import MapComponent from '../components/Map/MapComponent.js'
+import MapComponent from '../components/MapComponent.js'
+import MapFilter from '../components/MapFilter.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import { Popup } from 'react-leaflet'
@@ -28,6 +29,10 @@ const NecessitiesPublicMap = () => {
     setData(getNecessities())
   }
 
+  const showNecessitiesByCategory = async (category) => {
+    setData(await getNecessitiesByCategory(category))
+  }
+
   const getNecessities = async () => {
 
     const onSuccess = async (response) => {
@@ -49,6 +54,27 @@ const NecessitiesPublicMap = () => {
     await api.getNecessities(headers, onSuccess, onError)
   }
 
+  const getNecessitiesByCategory = async (category) => {
+
+    const onSuccess = async (response) => {
+      const data = await response
+      setData(data)
+    }
+
+    const onError = async (error) => {
+      dispatch(createShowErrorNotificationAction({
+        header: '¡Error!',
+        message: 'No se han podido obtener las Necesidades'
+      }))
+    }
+
+    const headers = {
+      'Auth': selectUserAuthToken(state)
+    }
+
+    await api.getNecessitiesByCategory(headers, onSuccess, onError, category)
+  }
+
 
   const generateNecessityPopups = data => {
     const { name, type, description, category } = data
@@ -62,6 +88,10 @@ const NecessitiesPublicMap = () => {
     )
   }
 
+  const handlerInput = (event, handlerFunction) => {
+    const { value } = event.target
+    handlerFunction(value)
+  }
 
   return (
     <div>
@@ -70,7 +100,7 @@ const NecessitiesPublicMap = () => {
       <div className="container-fluid base__home_body">
         <div className="flex-column form-inline d-flex justify-content-center">
             <button
-              className="btn my-2 my-sm-0"
+              className="btn my-2 my-sm-3"
               style={styles.buttons}
               type="submit"
               onClick={showNecessities}
@@ -80,6 +110,7 @@ const NecessitiesPublicMap = () => {
           <MapComponent data={data} generatePopupFunction={generateNecessityPopups}/>
         </div>
       </div>
+      <MapFilter onInputHandler={handlerInput} onSubmitHandler={showNecessitiesByCategory} />
     </div>
   )
 }

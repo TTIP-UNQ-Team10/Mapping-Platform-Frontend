@@ -1,6 +1,7 @@
 import {
   fetchAPI,
   getNecessities,
+  getNecessitiesByCategory,
   login,
   logout,
   createCatetory,
@@ -22,6 +23,7 @@ const api = {
   createCatetory,
   getCategories,
   getNecessities,
+  getNecessitiesByCategory,
   getNecessityTypes,
   createNecessityType,
   createNecessity,
