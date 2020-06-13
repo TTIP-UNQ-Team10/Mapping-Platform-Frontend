@@ -39,17 +39,15 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) =
   }
 
   const handleCategoryInput = event => {
-    const { value } = event.target
-    console.log(value, categories.includes(value))
-    if (categories.includes(value)) {
+    const { value, checked } = event.target
+
+    if (checked && !categories.includes(value)) {
       categories.push(value)
-      setCategories(categories)
     } else {
       const idx = categories.indexOf(value)
-      categories.splice(idx, value)
-      setCategories(categories)
+      categories.splice(idx, 1)
     }
-    console.log(categories);
+    setCategories(categories)
   }
 
 
@@ -69,19 +67,27 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) =
         />
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 row col-md-4">
         <label className="pull-left">Categorías</label>
-        <select multiple class="form-control" onInput={handleCategoryInput}>
-          {
-            hasCategories ?
-              categoriesData.map(category => {
-                const categoryName = category.name
-                return (
-                  <option value={categoryName}>{categoryName}</option>
-                )
-              }) : null
-          }
-        </select>
+        <div className="col-md-6">
+        {
+          hasCategories ?
+          categoriesData.map(category => {
+            return (
+              <div className="custom-control custom-checkbox">
+                <input
+                className="custom-control-input"
+                type="checkbox"
+                id={`${category.id}`}
+                value={category.name}
+                onChange={handleCategoryInput}
+                />
+                <label className="custom-control-label" for={`${category.id}`}>{category.name}</label>
+              </div>
+            )
+          }) : null
+        }
+        </div>
       </div>
 
       <button type="submit"
