@@ -40,14 +40,14 @@ const generateMapping = (data, generatePopupFunction, key) => {
               {generatePopupFunction(data)}
             </Marker>)
     case "polygon":
-      return (<Polygon key={key} positions={data.location.coordinates}>
+      return (<Polygon key={key} positions={data.location.coordinates} color={data.location.properties.color}>
               {generatePopupFunction(data)}
             </Polygon>)
     case "circle":
       return (<Circle 
               key={key}
-              center={data.location.coordinates} 
-              fillColor={data.location.properties.fillColor}
+              center={data.location.coordinates}
+              fillColor={data.location.properties.color}
               radius={data.location.properties.radius}
             >
               {generatePopupFunction(data)}
