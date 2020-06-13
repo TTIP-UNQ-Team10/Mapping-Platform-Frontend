@@ -133,7 +133,7 @@ const NecessityForm = ({
         <select className="form-control" onChange={e => handlerInput(e, 'category')} >
           {
             categories.length < 1 ?
-              <option value={null}>Primero eliga un Tipo de Necesidad</option> :
+              <option value={null}>Primero elija un Tipo de Necesidad</option> :
               <option value={null}>Elija una Categoría</option>
           }
           {
@@ -153,7 +153,7 @@ const NecessityForm = ({
           <option value='marker'>Marca</option>
           <option value='circle'>Círculo</option>
           <option value='polygon'>Polígono</option>
-          <option value='rectangle'>Rectangulo</option>
+          <option value='rectangle'>Rectángulo</option>
         </select>
       </div>
       {renderExtraPropertiesForLocationType(locationType, handlerInput)}
@@ -178,7 +178,7 @@ const renderExtraPropertiesForLocationType = (locationType, handlerInput) => (
             required
             name="cilcleRadius"
             className="form-control"
-            placeholder="Ingrese el un número para indicar el radio del círculo"
+            placeholder="Ingrese un color"
             aria-label="Radio"
             aria-describedby="basic-addon1"
             onChange={e => handlerInput(e, 'shape-color')}

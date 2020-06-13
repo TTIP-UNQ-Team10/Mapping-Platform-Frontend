@@ -54,13 +54,13 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) =
   return (
     <div className="col-md-4">
       <div className="mb-3">
-        <label className="pull-left">Nombre de Necesidad</label>
+        <label className="pull-left">Nombre</label>
         <input type="text"
           required
           value={necesssityTypeName}
           name="necesssityTypeName"
           className="form-control"
-          placeholder="Ingrese un nombre para la necesidad"
+          placeholder="Ingrese un nombre para el nuevo tipo de necesidad"
           aria-label="Necesidad"
           aria-describedby="basic-addon1"
           onInput={e => onInputHandler(e, setNecessityTypeName)}

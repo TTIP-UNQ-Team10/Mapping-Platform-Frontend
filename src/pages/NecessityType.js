@@ -114,7 +114,7 @@ const NecessityType = () => {
       <Navbar />
       <SideBarMenu />
       <div className="home__body container-fluid">
-        <h1>Administración de Necesidades</h1>
+        <h1>Administración de Tipos de Necesidades</h1>
         <hr/>
         <div className="container-fluid row">
           <NecessityTypeForm
