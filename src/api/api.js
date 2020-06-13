@@ -73,13 +73,20 @@ export const getCategories = (headers, onError) => fetchAPI({
 export const getNecessities = (headers, onSuccess, onError) => fetchAPI({
   url: NECESSITY_API,
   method: 'GET',
-  onSuccess: onSuccess,
   headers: headers,
   onSuccess: onSuccess,
   onError: onError
 })
 
-export const getNecessityTypes = (headers, onSuccess, onError) => fetchAPI({
+export const getNecessitiesByCategory = (headers, onSuccess, onError, category) => fetchAPI({
+  url: NECESSITY_API + `/${category}`,
+  method: 'GET',
+  onSuccess: onSuccess,
+  headers: headers,
+  onError: onError
+})
+
+export const getNecessityTypes = (headers,onSuccess, onError) => fetchAPI({
   url: NECESITY_TYPE_API,
   method: 'GET',
   headers: headers,
