@@ -19,7 +19,6 @@ const SideBarMenu = () => {
         <Link to="/home"><span className="side__menu__text">Home</span></Link>
         <Link to="/necessity-types"><span className="side__menu__text">Tipos de Necesidades</span></Link>
         <Link to="/necessities"><span className="side__menu__text">Mapeos</span></Link>
-        <Link to="/hospitals"><span className="side__menu__text">Hospitales</span></Link>
         <Link to="/mapa-necesidades"><span className="side__menu__text">Mapa público de necesidades</span></Link>
         <Link to="/categories"><span className="side__menu__text">Categorías</span></Link>
         <Link to="/login"><span className="side__menu__text">Salir</span></Link>
