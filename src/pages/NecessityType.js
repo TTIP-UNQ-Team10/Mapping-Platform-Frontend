@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom'
 import { AppContext } from '../store/Store.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
-import NecessityTable from '../components/NecessityTable.js'
-import NecessityForm from '../components/NecessityForm.js'
+import NecessityTypeTable from '../components/NecessityType/NecessityTypeTable.js'
+import NecessityTypeForm from '../components/NecessityType/NecessityTypeForm.js'
 import { selectUserAuthToken } from '../store/selectors/user.js'
 import { handlerInput } from '../utils/utils.js'
 import api from '../api'
@@ -107,9 +107,9 @@ const NecessityType = () => {
         <h1>Administración de Necesidades</h1>
         <hr/>
         <div className="container-fluid row">
-          <NecessityForm onClickHandler={onCreateNecessityType} onInputHandler={handlerInput} />
+          <NecessityTypeForm onClickHandler={onCreateNecessityType} onInputHandler={handlerInput} />
           <div className="col-md-8">
-            <NecessityTable data={necessityTypes}
+            <NecessityTypeTable data={necessityTypes}
               onDeleteNecessityType={onDeleteNecessityType}
               onEditNeccesityType={onEditNeccesityType}
             />

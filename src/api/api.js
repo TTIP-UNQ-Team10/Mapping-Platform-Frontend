@@ -79,17 +79,19 @@ export const getCategories = (headers, onError) => fetchAPI({
   onError: onError
 })
 
-export const getNecessities = (headers, onError) => fetchAPI({
+export const getNecessities = (headers, onSuccess, onError) => fetchAPI({
   url: NECESSITY_API,
   method: 'GET',
   headers: headers,
+  onSuccess: onSuccess,
   onError: onError
 })
 
-export const getNecessityTypes = (headers, onError) => fetchAPI({
+export const getNecessityTypes = (headers, onSuccess, onError) => fetchAPI({
   url: NECESITY_TYPE_API,
   method: 'GET',
   headers: headers,
+  onSuccess: onSuccess,
   onError: onError
 })
 
@@ -150,6 +152,14 @@ export const updateCategory = (id, category, headers, onSuccess, onError) => fet
   method: 'PUT',
   headers: headers,
   body: category,
+  onSuccess: onSuccess,
+  onError: onError
+})
+
+export const getNecessityType = (id, headers, onSuccess, onError) => fetchAPI({
+  url: `${NECESITY_TYPE_API}/${id}`,
+  method: 'GET',
+  headers: headers,
   onSuccess: onSuccess,
   onError: onError
 })

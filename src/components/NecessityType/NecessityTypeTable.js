@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { handlerInput } from '../utils/utils.js'
-import config from '../config.js'
+import { handlerInput } from '../../utils/utils.js'
+import config from '../../config.js'
 
 const { colors } = config
 
@@ -69,7 +69,7 @@ const renderNecessityCategories = (necessity, idx) => {
 }
 
 
-const NecessityTable = ({ data, onDeleteNecessityType, onEditNeccesityType }) => {
+const NecessityTypeTable = ({ data, onDeleteNecessityType, onEditNeccesityType }) => {
   const styles = {
     table__head: {
       backgroundColor: colors.navBarOptions.backgroundColor,
@@ -150,4 +150,4 @@ const NecessityTable = ({ data, onDeleteNecessityType, onEditNeccesityType }) =>
 }
 
 
-export default NecessityTable
+export default NecessityTypeTable

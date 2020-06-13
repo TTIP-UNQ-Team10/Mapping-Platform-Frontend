@@ -1,0 +1,326 @@
+{
+	"info": {
+		"_postman_id": "6b8e89e6-d66d-414f-8ce0-8a338daca165",
+		"name": "Kintun API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Necessities",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYmI1MTVhMS02MmUxLTRhMzktODZjYy1mN2ZlZmQ1ZGI2MzEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MTAzMjI4MiwiZXhwIjoxNTkxMDM1ODgyfQ.qqmWeSxzPLpl_WBJ7xObz1dili1coWEgzh3wMic9ve8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/necessities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"necessities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Necessities by category",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYmI1MTVhMS02MmUxLTRhMzktODZjYy1mN2ZlZmQ1ZGI2MzEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MTAzMjI4MiwiZXhwIjoxNTkxMDM1ODgyfQ.qqmWeSxzPLpl_WBJ7xObz1dili1coWEgzh3wMic9ve8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/necessities/Dengue",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"necessities",
+						"Dengue"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Necessities",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYmI1MTVhMS02MmUxLTRhMzktODZjYy1mN2ZlZmQ1ZGI2MzEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MTc1ODE4MSwiZXhwIjoxNTkxNzYxNzgxfQ.IPDHe-c9Cd2LTMZogJkldOjk59a1RWZ88YCg6s0jk3A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Reportes COVID-19 Quilmes\",\n\t\"type\": \"Reportes-COVID-19\",\n\t\"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis ultricies magna. Sed imperdiet nisi erat, ac laoreet ipsum imperdiet non.\",\n\t\"category\": \"COVID-19\",\n\t\"location\": {\n\t\t\"type\": \"marker\",\n\t\t\"coordinates\": [\n\t\t\t-34.706285,\n\t\t\t58.27789\n\t\t]\n\t}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/necessities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"necessities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Necessity Types",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYmI1MTVhMS02MmUxLTRhMzktODZjYy1mN2ZlZmQ1ZGI2MzEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MTc1ODE4MSwiZXhwIjoxNTkxNzYxNzgxfQ.IPDHe-c9Cd2LTMZogJkldOjk59a1RWZ88YCg6s0jk3A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/necessity-types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"necessity-types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Necessity Types",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYmI1MTVhMS02MmUxLTRhMzktODZjYy1mN2ZlZmQ1ZGI2MzEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MTc1ODE4MSwiZXhwIjoxNTkxNzYxNzgxfQ.IPDHe-c9Cd2LTMZogJkldOjk59a1RWZ88YCg6s0jk3A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Reportes-COVID-19\",\n\t\"categories\": [\n\t\t\"COVID-19\"\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/necessity-types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"necessity-types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Categories",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYmI1MTVhMS02MmUxLTRhMzktODZjYy1mN2ZlZmQ1ZGI2MzEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MTc1Nzg4NywiZXhwIjoxNTkxNzYxNDg3fQ.1A9-kkcSy2o_-xh8mV868M_0NJvTnkFsThk15Q8dgdo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Categories",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "auth",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhYmI1MTVhMS02MmUxLTRhMzktODZjYy1mN2ZlZmQ1ZGI2MzEiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTU5MTc1Nzg4NywiZXhwIjoxNTkxNzYxNDg3fQ.1A9-kkcSy2o_-xh8mV868M_0NJvTnkFsThk15Q8dgdo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"COVID-19\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

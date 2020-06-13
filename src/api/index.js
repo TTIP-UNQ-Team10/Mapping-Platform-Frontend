@@ -12,7 +12,8 @@ import {
   removeNecessityType,
   updateNecessityType,
   removeCategory,
-  updateCategory
+  updateCategory,
+  getNecessityType
 } from './api.js';
 
 const api = {
@@ -29,7 +30,8 @@ const api = {
   removeNecessityType,
   updateNecessityType,
   removeCategory,
-  updateCategory
+  updateCategory,
+  getNecessityType
 }
 
 export default api
