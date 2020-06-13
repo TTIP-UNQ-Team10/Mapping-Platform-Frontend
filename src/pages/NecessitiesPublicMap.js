@@ -12,7 +12,7 @@ import config from '../config.js'
 const { colors } = config
 
 
-const Hospitals = () => {
+const NecessitiesPublicMap = () => {
 
   const styles = {
     buttons: {
@@ -24,11 +24,11 @@ const Hospitals = () => {
   const [data, setData] = useState(null);
   const { state, dispatch } = useContext(AppContext)
 
-  const showHospitals = () => {
-    setData(getHospitals())
+  const showNecessities = () => {
+    setData(getNecessities())
   }
 
-  const getHospitals = async () => {
+  const getNecessities = async () => {
 
     const onSuccess = async (response) => {
       const data = await response
@@ -38,7 +38,7 @@ const Hospitals = () => {
     const onError = async (error) => {
       dispatch(createShowErrorNotificationAction({
         header: '¡Error!',
-        message: 'No se han podido obtener los Hospitales'
+        message: 'No se han podido obtener las Necesidades'
       }))
     }
 
@@ -46,19 +46,18 @@ const Hospitals = () => {
       'Auth': selectUserAuthToken(state)
     }
 
-    await api.getHospitals(headers, onSuccess, onError)
+    await api.getNecessities(headers, onSuccess, onError)
   }
 
 
-  const generateHostipalPopups = data => {
-    const { name, type, address, addressNumber, phone, website, postalCode } = data
+  const generateNecessityPopups = data => {
+    const { name, type, description, category } = data
     return (
       <Popup>
         <b>{name ? name: ''}</b><br/>
-        {type ? <p><b>Especialidad:</b> {type.name}</p> : ''}
-        {phone ? <p><b>Teléfono:</b> {phone}</p> : ''}
-        {address ? <p><b>Dirección:</b> {address} {addressNumber}, {postalCode}</p> : ''}
-        {website ? <p><b>Web:</b> {website}</p> : ''}
+        {type ? <p>{type.name}</p> : ''}
+        {description ? <p><b>Descripción:</b>{description}</p> : ''}
+        {category ? <p><b>Categoría:</b>{category.name}</p> : ''}
       </Popup>
     )
   }
@@ -74,15 +73,15 @@ const Hospitals = () => {
               className="btn my-2 my-sm-0"
               style={styles.buttons}
               type="submit"
-              onClick={showHospitals}
-            >Ver Hospitales
+              onClick={showNecessities}
+            >Ver Necesidades
             </button>
           <br/>
-          <MapComponent data={data} generatePopupFunction={generateHostipalPopups}/>
+          <MapComponent data={data} generatePopupFunction={generateNecessityPopups}/>
         </div>
       </div>
     </div>
   )
 }
 
-export default Hospitals;
+export default NecessitiesPublicMap;

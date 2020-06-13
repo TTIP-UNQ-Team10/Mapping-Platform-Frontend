@@ -1,11 +1,10 @@
 import {
   fetchAPI,
-  getHospitals,
+  getNecessities,
   login,
   logout,
   createCatetory,
   getCategories,
-  getNecessities,
   getNecessityTypes,
   createNecessityType,
   createNecessity,
@@ -18,7 +17,6 @@ import {
 
 const api = {
   fetchAPI,
-  getHospitals,
   login,
   logout,
   createCatetory,
