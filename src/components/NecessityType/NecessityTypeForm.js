@@ -67,14 +67,14 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) =
         />
       </div>
 
-      <div className="mb-3 row col-md-4">
+      <div className="mb-3 row col-md-12">
         <label className="pull-left">Categorías</label>
-        <div className="col-md-6">
+        <div className="col-md-4">
         {
           hasCategories ?
           categoriesData.map(category => {
             return (
-              <div className="custom-control custom-checkbox">
+              <div className="custom-control custom-checkbox col-md-6">
                 <input
                 className="custom-control-input"
                 type="checkbox"
@@ -85,7 +85,8 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) =
                 <label className="custom-control-label" for={`${category.id}`}>{category.name}</label>
               </div>
             )
-          }) : null
+          }) :
+          <div className="col-md-12"><h5>Sin Categorías</h5></div>
         }
         </div>
       </div>
