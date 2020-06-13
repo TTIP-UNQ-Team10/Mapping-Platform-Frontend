@@ -17,6 +17,8 @@ const SideBarMenu = () => {
     <nav className="collapse sidenav" id="sidebarMenu" style={styles.sidebar__menu}>
       <div className="list-unstyled">
         <Link to="/home"><span className="side__menu__text">Home</span></Link>
+        <Link to="/necessity-types"><span className="side__menu__text">Tipo de Necesidad</span></Link>
+        <Link to="/necessities"><span className="side__menu__text">Mapeos</span></Link>
         <Link to="/hospitals"><span className="side__menu__text">Hospitales</span></Link>
         <Link to="/categories"><span className="side__menu__text">Categorías</span></Link>
         <Link to="/login"><span className="side__menu__text">Salir</span></Link>

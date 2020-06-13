@@ -4,6 +4,7 @@ import MapComponent from '../components/Map/MapComponent.js'
 import NecessityForm from '../components/Necessity/NecessityForm.js'
 import NecessityTable from '../components/Necessity/NecessityTable.js'
 import Navbar from '../components/Navbar.js'
+import SideBarMenu from '../components/SideBarMenu.js'
 import {
   createShowSuccessNotificationAction,
   createShowErrorNotificationAction
@@ -16,21 +17,44 @@ const { colors } = config
 
 
 
-const renderMiniNavbar = (setMode) => {
+const renderMiniNavbar = (mode, setMode) => {
+  const styles = {
+    nav__pill: {
+      backgroundColor: 'transparent',
+      color: colors.buttonColor.backgroundColor,
+      border: `1px dashed ${colors.buttonColor.backgroundColor}`,
+      opacity: 0.7,
+    },
+    active: {
+      backgroundColor: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor,
+      border: `1px dashed ${colors.buttonColor.textColor}`,
+      opacity: 0.7,
+    }
+  }
+
+  const getPillStyleClass = (pill) => {
+    if (mode !== pill) {
+      return styles.nav__pill
+    } else {
+      return styles.active
+    }
+  }
+
 
   return (
     <div className="col-md-12">
       <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li className="nav-item col-md-6" role="presentation">
-          <a className="nav-link" href="pill-form"
-            id="pills-home-tab" data-toggle="pill" onClick={() => setMode('form')}
-            role="tab" aria-controls="pills-home" aria-selected="true">Nueva Mapeo
+          <a className="nav-link active" href="pill-table" style={getPillStyleClass('table')}
+            id="pills-profile-tab" data-toggle="pill" onClick={() => setMode('table')}
+            role="tab" aria-controls="pills-profile" aria-selected="false">Necesidades
           </a>
         </li>
         <li className="nav-item col-md-6" role="presentation">
-          <a className="nav-link active" href="pill-table"
-            id="pills-profile-tab" data-toggle="pill" onClick={() => setMode('table')}
-            role="tab" aria-controls="pills-profile" aria-selected="false">Necesidades Mapeadas
+          <a className="nav-link" href="pill-form" style={getPillStyleClass('form')}
+            id="pills-home-tab" data-toggle="pill" onClick={() => setMode('form')}
+            role="tab" aria-controls="pills-home" aria-selected="true">Nuevo Mapeo
           </a>
         </li>
       </ul>
@@ -49,8 +73,9 @@ const Necessity = () => {
   const [dataToMap, setDataToMap] = useState(null)
   const [mode, setMode] = useState('table')
   const [coordinates, setCoordinates] = useState(null)
-  const [necessityTypes, setNecessityTypes] = useState(null)
+  const [necessityTypes, setNecessityTypes] = useState([])
   const [categories, setCategories] = useState([])
+  const [necessityTypesIsFetched, setNecessityTypesIsFetched] = useState(false)
 
   const { state, dispatch } = useContext(AppContext)
 
@@ -139,8 +164,9 @@ const Necessity = () => {
   })
 
   useEffect(() => {
-    if (necessityTypes && necessityTypes.length < 1) {
+    if (!necessityTypesIsFetched && necessityTypes.length < 1) {
       fetchNecessityTypes()
+      setNecessityTypesIsFetched(true)
     }
   })
 
@@ -151,7 +177,6 @@ const Necessity = () => {
 
 
   const saveNecessity = async (data) => {
-    console.log('save necessity', data);
     const headers = {
       'Auth': selectUserAuthToken(state),
       'Content-Type': 'application/json'
@@ -182,12 +207,13 @@ const Necessity = () => {
   return (
     <div>
       <Navbar />
+      <SideBarMenu />
       <div className="container-fluid home__body">
         <h1>Necesidades</h1>
         <hr/>
         <div className="row justify-content-between mt-5">
           <div className="col-md-4">
-            {renderMiniNavbar(setMode)}
+            {renderMiniNavbar(mode, setMode)}
             {
               mode === 'form' ?
               <NecessityForm
@@ -205,6 +231,9 @@ const Necessity = () => {
           </div>
           <div className="col col-md-8">
             <MapComponent data={dataToMap} onClickMapHandler={setCoordinates}/>
+            <p className='text-muted text-small mt-2'>
+              Para elegir varios puntos manten apretada la tecla <kbd>Ctrl</kbd> antes de realizar los clicks
+            </p>
           </div>
         </div>
       </div>

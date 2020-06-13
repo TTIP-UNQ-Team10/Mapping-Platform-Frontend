@@ -13,10 +13,7 @@ const NecessityTable = ({ data, showNecessityIntoMap }) => {
   }
 
 
-  const editModeStates = data ? new Array(data.length).fill(false) : []
 
-  const [editMode, setEditMode] = useState(editModeStates)
-  const [categoryEditName, setCategoryEditName] = useState('')
   const [isData, setIsData] = useState(false)
 
   useEffect(() => {
@@ -40,7 +37,11 @@ const NecessityTable = ({ data, showNecessityIntoMap }) => {
                   <th onClick={() => showNecessityIntoMap(idx, necessity)}>{necessity.name}</th>
                 </tr>
               )
-            }) : <p>No hay data</p>
+            }) :
+            <span className="container mt-5">
+              <h5>No hay mapeos cargados</h5>
+              <h5>Hacer click en 'Nuevo Mapeo' para crear uno</h5>
+            </span>
           }
         </tbody>
       </table>

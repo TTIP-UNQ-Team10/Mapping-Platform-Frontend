@@ -41,32 +41,28 @@ const App = () => {
               path="/home"
               exact={true}
               render={props => (
-                // <AuthProvider Component={BaseHome} {...props} />
-                <BaseHome />
+                <AuthProvider Component={BaseHome} {...props} />
               )}
             />
             <Route
               path="/necessity-types"
               exact={true}
               render={props => (
-                // <AuthProvider Component={NecessityType} {...props}/>
-                <NecessityType />
+                <AuthProvider Component={NecessityType} {...props}/>
               )}
             />
             <Route
               path="/categories"
               exact={true}
               render={props => (
-                // <AuthProvider Component={Category} {...props}/>
-                <Category/>
+                <AuthProvider Component={Category} {...props}/>
               )}
             />
             <Route
               path="/necessities"
               exact={true}
               render={props => (
-                // <AuthProvider Component={Category} {...props}/>
-                <Necessity />
+                <AuthProvider Component={Necessity} {...props}/>
               )}
             />
             <Route path="/hospitals" exact={true}>

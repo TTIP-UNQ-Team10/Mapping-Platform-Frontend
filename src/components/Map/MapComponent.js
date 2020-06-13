@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import {
+  Map,
+  TileLayer,
+  Popup,
+  Marker,
+  Rectangle,
+  Circle,
+  CircleMarker,
+  Polygon
+} from 'react-leaflet'
 
 const accessToken = process.env.REACT_APP_OSM_API_KEY;
 const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
 const license = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
 const mapCenter = [-34.6131516, -58.3772316]
-
-
-const control = {
-  position: 'bottomright'
-}
 
 
 const settingLayerMap = (dataObject) => {
@@ -22,7 +26,7 @@ const settingLayerMap = (dataObject) => {
         tileSize={512}
         maxZoom={18}
         zoomOffset={-1}
-        control={control}
+        checked={true}
       />
 
   )
@@ -50,6 +54,7 @@ const MapComponent = (props) => {
   }
 
   const [dataObject, setDataObject] = useState(null)
+  const [matrixCoord, setMatrixCoord] = useState([])
 
   const { data, generatePopupFunction, onClickMapHandler } = props;
 
@@ -64,9 +69,21 @@ const MapComponent = (props) => {
 
 
   const onClickMap = (event) => {
-    const { latlng } = event
-    console.log('MAP ', latlng);
-    onClickMapHandler(latlng)
+    const { latlng, originalEvent } = event
+
+    const coords = Object.values(latlng)
+    const onFlyMarker = { location: { type: 'select', coordinates: coords } }
+
+    if (originalEvent.ctrlKey) {
+      matrixCoord.push(coords)
+      setMatrixCoord(matrixCoord)
+      onClickMapHandler(matrixCoord)
+    } else {
+
+      setMatrixCoord(coords)
+      onClickMapHandler(coords)
+    }
+    setDataObject([onFlyMarker])
   }
 
 
@@ -76,17 +93,46 @@ const MapComponent = (props) => {
       center={mapCenter}
       zoom={12}
       id="mapid"
+      tap={true}
       onClick={onClickMap}
+      onKeyDown={true}
     >
         {settingLayerMap(dataObject)}
         { dataObject ?
           dataObject.map(
             data => {
-              return (
-                <Marker position={data.location.coordinates}>
+              const { location } = data
+              
+              return  location.type === 'marker' ?
+                <Marker position={location.coordinates}>
                   {generatePopupFunction(data)}
-                </Marker>
-              )
+                </Marker> :
+
+                location.type === 'rectangle' ?
+                  <Rectangle
+                    bounds={location.coordinates}
+                    color={location.properties.color}
+                    /> :
+
+                location.type === 'select' ?
+                  <Circle
+                    center={location.coordinates}
+                    color='blue'
+                    radius={50}
+                  /> :
+
+                  location.type === 'circle' ?
+                  <CircleMarker
+                    center={location.coordinates}
+                    color={location.properties.color}
+                    radius={location.properties.radius}
+                  /> :
+
+                  location.type === 'polygon' ?
+                    <Polygon
+                      positions={location.coordinates}
+                      color={location}
+                    /> : null
             }
           ) : null
         }

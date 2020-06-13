@@ -1,11 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react'
-import api from '../../api'
+import React, { useState } from 'react'
 import config from '../../config.js'
-import { AppContext } from '../../store/Store.js'
-import { selectUserAuthToken } from '../../store/selectors/user.js'
-import MapComponent from '../../components/Map/MapComponent.js'
-import Navbar from '../../components/Navbar.js'
-import { Popup } from 'react-leaflet'
 
 const { colors } = config
 
@@ -28,6 +22,8 @@ const NecessityForm = ({
   const [descriptionValue, setDescriptionValue] = useState('')
   const [nameValue, setNameValue] = useState('')
   const [locationType, setLocationType] = useState('')
+  const [circleRadius, setCircleRadius] = useState(0)
+  const [shapeColor, setShapeColor] = useState('black')
 
   const handlerInput = (event, type) => {
     const { value } = event.target
@@ -48,6 +44,12 @@ const NecessityForm = ({
       case 'locationType':
         setLocationType(value)
         break
+      case 'circle-radius':
+        setCircleRadius(value)
+        break
+      case 'shape-color':
+        setShapeColor(value)
+        break
       default:
     }
   }
@@ -58,10 +60,13 @@ const NecessityForm = ({
     setDescriptionValue('')
     setNameValue('')
     setLocationType(null)
+    setCircleRadius(0)
+    setShapeColor('black')
   }
 
 
   const onClickSummitHandler = async () => {
+
     const dataObject = {
       name: nameValue,
       type: necessityTypeValue,
@@ -69,7 +74,11 @@ const NecessityForm = ({
       category: categoryValue,
       location: {
         type: locationType,
-        coordinates: Object.values(coordFromMap)
+        coordinates: coordFromMap,
+        properties: {
+          color: shapeColor,
+          radius: circleRadius
+        }
       }
     }
     await onHandlerSummit(dataObject)
@@ -89,7 +98,7 @@ const NecessityForm = ({
           placeholder="Ingrese un nombre del mapeo"
           aria-label="Nombre"
           aria-describedby="basic-addon1"
-          onInput={e => handlerInput(e, 'name')}
+          onChange={e => handlerInput(e, 'name')}
         />
       </div>
       <div className="mb-3">
@@ -102,7 +111,7 @@ const NecessityForm = ({
           placeholder="Ingrese alguna descripción del mapeo"
           aria-label="Descripción"
           aria-describedby="basic-addon1"
-          onInput={e => handlerInput(e, 'description')}
+          onChange={e => handlerInput(e, 'description')}
         />
       </div>
       <div className="mb-3">
@@ -113,7 +122,7 @@ const NecessityForm = ({
             necessityTypes.map(necessityType => {
               const necessityTypeName = necessityType.name
               return (
-                <option value={necessityTypeName}>{necessityTypeName}</option>
+                <option value={necessityTypeName} key={`${necessityTypeName}option`}>{necessityTypeName}</option>
               )
             })
           }
@@ -142,19 +151,58 @@ const NecessityForm = ({
         <select className="form-control" onChange={e => handlerInput(e, 'locationType')}>
           <option value={null}>Elija un tipo de marca a graficar</option>
           <option value='marker'>Marca</option>
-          <option value='circle'>Circulo</option>
+          <option value='circle'>Círculo</option>
           <option value='polygon'>Polígono</option>
-          <option value='rectangle'>Línea</option>
+          <option value='rectangle'>Rectangulo</option>
         </select>
       </div>
-      <div className="mb-3">
+      {renderExtraPropertiesForLocationType(locationType, handlerInput)}
+      <div className="mb-4">
         <button type="submit"
         className="btn btn-block btn-dark"
         style={styles.button__create}
-        onClick={onClickSummitHandler}>Nuevo Mapeo</button>
+        onClick={onClickSummitHandler}>Cargar Mapeo</button>
       </div>
     </div>
   )
 }
+
+
+const renderExtraPropertiesForLocationType = (locationType, handlerInput) => (
+  <div className="mb-3">
+    {
+      locationType !== 'marker' ?
+        <div>
+          <label className="pull-left">Color</label>
+          <input type="text"
+            required
+            name="cilcleRadius"
+            className="form-control"
+            placeholder="Ingrese el un número para indicar el radio del círculo"
+            aria-label="Radio"
+            aria-describedby="basic-addon1"
+            onChange={e => handlerInput(e, 'shape-color')}
+          />
+        </div> : null
+    }
+    {
+      locationType === 'circle' ?
+        <div>
+          <label className="pull-left">Radio</label>
+          <input type="number"
+            required
+            name="cilcleRadius"
+            className="form-control"
+            placeholder="Ingrese el un número para indicar el radio del círculo"
+            aria-label="Radio"
+            aria-describedby="basic-addon1"
+            onChange={e => handlerInput(e, 'circle-radius')}
+          />
+        </div> : null
+    }
+  </div>
+)
+
+
 
 export default NecessityForm
