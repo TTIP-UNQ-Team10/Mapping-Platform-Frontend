@@ -15,7 +15,6 @@ import api from '../api'
 const Category = () => {
 
   const [categories, setCategories] = useState([])
-  const [necessityTypes, setNecessityTypes] = useState([])
 
   const { state, dispatch } = useContext(AppContext)
   const history = useHistory()
@@ -29,8 +28,6 @@ const Category = () => {
   const fetchCategories = async () => {
     const categoriesResponse = await api.getCategories(headers)
     categoriesResponse && !categoriesResponse.error ? setCategories(categoriesResponse) : history.push('/login')
-    const necessityTypesResponse = await api.getNecessityTypes(headers)
-    setNecessityTypes(necessityTypesResponse)
   }
 
 
@@ -46,7 +43,7 @@ const Category = () => {
         header: '¡Categoría Creada!',
         message: 'La categoría se creó con éxito'
       }))
-      categories.push(categoryData)
+      categories.push(response)
       setCategories(categories)
     }
 
@@ -117,7 +114,6 @@ const Category = () => {
           <CategoryForm
             onInputHandler={handlerInput}
             onClickHandler={onCreateCategory}
-            necessityTypes={necessityTypes}
           />
           <div className="col-md-8 col-sm-12">
             <CategoryTable categories={categories}

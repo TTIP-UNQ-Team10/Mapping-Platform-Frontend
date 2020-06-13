@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import config from '../../config.js'
 
 const { colors } = config
 
 
-const NecessityTypeForm = ({ onInputHandler, onClickHandler }) => {
+const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) => {
   const styles = {
     button__create: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -13,18 +13,43 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler }) => {
   }
 
   const [necesssityTypeName, setNecessityTypeName] = useState('')
+  const [categories, setCategories] = useState([])
+  const [hasCategories, setHasCategories] = useState(false)
+
+
+  useEffect(() => {
+    if (categoriesData) {
+      setHasCategories(true)
+    }
+  }, [categoriesData])
 
   const clearForm = () => {
     setNecessityTypeName('')
+    setCategories([])
   }
 
 
   const onSubmitHandler = async () => {
-    const categoryData = {
-      name: necesssityTypeName
+    const necessityData = {
+      name: necesssityTypeName,
+      categories: categories
      }
-    await onClickHandler(categoryData)
+    await onClickHandler(necessityData)
     clearForm()
+  }
+
+  const handleCategoryInput = event => {
+    const { value } = event.target
+    console.log(value, categories.includes(value))
+    if (categories.includes(value)) {
+      categories.push(value)
+      setCategories(categories)
+    } else {
+      const idx = categories.indexOf(value)
+      categories.splice(idx, value)
+      setCategories(categories)
+    }
+    console.log(categories);
   }
 
 
@@ -42,6 +67,21 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler }) => {
           aria-describedby="basic-addon1"
           onInput={e => onInputHandler(e, setNecessityTypeName)}
         />
+      </div>
+
+      <div className="mb-3">
+        <label className="pull-left">Categorías</label>
+        <select multiple class="form-control" onInput={handleCategoryInput}>
+          {
+            hasCategories ?
+              categoriesData.map(category => {
+                const categoryName = category.name
+                return (
+                  <option value={categoryName}>{categoryName}</option>
+                )
+              }) : null
+          }
+        </select>
       </div>
 
       <button type="submit"
