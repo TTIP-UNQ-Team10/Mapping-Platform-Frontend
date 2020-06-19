@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { AppContext } from '../store/Store.js'
 import MapComponent from '../components/MapComponent.js'
 import MapFilter from '../components/MapFilter.js'
@@ -13,7 +13,7 @@ import config from '../config.js'
 const { colors } = config
 
 
-const NecessitiesPublicMap = () => {
+const NecessitiesPublicMap = (props) => {
 
   const styles = {
     buttons: {
@@ -24,6 +24,9 @@ const NecessitiesPublicMap = () => {
 
   const [data, setData] = useState(null);
   const { state, dispatch } = useContext(AppContext)
+  const headers = {
+    'Auth': selectUserAuthToken(state)
+  }
 
   const showNecessities = () => {
     setData(getNecessities())
@@ -32,6 +35,23 @@ const NecessitiesPublicMap = () => {
   const showNecessitiesByCategory = async (category) => {
     setData(await getNecessitiesByCategory(category))
   }
+
+
+  const fetchNecessity = async (necesity) => {
+    const onSuccess = response => {
+      setData(response)
+    }
+    await api.getNecessitiesByCategory(headers, onSuccess, necesity)
+  }
+
+
+  useEffect(() => {
+    const { necesity } = props.match.params
+    console.log(necesity);
+    if (necesity) {
+      fetchNecessity(necesity)
+    }
+  })
 
   const getNecessities = async () => {
 
@@ -45,10 +65,6 @@ const NecessitiesPublicMap = () => {
         header: '¡Error!',
         message: 'No se han podido obtener las Necesidades'
       }))
-    }
-
-    const headers = {
-      'Auth': selectUserAuthToken(state)
     }
 
     await api.getNecessities(headers, onSuccess, onError)

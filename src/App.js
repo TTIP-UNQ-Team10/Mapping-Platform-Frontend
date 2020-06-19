@@ -66,15 +66,18 @@ const App = () => {
                 <AuthProvider Component={Necessity} {...props}/>
               )}
             />
-            <Route path="/mapa-necesidades" exact={true}>
-              <NecessitiesPublicMap />
+            <Route path="/mapa-necesidades/:necesity" exact={true}
+              render={(props) => (
+                <NecessitiesPublicMap {...props}/>
+                )}
+            >
             </Route>
           </Switch>
         </Router>
       </div>
       {
         showNotification ?
-          <Notification className="notification"/> : null
+          <Notification /> : null
       }
     </div>
   );

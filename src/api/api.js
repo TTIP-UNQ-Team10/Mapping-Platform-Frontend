@@ -162,3 +162,11 @@ export const getNecessityType = (id, headers, onSuccess, onError) => fetchAPI({
   onSuccess: onSuccess,
   onError: onError
 })
+
+export const getNecessity = (id, headers, onSuccess, onError) => fetchAPI({
+  url: `${NECESSITY_API}/${id}`,
+  method: 'GET',
+  headers: headers,
+  onSuccess: onSuccess,
+  onError: onError
+})

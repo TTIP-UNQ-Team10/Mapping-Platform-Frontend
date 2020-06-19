@@ -13,12 +13,12 @@ export const Notification = () => {
     if (showNotification) {
       setTimeout(function () {
         dispatch(closeNotificationAction(selectNotificationState(state)))
-      }, 3000);
+      }, 2500);
     }
   }
 
   const getNotificationType = () => {
-    const types = ["alert-success", "alert-danger"]
+    const types = ["success-alert", "error-alert"]
     return color === 'success' ? types[0] : types[1]
   }
 
@@ -27,7 +27,7 @@ export const Notification = () => {
   },[showNotification])
 
   return (
-    <div className={"alert notification " + getNotificationType()} role="alert">
+    <div className={"notification " + getNotificationType()} role="alert">
       <h5 className="alert-heading">{header}</h5>
       <p>{message}</p>
     </div>

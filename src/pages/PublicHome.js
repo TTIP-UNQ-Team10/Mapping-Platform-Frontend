@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import { AppContext } from '../store/Store.js'
 import { useHistory } from 'react-router-dom'
 import { Link } from "react-router-dom";
+import { selectUserAuthToken } from '../store/selectors/user.js'
 import config from '../config.js'
+import api from '../api'
 
 const { colors, appLogo } = config
 
 
-const renderNecesityCard = () => {
+const renderNecesityCard = (necesity) => {
   const styles = {
     button__show_information: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -15,14 +18,14 @@ const renderNecesityCard = () => {
   }
 
   return (
-    <div className="card" style={{width: '18rem'}}>
+    <div className="card public__card" style={{width: '18rem'}}>
       <img src="/map1.svg" className="card-img-top" alt="..."/>
       <div className="card-body">
-        <h4 className="card-title">Hospitales</h4>
-        <p className="card-text">Ubicación geográficas de los Hospitales que se encuentran
-        en la Ciudad Autónoma de Buenos Aires.
+        <h4 className="card-title public__card_title">{necesity.name}</h4>
+        <p className="card-text public__card_text">
+          {necesity.description}
         </p>
-        <Link to="/hospitals">
+        <Link to={`/mapa-necesidades/${necesity.category.name}`} >
           <button className="btn btn-lg"
             style={styles.button__show_information}
           >Ver Información</button>
@@ -40,7 +43,9 @@ const renderNecesitiesSection = necesities => {
         <h1>Mapeos</h1>
         <div className="col col-md-12">
           <div className="row">
-            { necesities.map(necesity => renderNecesityCard()) }
+            { necesities.length > 0 ?
+                necesities.map(necesity => renderNecesityCard(necesity)) : null
+            }
           </div>
         </div>
       </div>
@@ -118,14 +123,37 @@ const renderWelcomeSection = (history, loginButtonHover, setLoginButtonHover) =>
 const PublicHome = () => {
   const history = useHistory()
   const [loginButtonHover, setLoginButtonHover] = useState(false)
+  const [categories, setCategories] = useState([])
 
-  const necesities = [1,1,1,1,1,1,1,1]
+  const { state } = useContext(AppContext)
+
+  // const necesities = [1,1,1,1,1,1,1,1]
+
+  const fetchCategories = async () => {
+    const headers = {
+      'Auth': selectUserAuthToken(state)
+    }
+
+    const onSuccess = response => {
+        setCategories(response)
+    }
+
+    const onError = error => {
+      console.log(error);
+    }
+
+    await api.getNecessities(headers, onSuccess, onError)
+  }
+
+  useEffect(() => {
+    fetchCategories()
+  }, [categories])
 
   return (
     <div>
       { renderWelcomeSection(history, loginButtonHover, setLoginButtonHover) }
       { renderObjectiveSection() }
-      { renderNecesitiesSection(necesities) }
+      { renderNecesitiesSection(categories) }
     </div>
   )
 }

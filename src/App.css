@@ -105,7 +105,9 @@ section h1 {
   cursor: pointer;
 }
 
-.home__body {}
+.home__body {
+  margin-top: 3em;
+}
 
 .base__home_body {
   margin-top: 3em;
@@ -146,15 +148,58 @@ hr {
   width: 200px;
   margin: 0 auto;
   margin-bottom: 4em;
+}
+
+.public__card {
   box-shadow: 2px 2px 16px 1px rgba(0,0,0,0.63);
   transition: 0.2s;
+  max-height: 30em;
 }
+
+.public__card:hover {
+  cursor: pointer;
+}
+
+.public__card_title {
+  text-transform: uppercase;
+  max-height: 4em;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.public__card_text {
+  overflow-y: scroll;
+  max-height: 8em;
+  height: 8em;
+  font-style: italic;
+  font-weight: lighter;
+  vertical-align: middle;
+}
+
+.public__card_text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.public__card_text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.public__card_text::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 40px;
+}
+
+/* Handle on hover */
+.public__card_text::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}
+
 
 .card:hover {
   transform: scale(1.1);
 }
 
-<<<<<<< HEAD
 .edit__icon {
   color: #2999f4;
   margin: 0px 8px 0px 8px;
