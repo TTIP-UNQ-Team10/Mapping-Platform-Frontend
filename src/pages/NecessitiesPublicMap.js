@@ -23,6 +23,7 @@ const NecessitiesPublicMap = (props) => {
   }
 
   const [data, setData] = useState(null);
+  const [publicHomeFilter, setPublicHomeFilter] = useState(null)
   const { state, dispatch } = useContext(AppContext)
   const headers = {
     'Auth': selectUserAuthToken(state)
@@ -33,23 +34,19 @@ const NecessitiesPublicMap = (props) => {
   }
 
   const showNecessitiesByCategory = async (category) => {
-    setData(await getNecessitiesByCategory(category))
+    setData(await fetchNecessitiesByCategory(category))
   }
 
-
-  const fetchNecessity = async (necesity) => {
-    const onSuccess = response => {
-      setData(response)
-    }
-    await api.getNecessitiesByCategory(headers, onSuccess, necesity)
+  const fetchFilteredData = async (category) => {
+    setPublicHomeFilter(category)
+    showNecessitiesByCategory(category)
   }
 
 
   useEffect(() => {
-    const { necesity } = props.match.params
-    console.log(necesity);
-    if (necesity) {
-      fetchNecessity(necesity)
+    const { category } = props.match.params
+    if (category && !publicHomeFilter) {
+      fetchFilteredData(category)
     }
   })
 
@@ -70,7 +67,7 @@ const NecessitiesPublicMap = (props) => {
     await api.getNecessities(headers, onSuccess, onError)
   }
 
-  const getNecessitiesByCategory = async (category) => {
+  const fetchNecessitiesByCategory = async (category) => {
 
     const onSuccess = async (response) => {
       const data = await response
