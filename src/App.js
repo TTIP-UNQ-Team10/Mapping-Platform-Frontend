@@ -66,7 +66,13 @@ const App = () => {
                 <AuthProvider Component={Necessity} {...props}/>
               )}
             />
-            <Route path="/mapa-necesidades/:necesity" exact={true}
+            <Route path="/mapa-necesidades/:category" exact={true}
+              render={(props) => (
+                <NecessitiesPublicMap {...props}/>
+                )}
+            >
+            </Route>
+            <Route path="/mapa-necesidades" exact={true}
               render={(props) => (
                 <NecessitiesPublicMap {...props}/>
                 )}
