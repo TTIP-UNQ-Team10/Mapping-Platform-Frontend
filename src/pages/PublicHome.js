@@ -9,7 +9,7 @@ import api from '../api'
 const { colors, appLogo } = config
 
 
-const renderNecesityCard = (necesity) => {
+const renderCategoryCard = (category) => {
   const styles = {
     button__show_information: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -21,11 +21,11 @@ const renderNecesityCard = (necesity) => {
     <div className="card public__card" style={{width: '18rem'}}>
       <img src="/map1.svg" className="card-img-top" alt="..."/>
       <div className="card-body">
-        <h4 className="card-title public__card_title">{necesity.name}</h4>
+        <h4 className="card-title public__card_title">{category.name}</h4>
         <p className="card-text public__card_text">
-          {necesity.description}
+          {category.description}
         </p>
-        <Link to={`/mapa-necesidades/${necesity.category.name}`} >
+        <Link to={`/mapa-necesidades/${category.name}`} >
           <button className="btn btn-lg"
             style={styles.button__show_information}
           >Ver Información</button>
@@ -36,15 +36,15 @@ const renderNecesityCard = (necesity) => {
 }
 
 
-const renderNecesitiesSection = necesities => {
+const renderMappingSection = categories => {
   return (
     <section id="section-3">
       <div className="container">
         <h1>Mapeos</h1>
         <div className="col col-md-12">
           <div className="row">
-            { necesities.length > 0 ?
-                necesities.map(necesity => renderNecesityCard(necesity)) : null
+            { categories.length > 0 ?
+                categories.map(categorie => renderCategoryCard(categorie)) : null
             }
           </div>
         </div>
@@ -142,18 +142,20 @@ const PublicHome = () => {
       console.log(error);
     }
 
-    await api.getNecessities(headers, onSuccess, onError)
+    await api.getCategories(headers, onSuccess, onError)
   }
 
   useEffect(() => {
-    fetchCategories()
-  }, [categories])
+    if (categories.length < 1) {
+      fetchCategories()
+    }
+  })
 
   return (
     <div>
       { renderWelcomeSection(history, loginButtonHover, setLoginButtonHover) }
       { renderObjectiveSection() }
-      { renderNecesitiesSection(categories) }
+      { renderMappingSection(categories) }
     </div>
   )
 }
