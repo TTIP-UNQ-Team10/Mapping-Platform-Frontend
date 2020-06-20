@@ -4,7 +4,8 @@ let config = null
 if (customizationObj) {
   const {
     appId,
-    appName,
+    name,
+    favicon,
     navBarOptions: {
       navActiveColor: activeColor,
       navBackgroundColor: backgroundColor,
@@ -22,6 +23,7 @@ if (customizationObj) {
   config = {
     appId: appId || 'kintun.wingu.org',
     appLogo: appLogo || '/mapping-platform-logo.svg',
+    favicon: favicon,
     colors: {
       appBackgroundColor: {
         backgroundColor: appBackgroundColor || '#343a40'
@@ -45,8 +47,22 @@ if (customizationObj) {
         color: secondaryText || '#04d38b'
       }
     },
-    name: appName,
+    name: name,
   }
+
+  const setFaviconAndTitle = (config) => {
+    let link = document.querySelector('link[rel*="icon"]') || document.createElement('link')
+    let title = document.getElementsByTagName('title')[0]
+
+    title.textContent = config.name
+    link.href = config.favicon
+    link.type = 'image/x-icon'
+    link.rel = 'shortcut icon'
+    document.getElementsByTagName('head')[0].appendChild(link)
+  }
+  setFaviconAndTitle(config)
+
 }
+
 
 export default config
