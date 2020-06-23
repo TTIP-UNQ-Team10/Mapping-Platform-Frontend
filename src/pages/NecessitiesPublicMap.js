@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { AppContext } from '../store/Store.js'
 import MapComponent from '../components/MapComponent.js'
 import MapFilter from '../components/MapFilter.js'
@@ -13,7 +13,7 @@ import config from '../config.js'
 const { colors } = config
 
 
-const NecessitiesPublicMap = () => {
+const NecessitiesPublicMap = (props) => {
 
   const styles = {
     buttons: {
@@ -23,15 +23,32 @@ const NecessitiesPublicMap = () => {
   }
 
   const [data, setData] = useState(null);
+  const [publicHomeFilter, setPublicHomeFilter] = useState(null)
   const { state, dispatch } = useContext(AppContext)
+  const headers = {
+    'Auth': selectUserAuthToken(state)
+  }
 
   const showNecessities = () => {
     setData(getNecessities())
   }
 
   const showNecessitiesByCategory = async (category) => {
-    setData(await getNecessitiesByCategory(category))
+    setData(await fetchNecessitiesByCategory(category))
   }
+
+  const fetchFilteredData = async (category) => {
+    setPublicHomeFilter(category)
+    showNecessitiesByCategory(category)
+  }
+
+
+  useEffect(() => {
+    const { category } = props.match.params
+    if (category && !publicHomeFilter) {
+      fetchFilteredData(category)
+    }
+  })
 
   const getNecessities = async () => {
 
@@ -47,14 +64,10 @@ const NecessitiesPublicMap = () => {
       }))
     }
 
-    const headers = {
-      'Auth': selectUserAuthToken(state)
-    }
-
     await api.getNecessities(headers, onSuccess, onError)
   }
 
-  const getNecessitiesByCategory = async (category) => {
+  const fetchNecessitiesByCategory = async (category) => {
 
     const onSuccess = async (response) => {
       const data = await response

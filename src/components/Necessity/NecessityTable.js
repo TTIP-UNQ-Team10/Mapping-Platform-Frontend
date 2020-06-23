@@ -1,19 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import config from '../../config.js'
 
-const { colors } = config
 
 const NecessityTable = ({ data, showNecessityIntoMap }) => {
-  const styles = {
-    table__head: {
-      backgroundColor: colors.navBarOptions.backgroundColor,
-      color: colors.buttonColor.textColor,
-      opacity: 0.9,
-    }
-  }
-
-
-
   const [isData, setIsData] = useState(false)
 
   useEffect(() => {

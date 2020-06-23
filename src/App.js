@@ -4,6 +4,7 @@ import { selectNotificationState } from './store/selectors/notification.js'
 import Login from './pages/Login.js'
 import BaseHome from './pages/BaseHome.js'
 import NecessitiesPublicMap from './pages/NecessitiesPublicMap.js'
+import PublicHome from './pages/PublicHome.js'
 import Category from './pages/Category.js'
 import NecessityType from './pages/NecessityType.js'
 import Necessity from './pages/Necessity.js'
@@ -34,7 +35,7 @@ const App = () => {
               path="/"
               exact={true}
               render={props => (
-                <AuthProvider Component={BaseHome} {...props} />
+                <PublicHome />
               )}
             />
             <Route
@@ -62,18 +63,27 @@ const App = () => {
               path="/necessities"
               exact={true}
               render={props => (
-                <AuthProvider Component={Necessity} {...props}/>
+                <Necessity {...props} />
               )}
             />
-            <Route path="/mapa-necesidades" exact={true}>
-              <NecessitiesPublicMap />
+            <Route path="/necessities/:category" exact={true}
+              render={(props) => (
+                <Necessity {...props}/>
+                )}
+            >
+            </Route>
+            <Route path="/necessities/type/:necessityType" exact={true}
+              render={(props) => (
+                <Necessity {...props}/>
+                )}
+            >
             </Route>
           </Switch>
         </Router>
       </div>
       {
         showNotification ?
-          <Notification className="notification"/> : null
+          <Notification /> : null
       }
     </div>
   );

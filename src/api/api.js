@@ -63,10 +63,11 @@ export const login = (user, onSuccess, onError) => fetchAPI({
   onError: onError
 })
 
-export const getCategories = (headers, onError) => fetchAPI({
+export const getCategories = (headers, onSuccess, onError) => fetchAPI({
   url: CATEGORY_API,
   method: 'GET',
   headers: headers,
+  onSuccess: onSuccess,
   onError: onError
 })
 
@@ -78,7 +79,7 @@ export const getNecessities = (headers, onSuccess, onError) => fetchAPI({
   onError: onError
 })
 
-export const getNecessitiesByCategory = (headers, onSuccess, onError, category) => fetchAPI({
+export const getNecessitiesByCategory = (category, headers, onSuccess, onError) => fetchAPI({
   url: NECESSITY_API + `/${category}`,
   method: 'GET',
   onSuccess: onSuccess,
@@ -157,6 +158,22 @@ export const updateCategory = (id, category, headers, onSuccess, onError) => fet
 
 export const getNecessityType = (id, headers, onSuccess, onError) => fetchAPI({
   url: `${NECESITY_TYPE_API}/${id}`,
+  method: 'GET',
+  headers: headers,
+  onSuccess: onSuccess,
+  onError: onError
+})
+
+export const getNecessity = (id, headers, onSuccess, onError) => fetchAPI({
+  url: `${NECESSITY_API}/${id}`,
+  method: 'GET',
+  headers: headers,
+  onSuccess: onSuccess,
+  onError: onError
+})
+
+export const getNecessitiesByType = (necessityType, headers, onSuccess, onError) => fetchAPI({
+  url: `${NECESSITY_API}/type/${necessityType}`,
   method: 'GET',
   headers: headers,
   onSuccess: onSuccess,
