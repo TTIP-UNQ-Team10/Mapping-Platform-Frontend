@@ -132,7 +132,7 @@ const NecessityTypeTable = ({ data, onDeleteNecessityType, onEditNeccesityType }
                     <th>{necessityType.name}</th>
                 }
                 <th>{renderNecessityCategories(necessityType, idx)}</th>
-                <th className="row">
+                <th className="row" data-toggle="tooltip" data-placement="right">
                   {
                     !editMode[idx] ?
                       <i className="fa fa-edit edit__icon" title="Editar" onClick={() => onClickEdit(idx, necessityType)}/> :

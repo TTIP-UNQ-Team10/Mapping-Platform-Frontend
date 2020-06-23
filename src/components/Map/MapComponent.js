@@ -5,7 +5,6 @@ import {
   Popup,
   Marker,
   Rectangle,
-  Circle,
   CircleMarker,
   Polygon
 } from 'react-leaflet'
@@ -32,14 +31,13 @@ const settingLayerMap = (dataObject) => {
   )
 }
 
-const generateDefaultPopupFunction = () => {
+const generateDefaultPopupFunction = (necessity) => {
   return (
     <Popup>
-      <b>Título</b><br/>
-      <p><b>item:</b>1</p>
-      <p><b>item::</b>2</p>
-      <p><b>item:</b>3</p>
-      <p><b>item:</b>4</p>
+      <b>{necessity.name}</b><br/>
+      <p><b>Tipo: </b>{necessity.type.name}</p>
+      <p><b>Categoría: </b>{necessity.category.name}</p>
+      <p><b>Descripción: </b>{necessity.description}</p>
     </Popup>
   )
 }
@@ -75,11 +73,16 @@ const MapComponent = (props) => {
     const onFlyMarker = { location: { type: 'select', coordinates: coords } }
 
     if (originalEvent.ctrlKey) {
+      if (typeof(matrixCoord[0]) === 'number') {
+        const fstCoords = [matrixCoord[0], matrixCoord[1]]
+        matrixCoord.splice(0,2)
+        matrixCoord.push(fstCoords)
+        setMatrixCoord(matrixCoord)
+      }
       matrixCoord.push(coords)
       setMatrixCoord(matrixCoord)
       onClickMapHandler(matrixCoord)
     } else {
-
       setMatrixCoord(coords)
       onClickMapHandler(coords)
     }
@@ -95,14 +98,13 @@ const MapComponent = (props) => {
       id="mapid"
       tap={true}
       onClick={onClickMap}
-      onKeyDown={true}
     >
         {settingLayerMap(dataObject)}
         { dataObject ?
           dataObject.map(
             data => {
               const { location } = data
-              
+
               return  location.type === 'marker' ?
                 <Marker position={location.coordinates}>
                   {generatePopupFunction(data)}
@@ -112,13 +114,13 @@ const MapComponent = (props) => {
                   <Rectangle
                     bounds={location.coordinates}
                     color={location.properties.color}
-                    /> :
+                  >
+                    {generatePopupFunction(data)}
+                  </Rectangle> :
 
                 location.type === 'select' ?
-                  <Circle
-                    center={location.coordinates}
-                    color='blue'
-                    radius={50}
+                  <Marker
+                    position={location.coordinates}
                   /> :
 
                   location.type === 'circle' ?
@@ -126,13 +128,17 @@ const MapComponent = (props) => {
                     center={location.coordinates}
                     color={location.properties.color}
                     radius={location.properties.radius}
-                  /> :
+                  >
+                    {generatePopupFunction(data)}
+                  </CircleMarker> :
 
                   location.type === 'polygon' ?
                     <Polygon
                       positions={location.coordinates}
                       color={location}
-                    /> : null
+                    >
+                      {generatePopupFunction(data)}
+                    </Polygon> : null
             }
           ) : null
         }

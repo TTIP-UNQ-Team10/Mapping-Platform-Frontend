@@ -41,6 +41,23 @@ section {
 section h1 {
   font-size: 50px;
   margin-bottom: 1em;
+  margin: 0 auto;
+}
+
+#section-1 .container-fluid {
+  padding: 0em 0em, 3em, 0em;
+  margin: 0 auto;
+}
+
+#section-1 a {
+  margin: 1em 1em 1em 1em;
+  padding: 1em 1em 1em 1em;
+  width: 170px;
+}
+
+section h3 {
+  margin: 0 auto;
+  vertical-align: middle;
 }
 
 #section-2 {
@@ -52,6 +69,7 @@ section h1 {
   text-align: justify;
   justify-content: center;
 }
+
 
 
 
@@ -150,14 +168,39 @@ hr {
   margin-bottom: 4em;
 }
 
-.public__card {
-  box-shadow: 2px 2px 16px 1px rgba(0,0,0,0.63);
+.public__button:hover {
+  border-radius: 15px;
+  border: .5px solid;
+}
+
+.public__card_secondary {
+  box-shadow: 0px 0px .8px .4px rgba(255,255,255,0.63);
   transition: 0.2s;
   max-height: 30em;
+  border-radius: 30px !important;
+  background-color: transparent !important;
+}
+
+.public__card_secondary:hover {
+  border-radius: 15px;
+  box-shadow: 1px 1px 16px 0.5px rgba(255,255,255,0.63);
+  border: 0px solid !important;
+}
+
+.public__card {
+  box-shadow: 0px 0px .8px 0px rgba(0,0,0,0.63);
+  transition: 0.2s;
+  max-height: 30em;
+  border-radius: 30px !important;
 }
 
 .public__card:hover {
-  cursor: pointer;
+  box-shadow: 1px 1px 16px 0.5px rgba(0,0,0,0.40);
+  border: 0px solid !important;
+}
+
+.public__card img {
+  filter: opacity(30%) grayscale(30%);
 }
 
 .public__card_title {
@@ -176,6 +219,13 @@ hr {
   vertical-align: middle;
 }
 
+.filter_button {
+  /* filter: contrast(0.3); */
+}
+
+.filter_button:hover {
+}
+
 .public__card_text::-webkit-scrollbar {
   width: 6px;
 }
@@ -190,8 +240,32 @@ hr {
   border-radius: 40px;
 }
 
+
 /* Handle on hover */
 .public__card_text::-webkit-scrollbar-thumb:hover {
+  background: gray;
+}
+
+.necessities__table::-webkit-scrollbar {
+  width: 6px;
+}
+
+.necessities__table::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+.necessities__table::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 40px;
+}
+
+.necessities__table::-webkit-scrollbar:hover {
+  width: 8px;
+  cursor: pointer;
+}
+
+.necessities__table::-webkit-scrollbar-thumb:hover {
   background: gray;
 }
 
@@ -258,7 +332,13 @@ tbody th {
   background-color: rgba(0,0,0,0.2);
 }
 
+.dropdown-item:hover {
+  cursor: pointer;
+}
 
+.dropdown-menu.show {
+  z-index: 9999;
+}
 
 @media (max-width: 576px) {
 

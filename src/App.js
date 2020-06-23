@@ -63,18 +63,18 @@ const App = () => {
               path="/necessities"
               exact={true}
               render={props => (
-                <AuthProvider Component={Necessity} {...props}/>
+                <Necessity {...props} />
               )}
             />
-            <Route path="/mapa-necesidades/:category" exact={true}
+            <Route path="/necessities/:category" exact={true}
               render={(props) => (
-                <NecessitiesPublicMap {...props}/>
+                <Necessity {...props}/>
                 )}
             >
             </Route>
-            <Route path="/mapa-necesidades" exact={true}
+            <Route path="/necessities/type/:necessityType" exact={true}
               render={(props) => (
-                <NecessitiesPublicMap {...props}/>
+                <Necessity {...props}/>
                 )}
             >
             </Route>

@@ -3,6 +3,7 @@ import { AppContext } from '../store/Store.js'
 import MapComponent from '../components/Map/MapComponent.js'
 import NecessityForm from '../components/Necessity/NecessityForm.js'
 import NecessityTable from '../components/Necessity/NecessityTable.js'
+import Filter from '../components/Necessity/Filter.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import {
@@ -76,8 +77,10 @@ const Necessity = () => {
   const [necessityTypes, setNecessityTypes] = useState([])
   const [categories, setCategories] = useState([])
   const [necessityTypesIsFetched, setNecessityTypesIsFetched] = useState(false)
+  const [title, setTitle] = useState('')
 
   const { state, dispatch } = useContext(AppContext)
+
 
   const fetchNecessities = () => {
     getNecessitiesData()
@@ -94,6 +97,20 @@ const Necessity = () => {
       necess => necess.name === necessity
     ).categories
     setCategories(categoriesData)
+  }
+
+
+  const fetchCategories = async () => {
+    const onSuccess = response => {
+      console.log('RESPONSE', response)
+      setCategories(response)
+    }
+
+    const headers = {
+      'Auth': selectUserAuthToken(state)
+    }
+
+    await api.getCategories(headers, onSuccess)
   }
 
 
@@ -139,29 +156,19 @@ const Necessity = () => {
   }
 
 
-  // const generateHostipalPopups = data => {
-  //   const { name, type, address, addressNumber, phone, website, postalCode } = data
-  //   return (
-  //     <Popup>
-  //       <b>{name ? name: ''}</b><br/>
-  //       {type ? <p><b>Especialidad:</b> {type.name}</p> : ''}
-  //       {phone ? <p><b>Teléfono:</b> {phone}</p> : ''}
-  //       {address ? <p><b>Dirección:</b> {address} {addressNumber}, {postalCode}</p> : ''}
-  //       {website ? <p><b>Web:</b> {website}</p> : ''}
-  //     </Popup>
-  //   )
-  // }
-
-
   const renderNecessityIntoMap = (idx, necessity) => {
     setDataToMap([necessity])
+    setTitle(necessity)
   }
+
 
   useEffect(() => {
     if (!necessitiyList) {
       fetchNecessities()
+      fetchCategories()
     }
   })
+
 
   useEffect(() => {
     if (!necessityTypesIsFetched && necessityTypes.length < 1) {
@@ -204,14 +211,59 @@ const Necessity = () => {
   }
 
 
+  const onCategoryFilterOption = async (category) => {
+    const onSuccess = response => {
+      setNecessityList(response)
+    }
+
+    const headers = {
+      'Auth': selectUserAuthToken(state),
+      'Content-Type': 'application/json'
+    }
+    if (!category) {
+      await api.getNecessities(headers, onSuccess)
+    } else {
+      await api.getNecessitiesByCategory(category, headers, onSuccess)
+    }
+  }
+
+
+  const onNecessityTypeFilterOption = async (necessityType) => {
+    const onSuccess = response => {
+      setNecessityList(response)
+    }
+
+    const headers = {
+      'Auth': selectUserAuthToken(state),
+      'Content-Type': 'application/json'
+    }
+
+    if (!necessityType) {
+      await api.getNecessities(headers, onSuccess)
+    } else {
+      await api.getNecessitiesByType(necessityType, headers, onSuccess)
+    }
+  }
+
   return (
     <div>
       <Navbar />
       <SideBarMenu />
-      <div className="container-fluid home__body">
+      <div className="container-fluid home__body mb-5">
         <h1>Necesidades</h1>
         <hr/>
-        <div className="row justify-content-between mt-5">
+        <div className="row mt-5">
+          <div className="row col-md-12 mb-3 pl-5">
+            <div className=" col-md-2 pb-4">
+              <Filter data={categories} onSelectFilter={onCategoryFilterOption} type={'Categoría'}/>
+            </div>
+            <div className=" col-md-2 pb-4">
+              <Filter data={necessityTypes} onSelectFilter={onNecessityTypeFilterOption} type={'Tipo'}/>
+            </div>
+            <div className="col-md-8 pb-3">
+              <h3>{title.name}</h3>
+            </div>
+          </div>
           <div className="col-md-4">
             {renderMiniNavbar(mode, setMode)}
             {
@@ -232,7 +284,7 @@ const Necessity = () => {
           <div className="col col-md-8">
             <MapComponent data={dataToMap} onClickMapHandler={setCoordinates}/>
             <p className='text-muted text-small mt-2'>
-              Para elegir varios puntos manten apretada la tecla <kbd>Ctrl</kbd> antes de realizar los clicks
+              Para elegir varios puntos manten apretada la tecla <kbd>Ctrl</kbd> al momento de hacer los clicks
             </p>
           </div>
         </div>
