@@ -7,7 +7,7 @@ const NecessityForm = ({
   necessityTypes,
   coordFromMap,
   categories,
-  onSeclectNecessityType,
+  onSelectNecessityType,
   onHandlerSummit
 }) => {
   const styles = {
@@ -29,7 +29,7 @@ const NecessityForm = ({
     const { value } = event.target
     switch (type) {
       case 'necessityType':
-        onSeclectNecessityType(value)
+        onSelectNecessityType(value)
         setNecessityTypeValue(value)
         break
       case 'category':
@@ -137,10 +137,10 @@ const NecessityForm = ({
               <option value={null}>Elija una Categoría</option>
           }
           {
-            categories.map(necessityType => {
-              const necessityTypeName = necessityType.name
+            categories.map(category => {
+              const categoryName = category.name
               return (
-                <option value={necessityTypeName}>{necessityTypeName}</option>
+                <option value={categoryName}>{categoryName}</option>
               )
             })
           }

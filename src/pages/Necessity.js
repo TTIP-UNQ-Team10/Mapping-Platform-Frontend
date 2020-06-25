@@ -6,17 +6,14 @@ import NecessityTable from '../components/Necessity/NecessityTable.js'
 import Filter from '../components/Necessity/Filter.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
-import {
-  createShowSuccessNotificationAction,
-  createShowErrorNotificationAction
-} from '../store/actions/notification.js'
-import { selectUserAuthToken } from '../store/selectors/user.js'
-import api from '../api'
 import config from '../config.js'
+import NecessityService from '../services/Necessity/NecessityService'
+import CategoryService from '../services/Category/CategoryService.js'
+
+const necessityService = new NecessityService()
+const categoryService = new CategoryService()
 
 const { colors } = config
-
-
 
 const renderMiniNavbar = (mode, setMode) => {
   const styles = {
@@ -63,14 +60,9 @@ const renderMiniNavbar = (mode, setMode) => {
   )
 }
 
-
-
-
-
-
 const Necessity = () => {
 
-  const [necessitiyList, setNecessityList] = useState(null);
+  const [necessityList, setNecessityList] = useState(null);
   const [dataToMap, setDataToMap] = useState(null)
   const [mode, setMode] = useState('table')
   const [coordinates, setCoordinates] = useState(null)
@@ -101,58 +93,17 @@ const Necessity = () => {
 
 
   const fetchCategories = async () => {
-    const onSuccess = response => {
-      console.log('RESPONSE', response)
-      setCategories(response)
-    }
-
-    const headers = {
-      'Auth': selectUserAuthToken(state)
-    }
-
-    await api.getCategories(headers, onSuccess)
+    await categoryService.getCategories(setCategories)
   }
 
 
   const getNecessityTypesData = async () => {
-    const headers = {
-      'Auth': selectUserAuthToken(state)
-    }
-
-    const onSuccess = async (response) => {
-      const data = await response
-      setNecessityTypes(data)
-    }
-
-    const onError = async (error) => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'No se han podido obtener los tipos de necesidad'
-      }))
-    }
-
-    await api.getNecessityTypes(headers, onSuccess, onError)
+    await necessityService.getNecessityTypesData(setNecessityTypes, dispatch, state)
   }
 
 
   const getNecessitiesData = async () => {
-    const headers = {
-      'Auth': selectUserAuthToken(state)
-    }
-
-    const onSuccess = async (response) => {
-      const data = await response
-      setNecessityList(data)
-    }
-
-    const onError = async (error) => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'No se han podido obtener las necesidades'
-      }))
-    }
-
-    await api.getNecessities(headers, onSuccess, onError)
+    await necessityService.getNecessitiesData(setNecessityList, dispatch, state)
   }
 
 
@@ -163,7 +114,7 @@ const Necessity = () => {
 
 
   useEffect(() => {
-    if (!necessitiyList) {
+    if (!necessityList) {
       fetchNecessities()
       fetchCategories()
     }
@@ -184,65 +135,17 @@ const Necessity = () => {
 
 
   const saveNecessity = async (data) => {
-    const headers = {
-      'Auth': selectUserAuthToken(state),
-      'Content-Type': 'application/json'
-    }
-
-    const onSuccess = async (response) => {
-      const newNecessity = await response
-      dispatch(createShowSuccessNotificationAction({
-        header: '¡Necesidad Creada!',
-        message: 'El mapeo se a creado con éxito'
-      }))
-
-      necessitiyList.push(newNecessity)
-      setNecessityList(necessitiyList)
-    }
-
-    const onError = async (error) => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'No se han podido crear un mapeo'
-      }))
-    }
-
-    await api.createNecessity(data, headers, onSuccess, onError)
+    await necessityService.saveNecessity(data, dispatch, necessityList, setNecessityList, state)
   }
 
 
   const onCategoryFilterOption = async (category) => {
-    const onSuccess = response => {
-      setNecessityList(response)
-    }
-
-    const headers = {
-      'Auth': selectUserAuthToken(state),
-      'Content-Type': 'application/json'
-    }
-    if (!category) {
-      await api.getNecessities(headers, onSuccess)
-    } else {
-      await api.getNecessitiesByCategory(category, headers, onSuccess)
-    }
+    await necessityService.onCategoryFilterOption(category, state, setNecessityList)
   }
 
 
   const onNecessityTypeFilterOption = async (necessityType) => {
-    const onSuccess = response => {
-      setNecessityList(response)
-    }
-
-    const headers = {
-      'Auth': selectUserAuthToken(state),
-      'Content-Type': 'application/json'
-    }
-
-    if (!necessityType) {
-      await api.getNecessities(headers, onSuccess)
-    } else {
-      await api.getNecessitiesByType(necessityType, headers, onSuccess)
-    }
+    await necessityService.onNecessityTypeFilterOption(necessityType, setNecessityList)
   }
 
   return (
@@ -271,12 +174,12 @@ const Necessity = () => {
               <NecessityForm
                 necessityTypes={necessityTypes}
                 categories={categories}
-                onSeclectNecessityType={getCategoriesByNecessityType}
+                onSelectNecessityType={getCategoriesByNecessityType}
                 coordFromMap={coordinates}
                 onHandlerSummit={saveNecessity}
               /> :
               <NecessityTable
-                data={necessitiyList}
+                data={necessityList}
                 showNecessityIntoMap={renderNecessityIntoMap}
               />
             }

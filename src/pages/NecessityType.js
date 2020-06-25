@@ -5,13 +5,10 @@ import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import NecessityTypeTable from '../components/NecessityType/NecessityTypeTable.js'
 import NecessityTypeForm from '../components/NecessityType/NecessityTypeForm.js'
-import { selectUserAuthToken } from '../store/selectors/user.js'
 import { handlerInput } from '../utils/utils.js'
-import api from '../api'
-import {
-  createShowSuccessNotificationAction,
-  createShowErrorNotificationAction
-} from '../store/actions/notification.js'
+import NecessityTypeService from '../services/NecessityType/NecessityTypeService'
+
+const necessityTypeService = new NecessityTypeService()
 
 
 const NecessityType = () => {
@@ -22,24 +19,17 @@ const NecessityType = () => {
   const { state, dispatch } = useContext(AppContext)
   const history = useHistory()
 
-  const headers = {
-    'auth': selectUserAuthToken(state),
-    'Content-Type': 'application/json'
-  }
-
   const checkingLoginStatus = (response, fn) => {
     response && !response.error ? fn(response) : history.push('/login')
   }
 
 
   const fetchNecessityTypes = async () => {
-    const response = await api.getNecessityTypes(headers)
-    checkingLoginStatus(response, setNecessityTypes)
+    await necessityTypeService.fetchNecessityTypes(checkingLoginStatus, setNecessityTypes, state)
   }
 
   const fetchCategories = async () => {
-    const response = await api.getCategories(headers)
-    checkingLoginStatus(response, setCategories)
+    await necessityTypeService.fetchCategories(checkingLoginStatus, setCategories, state)
   }
 
 
@@ -50,62 +40,17 @@ const NecessityType = () => {
 
 
   const onCreateNecessityType = async (necessityTypeData) => {
-    const onSuccess = response => {
-      dispatch(createShowSuccessNotificationAction({
-        header: '!Tipo de Necesidad Creada!',
-        message: 'El tipo de necesidad se creó con éxito'
-      }))
-      necessityTypes.push(response)
-      setNecessityTypes(necessityTypes)
-    }
-
-    const onError = error => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'Ha ocurrido un error cuando se intentaba crea un tipo de necesidad'
-      }))
-    }
-
-    await api.createNecessityType(necessityTypeData, headers, onSuccess, onError)
+    await necessityTypeService.onCreateNecessityType(necessityTypeData, necessityTypes, setNecessityTypes, dispatch, state)
   }
 
 
   const onDeleteNecessityType = async (idx, necessityTypeId) => {
-    const onSuccess = response => {
-      dispatch(createShowSuccessNotificationAction({
-        header: '!Tipo de Necesidad Eliminada!',
-        message: 'El tipo de necesidad se eliminó con éxito'
-      }))
-    }
-
-    const onError = error => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'Ha ocurrido un error cuando se intentaba eliminar un tipo de necesidad'
-      }))
-    }
-
-    await api.removeNecessityType(necessityTypeId, headers, onSuccess, onError)
-    necessityTypes.splice(idx, 1)
+    await necessityTypeService.onDeleteNecessityType(idx, necessityTypeId, necessityTypes, dispatch, state)
   }
 
 
   const onEditNeccesityType = async (necessityType) => {
-    const onSuccess = response => {
-      dispatch(createShowSuccessNotificationAction({
-        header: '¡Tipo de Necesidad Modificada!',
-        message: 'El tipo de necesidad se modificó con éxito'
-      }))
-    }
-
-    const onError = error => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'Ha ocurrido un error cuando se intentaba modificar un tipo de necesidad'
-      }))
-    }
-
-    await api.updateNecessityType(necessityType.id, necessityType,  headers, onSuccess, onError)
+    await necessityTypeService.onEditNeccesityType(necessityType, dispatch, state)
   }
 
 
