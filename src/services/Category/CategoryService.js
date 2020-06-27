@@ -23,7 +23,6 @@ class CategoryService {
 
     async getCategories (setCategories, state) {
         const onSuccess = response => {
-          console.log('RESPONSE', response)
           setCategories(response)
         }
     

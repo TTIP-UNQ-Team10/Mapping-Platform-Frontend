@@ -25,7 +25,7 @@ const NecessityType = () => {
 
 
   const fetchNecessityTypes = async () => {
-    await necessityTypeService.fetchNecessityTypes(checkingLoginStatus, setNecessityTypes, state)
+    await necessityTypeService.fetchNecessityTypesAndCheckLoginStatus(checkingLoginStatus, setNecessityTypes, state)
   }
 
   const fetchCategories = async () => {

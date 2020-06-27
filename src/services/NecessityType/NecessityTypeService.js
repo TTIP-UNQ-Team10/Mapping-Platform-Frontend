@@ -13,8 +13,18 @@ class NecessityTypeService {
             'Content-Type': 'application/json'
         }
     }
+
+    async getNecessityTypes (state, setNecessityTypes) {
+      const headers = NecessityTypeService.getHeaders(state)
+  
+      const onSuccess = response => {
+        setNecessityTypes(response)
+      }
+  
+      await api.getNecessityTypes(headers, onSuccess)
+    }
     
-    async fetchNecessityTypes (checkingLoginStatus, setNecessityTypes, state) {
+    async fetchNecessityTypesAndCheckLoginStatus (checkingLoginStatus, setNecessityTypes, state) {
         const headers = NecessityTypeService.getHeaders(state)
 
         const response = await api.getNecessityTypes(headers)

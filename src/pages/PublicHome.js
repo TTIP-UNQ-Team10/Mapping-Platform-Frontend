@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { selectUserAuthToken } from '../store/selectors/user.js'
 import config from '../config.js'
 import api from '../api'
+import CategoryService from '../services/Category/CategoryService.js';
+import NecessityTypeService from '../services/NecessityType/NecessityTypeService.js';
 
 const { colors, appLogo } = config
 
@@ -201,28 +203,14 @@ const PublicHome = () => {
 
 
   const fetchCategories = async () => {
-    const headers = {
-      'Auth': selectUserAuthToken(state)
-    }
-
-    const onSuccess = response => {
-        setCategories(response)
-    }
-
-    await api.getCategories(headers, onSuccess)
+    const categoryService = new CategoryService()
+    categoryService.fetchCategories(setCategories, state, history)
   }
 
 
   const fetchNecessityTypes = async () => {
-    const headers = {
-      'Auth': selectUserAuthToken(state)
-    }
-
-    const onSuccess = response => {
-      setNecessityTypes(response)
-    }
-
-    await api.getNecessityTypes(headers, onSuccess)
+    const necessityTypeService = new NecessityTypeService()
+    necessityTypeService.getNecessityTypes(state, setNecessityTypes)
   }
 
 
