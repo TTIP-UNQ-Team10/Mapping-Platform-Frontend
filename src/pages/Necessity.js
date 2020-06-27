@@ -93,7 +93,7 @@ const Necessity = () => {
 
 
   const fetchCategories = async () => {
-    await categoryService.getCategories(setCategories)
+    await categoryService.getCategories(setCategories, state)
   }
 
 
@@ -145,7 +145,7 @@ const Necessity = () => {
 
 
   const onNecessityTypeFilterOption = async (necessityType) => {
-    await necessityService.onNecessityTypeFilterOption(necessityType, setNecessityList)
+    await necessityService.onNecessityTypeFilterOption(necessityType, setNecessityList, state)
   }
 
   return (

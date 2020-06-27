@@ -21,7 +21,7 @@ class CategoryService {
         categoriesResponse && !categoriesResponse.error ? setCategories(categoriesResponse) : history.push('/login')
     }
 
-    async getCategories (setCategories) {
+    async getCategories (setCategories, state) {
         const onSuccess = response => {
           console.log('RESPONSE', response)
           setCategories(response)

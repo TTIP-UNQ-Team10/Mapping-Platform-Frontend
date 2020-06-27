@@ -106,7 +106,7 @@ class NecessityService {
       }
     }
 
-    async onNecessityTypeFilterOption (necessityType, setNecessityList) {
+    async onNecessityTypeFilterOption (necessityType, setNecessityList, state) {
       const headers = NecessityService.getHeaders(state)
       
       const onSuccess = response => {
