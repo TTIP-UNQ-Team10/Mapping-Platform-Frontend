@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { handlerInput } from '../../utils/utils.js'
 import config from '../../config.js'
 
 const { colors } = config
@@ -25,33 +26,10 @@ const NecessityForm = ({
   const [circleRadius, setCircleRadius] = useState(0)
   const [shapeColor, setShapeColor] = useState('black')
 
-  const handlerInput = (event, type) => {
+  const handlerNecessityTypeInput = (event) => {
     const { value } = event.target
-    switch (type) {
-      case 'necessityType':
-        onSeclectNecessityType(value)
-        setNecessityTypeValue(value)
-        break
-      case 'category':
-        setCategoryValue(value)
-        break
-      case 'description':
-        setDescriptionValue(value)
-        break
-      case 'name':
-        setNameValue(value)
-        break
-      case 'locationType':
-        setLocationType(value)
-        break
-      case 'circle-radius':
-        setCircleRadius(value)
-        break
-      case 'shape-color':
-        setShapeColor(value)
-        break
-      default:
-    }
+    onSeclectNecessityType(value)
+    setNecessityTypeValue(value)
   }
 
   const clearForm = () => {
@@ -98,7 +76,7 @@ const NecessityForm = ({
           placeholder="Ingrese un nombre del mapeo"
           aria-label="Nombre"
           aria-describedby="basic-addon1"
-          onChange={e => handlerInput(e, 'name')}
+          onChange={e => handlerInput(e, setNameValue)}
         />
       </div>
       <div className="mb-3">
@@ -111,12 +89,12 @@ const NecessityForm = ({
           placeholder="Ingrese alguna descripción del mapeo"
           aria-label="Descripción"
           aria-describedby="basic-addon1"
-          onChange={e => handlerInput(e, 'description')}
+          onChange={e => handlerInput(e, setDescriptionValue)}
         />
       </div>
       <div className="mb-3">
         <label className="pull-left">Tipo de Necesidad</label>
-        <select className="form-control" onChange={e => handlerInput(e, 'necessityType')}>
+        <select className="form-control" onChange={e => handlerNecessityTypeInput(e)}>
           <option value={null}>Elija un tipo de Necesidad</option>
           {
             necessityTypes.map(necessityType => {
@@ -130,7 +108,7 @@ const NecessityForm = ({
       </div>
       <div className="mb-3">
         <label className="pull-left">Categoría</label>
-        <select className="form-control" onChange={e => handlerInput(e, 'category')} >
+        <select className="form-control" onChange={e => handlerInput(e, setCategoryValue)} >
           {
             categories.length < 1 ?
               <option value={null}>Primero elija un Tipo de Necesidad</option> :
@@ -148,7 +126,7 @@ const NecessityForm = ({
       </div>
       <div className="mb-3">
         <label className="pull-left">Tipo de Marca</label>
-        <select className="form-control" onChange={e => handlerInput(e, 'locationType')}>
+        <select className="form-control" onChange={e => handlerInput(e, setLocationType)}>
           <option value={null}>Elija un tipo de marca a graficar</option>
           <option value='marker'>Marca</option>
           <option value='circle'>Círculo</option>
@@ -156,7 +134,7 @@ const NecessityForm = ({
           <option value='rectangle'>Rectángulo</option>
         </select>
       </div>
-      {renderExtraPropertiesForLocationType(locationType, handlerInput)}
+      {renderExtraPropertiesForLocationType(locationType, handlerInput, setShapeColor, setCircleRadius)}
       <div className="mb-4">
         <button type="submit"
         className="btn btn-block btn-dark"
@@ -168,7 +146,7 @@ const NecessityForm = ({
 }
 
 
-const renderExtraPropertiesForLocationType = (locationType, handlerInput) => (
+const renderExtraPropertiesForLocationType = (locationType, handlerInput, setShapeColor, setCircleRadius) => (
   <div className="mb-3">
     {
       locationType !== 'marker' ?
@@ -181,7 +159,7 @@ const renderExtraPropertiesForLocationType = (locationType, handlerInput) => (
             placeholder="Ingrese un color"
             aria-label="Radio"
             aria-describedby="basic-addon1"
-            onChange={e => handlerInput(e, 'shape-color')}
+            onChange={e => handlerInput(e, setShapeColor)}
           />
         </div> : null
     }
@@ -191,12 +169,12 @@ const renderExtraPropertiesForLocationType = (locationType, handlerInput) => (
           <label className="pull-left">Radio</label>
           <input type="number"
             required
-            name="cilcleRadius"
+            name="circleRadius"
             className="form-control"
             placeholder="Ingrese el un número para indicar el radio del círculo"
             aria-label="Radio"
             aria-describedby="basic-addon1"
-            onChange={e => handlerInput(e, 'circle-radius')}
+            onChange={e => handlerInput(e, setCircleRadius)}
           />
         </div> : null
     }

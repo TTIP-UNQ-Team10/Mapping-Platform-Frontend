@@ -90,13 +90,18 @@ const MapComponent = (props) => {
   }
 
 
+  const center = dataObject && dataObject.length === 1
+    && ( dataObject[0].location.type === 'marker' ||  dataObject[0].location.type === 'circle') ?
+      dataObject[0].location.coordinates : mapCenter  //CALCULAR EL CENTRO SI ES UN RECTANGULO O POLIGONO
+
   return (
     <Map
       style={styles.map}
-      center={mapCenter}
+      center={center}
       zoom={12}
       id="mapid"
       tap={true}
+      animate={true}
       onClick={onClickMap}
     >
         {settingLayerMap(dataObject)}
@@ -104,7 +109,7 @@ const MapComponent = (props) => {
           dataObject.map(
             data => {
               const { location } = data
-
+              console.log(data);
               return  location.type === 'marker' ?
                 <Marker position={location.coordinates}>
                   {generatePopupFunction(data)}
@@ -120,6 +125,7 @@ const MapComponent = (props) => {
 
                 location.type === 'select' ?
                   <Marker
+                    draggable={true}
                     position={location.coordinates}
                   /> :
 

@@ -11,6 +11,9 @@ import {
   createShowErrorNotificationAction
 } from '../store/actions/notification.js'
 import api from '../api'
+import config from '../config.js'
+
+const { colors } = config
 
 const Category = () => {
 
@@ -103,13 +106,22 @@ const Category = () => {
     handlerFunction(value)
   }
 
+  const styles = {
+    body__title_background: {
+      color: colors.buttonColor.textColor,
+      backgroundColor: colors.navBarOptions.backgroundColor,
+      filter: 'opacity(85%)'
+    }
+  }
+
   return (
     <div>
       <Navbar />
       <SideBarMenu />
+      <div className="body__title" style={styles.body__title_background}>
+        <h2>Administración de Categorías</h2>
+      </div>
       <div className="home__body container-fluid">
-        <h1>Administración de Categorías</h1>
-        <hr/>
         <div className="row justify-content-between mt-5">
           <CategoryForm
             onInputHandler={handlerInput}

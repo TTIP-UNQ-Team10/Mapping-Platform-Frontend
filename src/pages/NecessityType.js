@@ -12,6 +12,9 @@ import {
   createShowSuccessNotificationAction,
   createShowErrorNotificationAction
 } from '../store/actions/notification.js'
+import config from '../config.js'
+
+const { colors } = config
 
 
 const NecessityType = () => {
@@ -108,14 +111,23 @@ const NecessityType = () => {
     await api.updateNecessityType(necessityType.id, necessityType,  headers, onSuccess, onError)
   }
 
+  const styles = {
+    body__title_background: {
+      color: colors.buttonColor.textColor,
+      backgroundColor: colors.navBarOptions.backgroundColor,
+      filter: 'opacity(85%)'
+    }
+  }
+
 
   return (
     <div>
       <Navbar />
       <SideBarMenu />
+      <div className="body__title" style={styles.body__title_background}>
+        <h2>Administración de Tipos de Necesidades</h2>
+      </div>
       <div className="home__body container-fluid">
-        <h1>Administración de Tipos de Necesidades</h1>
-        <hr/>
         <div className="container-fluid row">
           <NecessityTypeForm
             onClickHandler={onCreateNecessityType}
