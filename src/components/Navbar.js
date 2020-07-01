@@ -87,7 +87,6 @@ const Navbar = () => {
       { isLogged ? openSideBarButton() : null}
         <img src={APP_LOGO} alt="mapping-platform-logo" style={styles.image__logo}/>
       </div>
-      <h4>{config.name}</h4>
       <div>
         {userInformation(user, isLogged, history)}
       </div>

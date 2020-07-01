@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import config from '../../config.js'
 import { handlerInput } from '../../utils/utils.js'
+import config from '../../config.js'
 
 const { colors } = config
 
@@ -25,6 +25,12 @@ const NecessityForm = ({
   const [locationType, setLocationType] = useState('')
   const [circleRadius, setCircleRadius] = useState(0)
   const [shapeColor, setShapeColor] = useState('black')
+
+  const handlerNecessityTypeInput = (event) => {
+    const { value } = event.target
+    onSeclectNecessityType(value)
+    setNecessityTypeValue(value)
+  }
 
   const clearForm = () => {
     setNecessityTypeValue(null)
@@ -88,10 +94,7 @@ const NecessityForm = ({
       </div>
       <div className="mb-3">
         <label className="pull-left">Tipo de Necesidad</label>
-        <select className="form-control" onChange={e => handlerInput(e, (value) => {
-            onSelectNecessityType(value)
-            setNecessityTypeValue(value)
-        })}>
+        <select className="form-control" onChange={e => handlerNecessityTypeInput(e)}>
           <option value={null}>Elija un tipo de Necesidad</option>
           {
             necessityTypes.map(necessityType => {
@@ -166,7 +169,7 @@ const renderExtraPropertiesForLocationType = (locationType, handlerInput, setSha
           <label className="pull-left">Radio</label>
           <input type="number"
             required
-            name="cilcleRadius"
+            name="circleRadius"
             className="form-control"
             placeholder="Ingrese el un número para indicar el radio del círculo"
             aria-label="Radio"
