@@ -8,6 +8,7 @@ import {
   CircleMarker,
   Polygon
 } from 'react-leaflet'
+import { getPolygonCenter } from '../../utils/utils.js'
 
 const accessToken = process.env.REACT_APP_OSM_API_KEY;
 const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
@@ -90,9 +91,22 @@ const MapComponent = (props) => {
   }
 
 
-  const center = dataObject && dataObject.length === 1
-    && ( dataObject[0].location.type === 'marker' ||  dataObject[0].location.type === 'circle') ?
-      dataObject[0].location.coordinates : mapCenter  //CALCULAR EL CENTRO SI ES UN RECTANGULO O POLIGONO
+  const calculateCenter = (dataObject) => {
+    const data = dataObject ? dataObject[0] : null
+
+    if (data && (data.location.type === 'marker' || data.location.type === 'circle')) {
+      return data.location.coordinates
+    } else if (data) {
+      return getPolygonCenter(data.location.coordinates)
+    } else {
+      return mapCenter
+    }
+
+
+  }
+
+
+  const center = calculateCenter(dataObject)
 
   return (
     <Map
