@@ -1,26 +1,35 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AppContext } from './store/Store.js'
 import { selectNotificationState } from './store/selectors/notification.js'
+import { selectSettingsState } from './store/selectors/settings.js'
 import Login from './pages/Login.js'
 import BaseHome from './pages/BaseHome.js'
 import PublicHome from './pages/PublicHome.js'
 import Category from './pages/Category.js'
 import NecessityType from './pages/NecessityType.js'
 import Necessity from './pages/Necessity.js'
+import Setting from './pages/Setting.js'
 import { Notification } from './components/Notification.js'
 import AuthProvider from './components/AuthProvider.js'
+import { createChangeSettingsStylesAction } from './store/actions/settings.js'
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import './App.css';
-import './config.js'
+import * as configFile from  './config.js'
+
 
 const App = () => {
 
-  const { state } = useContext(AppContext)
+  const { state, dispatch } = useContext(AppContext)
   const { showNotification } = selectNotificationState(state)
+  const { config } = selectSettingsState(state)
+
+  useEffect(() => {
+    dispatch(createChangeSettingsStylesAction(configFile))
+  }, [config])
 
   return (
     <div className="App">
@@ -74,6 +83,12 @@ const App = () => {
             <Route path="/necessities/type/:necessityType" exact={true}
               render={(props) => (
                 <Necessity {...props}/>
+                )}
+            >
+            </Route>
+            <Route path="/settings" exact={true}
+              render={(props) => (
+                <Setting {...props}/>
                 )}
             >
             </Route>
