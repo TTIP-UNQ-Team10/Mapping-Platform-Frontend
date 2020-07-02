@@ -5,10 +5,10 @@ import MapFilter from '../components/MapFilter.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import { Popup } from 'react-leaflet'
-import { createShowErrorNotificationAction } from '../store/actions/notification.js'
-import { selectUserAuthToken } from '../store/selectors/user.js'
-import api from '../api'
 import config from '../config.js'
+import NecessityService from '../services/Necessity/NecessityService.js'
+
+const necessityService = new NecessityService()
 
 const { colors } = config
 
@@ -25,9 +25,6 @@ const NecessitiesPublicMap = (props) => {
   const [data, setData] = useState(null);
   const [publicHomeFilter, setPublicHomeFilter] = useState(null)
   const { state, dispatch } = useContext(AppContext)
-  const headers = {
-    'Auth': selectUserAuthToken(state)
-  }
 
   const showNecessities = () => {
     setData(getNecessities())
@@ -51,41 +48,11 @@ const NecessitiesPublicMap = (props) => {
   })
 
   const getNecessities = async () => {
-
-    const onSuccess = async (response) => {
-      const data = await response
-      setData(data)
-    }
-
-    const onError = async (error) => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'No se han podido obtener las Necesidades'
-      }))
-    }
-
-    await api.getNecessities(headers, onSuccess, onError)
+    await necessityService.getNecessitiesData(setData, dispatch, state)
   }
 
   const fetchNecessitiesByCategory = async (category) => {
-
-    const onSuccess = async (response) => {
-      const data = await response
-      setData(data)
-    }
-
-    const onError = async (error) => {
-      dispatch(createShowErrorNotificationAction({
-        header: '¡Error!',
-        message: 'No se han podido obtener las Necesidades'
-      }))
-    }
-
-    const headers = {
-      'Auth': selectUserAuthToken(state)
-    }
-
-    await api.getNecessitiesByCategory(headers, onSuccess, onError, category)
+    await necessityService.getNecessitiesByCategory(category, setData, dispatch, state)
   }
 
 

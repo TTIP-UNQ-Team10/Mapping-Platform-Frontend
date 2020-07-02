@@ -8,6 +8,7 @@ import {
   CircleMarker,
   Polygon
 } from 'react-leaflet'
+import { getPolygonCenter } from '../../utils/utils.js'
 
 const accessToken = process.env.REACT_APP_OSM_API_KEY;
 const uri = `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${accessToken}`;
@@ -90,13 +91,29 @@ const MapComponent = (props) => {
   }
 
 
+  const calculateCenter = (dataObject) => {
+    const data = dataObject ? dataObject[0] : null
+
+    if (data && (data.location.type === 'marker' || data.location.type === 'circle' || data.location.type === 'select')) {
+      return data.location.coordinates
+    } else if (data) {
+      return getPolygonCenter(data.location.coordinates)
+    } else {
+      return mapCenter
+    }
+  }
+
+
+  const center = calculateCenter(dataObject)
+
   return (
     <Map
       style={styles.map}
-      center={mapCenter}
+      center={center}
       zoom={12}
       id="mapid"
       tap={true}
+      animate={true}
       onClick={onClickMap}
     >
         {settingLayerMap(dataObject)}
@@ -104,7 +121,7 @@ const MapComponent = (props) => {
           dataObject.map(
             data => {
               const { location } = data
-
+              
               return  location.type === 'marker' ?
                 <Marker position={location.coordinates}>
                   {generatePopupFunction(data)}
@@ -120,6 +137,7 @@ const MapComponent = (props) => {
 
                 location.type === 'select' ?
                   <Marker
+                    draggable={true}
                     position={location.coordinates}
                   /> :
 
