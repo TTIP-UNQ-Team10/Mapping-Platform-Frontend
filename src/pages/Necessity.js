@@ -14,6 +14,7 @@ const necessityService = new NecessityService()
 const categoryService = new CategoryService()
 const { colors } = config
 
+
 const renderMiniNavbar = (mode, setMode) => {
   const styles = {
     nav__pill: {
@@ -47,7 +48,7 @@ const renderMiniNavbar = (mode, setMode) => {
         </li>
         <li className="nav-item col-md-6" role="presentation">
           <a className="nav-link pill__button" href="pill-form" style={getPillStyleClass('form')}
-            id="pills-home-tab" data-toggle="pill" onClick={() => setMode('form')}
+            id="pills-home-tab" data-toggle="pill" onClick={() => { setMode('form') }} REVISAR AL CLICKEAR COORD
             role="tab" aria-controls="pills-home" aria-selected="true">Nuevo Mapeo
           </a>
         </li>
@@ -202,7 +203,7 @@ const Necessity = () => {
             }
           </div>
           <div className="col col-md-8">
-            <MapComponent data={dataToMap} onClickMapHandler={setCoordinates}/>
+            <MapComponent data={dataToMap} onClickMapHandler={setCoordinates} />
             <p className='text-muted text-small mt-2'>
               Para elegir varios puntos manten apretada la tecla <kbd>Ctrl</kbd> al momento de hacer los clicks
             </p>
