@@ -6,9 +6,10 @@ import NecessityTable from '../components/Necessity/NecessityTable.js'
 import Filter from '../components/Necessity/Filter.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
-import config from '../config.js'
 import NecessityService from '../services/Necessity/NecessityService'
 import CategoryService from '../services/Category/CategoryService.js'
+import { disabledFilter } from '../utils/utils.js'
+import config from '../config.js'
 
 const necessityService = new NecessityService()
 const categoryService = new CategoryService()
@@ -136,18 +137,14 @@ const Necessity = () => {
     await necessityService.saveNecessity(data, dispatch, necessityList, setNecessityList, state)
   }
 
-
   const onCategoryFilterOption = async (category) => {
+    disabledFilter(category, filterEnable, setFilterEnable, 1)
     await necessityService.onCategoryFilterOption(category, state, setNecessityList)
   }
 
 
   const onNecessityTypeFilterOption = async (necessityType) => {
-    if (!necessityType) {
-      setFilterEnable([true, true])
-    } else {
-      setFilterEnable([false, true])
-    }
+    disabledFilter(necessityType, filterEnable, setFilterEnable, 0)
     await necessityService.onNecessityTypeFilterOption(necessityType, setNecessityList, state)
   }
 

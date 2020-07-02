@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { AppContext } from '../store/Store.js'
 import { useHistory } from 'react-router-dom'
 import { Link } from "react-router-dom";
-import { selectUserAuthToken } from '../store/selectors/user.js'
 import config from '../config.js'
-import api from '../api'
 import CategoryService from '../services/Category/CategoryService.js';
 import NecessityTypeService from '../services/NecessityType/NecessityTypeService.js';
 

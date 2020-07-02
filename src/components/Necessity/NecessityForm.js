@@ -28,7 +28,7 @@ const NecessityForm = ({
 
   const handlerNecessityTypeInput = (event) => {
     const { value } = event.target
-    onSeclectNecessityType(value)
+    onSelectNecessityType(value)
     setNecessityTypeValue(value)
   }
 
