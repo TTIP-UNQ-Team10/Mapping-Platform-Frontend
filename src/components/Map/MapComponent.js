@@ -121,7 +121,7 @@ const MapComponent = (props) => {
           dataObject.map(
             data => {
               const { location } = data
-              console.log(data);
+              
               return  location.type === 'marker' ?
                 <Marker position={location.coordinates}>
                   {generatePopupFunction(data)}
