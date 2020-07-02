@@ -94,15 +94,13 @@ const MapComponent = (props) => {
   const calculateCenter = (dataObject) => {
     const data = dataObject ? dataObject[0] : null
 
-    if (data && (data.location.type === 'marker' || data.location.type === 'circle')) {
+    if (data && (data.location.type === 'marker' || data.location.type === 'circle' || data.location.type === 'select')) {
       return data.location.coordinates
     } else if (data) {
       return getPolygonCenter(data.location.coordinates)
     } else {
       return mapCenter
     }
-
-
   }
 
 

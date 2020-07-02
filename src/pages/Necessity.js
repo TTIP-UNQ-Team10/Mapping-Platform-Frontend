@@ -16,7 +16,7 @@ const categoryService = new CategoryService()
 const { colors } = config
 
 
-const renderMiniNavbar = (mode, setMode) => {
+const renderMiniNavbar = (mode, setMode, setDataToMap) => {
   const styles = {
     nav__pill: {
       backgroundColor: colors.backgroundColor,
@@ -43,13 +43,13 @@ const renderMiniNavbar = (mode, setMode) => {
       <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li className="nav-item col-md-6" role="presentation">
           <a className="nav-link active pill__button" href="pill-table" style={getPillStyleClass('table')}
-            id="pills-profile-tab" data-toggle="pill" onClick={() => setMode('table')}
+            id="pills-profile-tab" data-toggle="pill" onClick={() => { setMode('table'); setDataToMap(null)  }}
             role="tab" aria-controls="pills-profile" aria-selected="false">Necesidades
           </a>
         </li>
         <li className="nav-item col-md-6" role="presentation">
           <a className="nav-link pill__button" href="pill-form" style={getPillStyleClass('form')}
-            id="pills-home-tab" data-toggle="pill" onClick={() => { setMode('form') }} REVISAR AL CLICKEAR COORD
+            id="pills-home-tab" data-toggle="pill" onClick={() => { setMode('form'); setDataToMap(null) }}
             role="tab" aria-controls="pills-home" aria-selected="true">Nuevo Mapeo
           </a>
         </li>
@@ -135,6 +135,7 @@ const Necessity = () => {
 
   const saveNecessity = async (data) => {
     await necessityService.saveNecessity(data, dispatch, necessityList, setNecessityList, state)
+    setDataToMap(null)
   }
 
   const onCategoryFilterOption = async (category) => {
@@ -183,7 +184,7 @@ const Necessity = () => {
             </div>
           </div>
           <div className="col-md-4">
-            {renderMiniNavbar(mode, setMode)}
+            {renderMiniNavbar(mode, setMode, setDataToMap)}
             {
               mode === 'form' ?
               <NecessityForm
