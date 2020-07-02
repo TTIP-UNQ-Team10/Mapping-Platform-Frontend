@@ -3,12 +3,13 @@ import config from '../../config.js'
 
 const { colors } = config
 
-const Filter = ({data, onSelectFilter, type}) => {
+const Filter = ({data, onSelectFilter, type, enable}) => {
   const styles = {
     filter__button: {
-      backgroundColor: 'transparent',
+      backgroundColor: colors.backgroundColor,
       color: colors.buttonColor.backgroundColor,
-      border: `1px dashed ${colors.buttonColor.backgroundColor}`
+      boderColor: `${colors.buttonColor.backgroundColor}`,
+      transition: '0.2s'
     }
   }
 
@@ -19,14 +20,19 @@ const Filter = ({data, onSelectFilter, type}) => {
     onSelectFilter(dataObject)
   }
 
+  const getFilterButtonStyleClass = (enable) => {
+    return enable ? 'filter_button btn btn-lg dropdown-toggle' : 'btn btn-lg dropdown-toggle'
+  }
+
   return (
-      <div className="dropdown btn-group dropright ml-3">
-        <button className="btn btn-lg dropdown-toggle filter_button"
+      <div className="dropdown btn-group dropright">
+        <button className={getFilterButtonStyleClass(enable)}
           type="button" id="dropdownFilterButton"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
           style={styles.filter__button}
+          disabled={!enable}
         >
           {
             dataSelected ?
@@ -35,11 +41,11 @@ const Filter = ({data, onSelectFilter, type}) => {
           }
         </button>
         <div className="dropdown-menu" aria-labelledby="dropdownFilterButton">
-          <a className="dropdown-item" onClick={() => onCategorySelected(null)}>Todas</a>
+          <button className="dropdown-item" onClick={() => onCategorySelected(null)}>Todas</button>
           {
             data ?
               data.map( dataObject =>
-                <a className="dropdown-item" onClick={() => onCategorySelected(dataObject.name)}>{dataObject.name}</a>
+                <button className="dropdown-item" onClick={() => onCategorySelected(dataObject.name)}>{dataObject.name}</button>
               ) : null
           }
         </div>

@@ -7,8 +7,10 @@ import NecessityTypeTable from '../components/NecessityType/NecessityTypeTable.j
 import NecessityTypeForm from '../components/NecessityType/NecessityTypeForm.js'
 import { handlerInput } from '../utils/utils.js'
 import NecessityTypeService from '../services/NecessityType/NecessityTypeService'
-
+import config from '../config.js'
 const necessityTypeService = new NecessityTypeService()
+
+const { colors } = config
 
 
 const NecessityType = () => {
@@ -53,14 +55,23 @@ const NecessityType = () => {
     await necessityTypeService.onEditNeccesityType(necessityType, dispatch, state)
   }
 
+  const styles = {
+    body__title_background: {
+      color: colors.buttonColor.textColor,
+      backgroundColor: colors.navBarOptions.backgroundColor,
+      filter: 'opacity(85%)'
+    }
+  }
+
 
   return (
     <div>
       <Navbar />
       <SideBarMenu />
+      <div className="body__title" style={styles.body__title_background}>
+        <h2>Administración de Tipos de Necesidades</h2>
+      </div>
       <div className="home__body container-fluid">
-        <h1>Administración de Tipos de Necesidades</h1>
-        <hr/>
         <div className="container-fluid row">
           <NecessityTypeForm
             onClickHandler={onCreateNecessityType}
