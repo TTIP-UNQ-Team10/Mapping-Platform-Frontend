@@ -44,7 +44,7 @@ const generateMapping = (data, generatePopupFunction, key) => {
               {generatePopupFunction(data)}
             </Polygon>)
     case "circle":
-      return (<Circle 
+      return (<Circle
               key={key}
               center={data.location.coordinates}
               fillColor={data.location.properties.color}
@@ -66,7 +66,7 @@ const MapComponent = (props) => {
   const styles = {
     map: {
       height: '60vh',
-      width: '60%'
+      width: '60%',
     }
   }
 

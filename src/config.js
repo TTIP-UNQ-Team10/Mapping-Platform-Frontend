@@ -26,7 +26,7 @@ if (customizationObj) {
     favicon: favicon,
     colors: {
       appBackgroundColor: {
-        backgroundColor: appBackgroundColor || '#343a40'
+        backgroundColor: appBackgroundColor || '#f3f3f3'
       },
       navBarOptions: {
         activeColor: activeColor || '#f3f3f3',

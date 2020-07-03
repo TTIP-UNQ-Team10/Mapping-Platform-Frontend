@@ -6,28 +6,26 @@ import NecessityTable from '../components/Necessity/NecessityTable.js'
 import Filter from '../components/Necessity/Filter.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
-import config from '../config.js'
 import NecessityService from '../services/Necessity/NecessityService'
 import CategoryService from '../services/Category/CategoryService.js'
+import { disabledFilter } from '../utils/utils.js'
+import config from '../config.js'
 
 const necessityService = new NecessityService()
 const categoryService = new CategoryService()
-
 const { colors } = config
 
-const renderMiniNavbar = (mode, setMode) => {
+
+const renderMiniNavbar = (mode, setMode, setDataToMap) => {
   const styles = {
     nav__pill: {
-      backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
-      border: `1px dashed ${colors.buttonColor.backgroundColor}`,
-      opacity: 0.7,
+      backgroundColor: colors.backgroundColor,
+      color: colors.buttonColor.backgroundColor
     },
     active: {
       backgroundColor: colors.buttonColor.backgroundColor,
       color: colors.buttonColor.textColor,
-      border: `1px dashed ${colors.buttonColor.textColor}`,
-      opacity: 0.7,
+      border: `1px dashed ${colors.buttonColor.textColor}`
     }
   }
 
@@ -41,17 +39,17 @@ const renderMiniNavbar = (mode, setMode) => {
 
 
   return (
-    <div className="col-md-12">
+    <div className="col-md-12 mb-5">
       <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li className="nav-item col-md-6" role="presentation">
-          <a className="nav-link active" href="pill-table" style={getPillStyleClass('table')}
-            id="pills-profile-tab" data-toggle="pill" onClick={() => setMode('table')}
+          <a className="nav-link active pill__button" href="pill-table" style={getPillStyleClass('table')}
+            id="pills-profile-tab" data-toggle="pill" onClick={() => { setMode('table'); setDataToMap(null)  }}
             role="tab" aria-controls="pills-profile" aria-selected="false">Necesidades
           </a>
         </li>
         <li className="nav-item col-md-6" role="presentation">
-          <a className="nav-link" href="pill-form" style={getPillStyleClass('form')}
-            id="pills-home-tab" data-toggle="pill" onClick={() => setMode('form')}
+          <a className="nav-link pill__button" href="pill-form" style={getPillStyleClass('form')}
+            id="pills-home-tab" data-toggle="pill" onClick={() => { setMode('form'); setDataToMap(null) }}
             role="tab" aria-controls="pills-home" aria-selected="true">Nuevo Mapeo
           </a>
         </li>
@@ -70,6 +68,7 @@ const Necessity = () => {
   const [categories, setCategories] = useState([])
   const [necessityTypesIsFetched, setNecessityTypesIsFetched] = useState(false)
   const [title, setTitle] = useState('')
+  const [filterEnable, setFilterEnable] = useState([true, true])
 
   const { state, dispatch } = useContext(AppContext)
 
@@ -126,7 +125,7 @@ const Necessity = () => {
       fetchNecessityTypes()
       setNecessityTypesIsFetched(true)
     }
-  })
+  },[necessityTypes, necessityTypesIsFetched])
 
 
   const getCategoriesByNecessityType = (necessity) => {
@@ -136,39 +135,56 @@ const Necessity = () => {
 
   const saveNecessity = async (data) => {
     await necessityService.saveNecessity(data, dispatch, necessityList, setNecessityList, state)
+    setDataToMap(null)
   }
 
-
   const onCategoryFilterOption = async (category) => {
+    disabledFilter(category, filterEnable, setFilterEnable, 1)
     await necessityService.onCategoryFilterOption(category, state, setNecessityList)
   }
 
 
   const onNecessityTypeFilterOption = async (necessityType) => {
+    disabledFilter(necessityType, filterEnable, setFilterEnable, 0)
     await necessityService.onNecessityTypeFilterOption(necessityType, setNecessityList, state)
   }
+
+
+ const styles = {
+   body__title_background: {
+     color: colors.buttonColor.textColor,
+     backgroundColor: colors.navBarOptions.backgroundColor,
+     filter: 'opacity(85%)'
+   }
+ }
 
   return (
     <div>
       <Navbar />
       <SideBarMenu />
+      <div className="body__title" style={styles.body__title_background}>
+        <h2>Necesidades</h2>
+      </div>
       <div className="container-fluid home__body mb-5">
-        <h1>Necesidades</h1>
-        <hr/>
         <div className="row mt-5">
-          <div className="row col-md-12 mb-3 pl-5">
-            <div className=" col-md-2 pb-4">
-              <Filter data={categories} onSelectFilter={onCategoryFilterOption} type={'Categoría'}/>
+          <div className="row col-md-12 mb-3 top_body">
+            <div className="col-md-2 pb-4">
+              <Filter data={categories} onSelectFilter={onCategoryFilterOption} type={'Categoría'} enable={filterEnable[0]}/>
             </div>
-            <div className=" col-md-2 pb-4">
-              <Filter data={necessityTypes} onSelectFilter={onNecessityTypeFilterOption} type={'Tipo'}/>
+            <div className="col-md-2 pb-4">
+              <Filter data={necessityTypes} onSelectFilter={onNecessityTypeFilterOption} type={'Tipo'} enable={filterEnable[1]}/>
             </div>
-            <div className="col-md-8 pb-3">
-              <h3>{title.name}</h3>
+            <div className="col-md-8 pb-3 necessity-info">
+              <div className="col-md-8">
+                <h4>{title.name}</h4>
+              </div>
+              <div className="col-md-8 pt-1">
+                <p>{title.description}</p>
+              </div>
             </div>
           </div>
           <div className="col-md-4">
-            {renderMiniNavbar(mode, setMode)}
+            {renderMiniNavbar(mode, setMode, setDataToMap)}
             {
               mode === 'form' ?
               <NecessityForm
@@ -185,7 +201,7 @@ const Necessity = () => {
             }
           </div>
           <div className="col col-md-8">
-            <MapComponent data={dataToMap} onClickMapHandler={setCoordinates}/>
+            <MapComponent data={dataToMap} onClickMapHandler={setCoordinates} />
             <p className='text-muted text-small mt-2'>
               Para elegir varios puntos manten apretada la tecla <kbd>Ctrl</kbd> al momento de hacer los clicks
             </p>

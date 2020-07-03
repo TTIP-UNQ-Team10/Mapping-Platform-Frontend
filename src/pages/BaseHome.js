@@ -113,13 +113,22 @@ const BaseHome = () => {
     setNecessityButton: setNecessityHoverButton
   }
 
+  const styles = {
+    body__title_background: {
+      color: colors.buttonColor.textColor,
+      backgroundColor: colors.navBarOptions.backgroundColor,
+      filter: 'opacity(85%)'
+    }
+  }
+
   return (
     <div>
       <Navbar />
       <SideBarMenu />
+      <div className="body__title" style={styles.body__title_background}>
+        <h2>Panel de Administración</h2>
+      </div>
       <div className="home__body container-fluid">
-        <h1>Panel de Administración</h1>
-        <hr/>
         <div className="container">
           <div className="col col-md-12">
             {renderOptions(buttonsStates)}
