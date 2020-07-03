@@ -52,7 +52,7 @@ if (customizationObj) {
 
   const setFaviconAndTitle = (config) => {
     let link = document.querySelector('link[rel*="icon"]') || document.createElement('link')
-    let title = document.getElementsByTagName('title')[0]
+    let title = document.getElementsByTagName('title')[0] || {}
 
     title.textContent = config.name
     link.href = config.favicon

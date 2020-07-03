@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@testing-library/react-hooks": "^3.3.0",
     "bootstrap": "4.4.1",
     "font-awesome": "4.7.0",
     "jquery": "3.4.1",
@@ -38,5 +39,11 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "mocha": "^8.0.1",
+    "sinon": "^9.0.2"
+  }
 }
