@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import { Link } from "react-router-dom";
-import config from '../config.js'
+import { AppContext } from '../store/Store.js'
+import { selectSettingsState } from '../store/selectors/settings.js'
 
-const { colors } = config
-
-const renderOptions = (buttonsStates) => {
+const renderOptions = (buttonsStates, colors) => {
   const styles = {
     action__card: {
       backgroundColor: 'transparent',
@@ -117,6 +116,10 @@ const renderOptions = (buttonsStates) => {
 }
 
 const BaseHome = () => {
+  const { state } = useContext(AppContext)
+  const { config } = selectSettingsState(state)
+  const { colors } = config
+
   const [necessityTypeHoverState, setNecessityTypeHoverState] = useState(false)
   const [categoryButtonHoverState, setCategoryButtonHoverState] = useState(false)
   const [necessityHoverState, setNecessityHoverButton] = useState(false)
@@ -150,7 +153,7 @@ const BaseHome = () => {
       <div className="home__body container-fluid">
         <div className="container">
           <div className="col col-md-12">
-            {renderOptions(buttonsStates)}
+            {renderOptions(buttonsStates, colors)}
           </div>
         </div>
       </div>

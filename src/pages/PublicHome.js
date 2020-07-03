@@ -2,14 +2,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import { AppContext } from '../store/Store.js'
 import { useHistory } from 'react-router-dom'
 import { Link } from "react-router-dom";
-import config from '../config.js'
 import CategoryService from '../services/Category/CategoryService.js';
 import NecessityTypeService from '../services/NecessityType/NecessityTypeService.js';
 
-const { colors, appLogo } = config
+const storage = window.localStorage
 
+const renderCategoryCard = (category, config) => {
+  const { colors } = config
 
-const renderCategoryCard = (category) => {
   const styles = {
     button__show_information: {
       backgroundColor: 'transparent',
@@ -33,7 +33,9 @@ const renderCategoryCard = (category) => {
 }
 
 
-const renderNecessityTypeCard = type => {
+const renderNecessityTypeCard = (type, config) => {
+  const { colors } = config
+
   const styles = {
     button__show_information: {
       backgroundColor: 'transparent',
@@ -58,7 +60,7 @@ const renderNecessityTypeCard = type => {
 
 
 
-const renderMappingCategoriesSection = categories => {
+const renderMappingCategoriesSection = (categories, config) => {
   return (
     <section id="section-3">
       <div className="container">
@@ -66,7 +68,7 @@ const renderMappingCategoriesSection = categories => {
         <div className="col col-md-12">
           <div className="row">
             { categories.length > 0 ?
-                categories.map(categorie => renderCategoryCard(categorie)) :
+                categories.map(category => renderCategoryCard(category, config)) :
                 <h3 className="mt-5">No hay categorías cargadas</h3>
             }
           </div>
@@ -77,7 +79,9 @@ const renderMappingCategoriesSection = categories => {
 }
 
 
-const renderMappingTypesSection = necessityTypes => {
+const renderMappingTypesSection = (necessityTypes, config) => {
+  const { colors } = config
+
   const styles = {
     section__background: {
       backgroundColor: colors.navBarOptions.backgroundColor,
@@ -93,7 +97,7 @@ const renderMappingTypesSection = necessityTypes => {
           <div className="col col-md-12">
             <div className="row">
               { necessityTypes.length > 0 ?
-                  necessityTypes.map(type => renderNecessityTypeCard(type)) :
+                  necessityTypes.map(type => renderNecessityTypeCard(type, config)) :
                   <h3 className="mt-5">No hay mapeos cargados</h3>
               }
             </div>
@@ -104,7 +108,9 @@ const renderMappingTypesSection = necessityTypes => {
 }
 
 
-const renderObjectiveSection = () => {
+const renderObjectiveSection = (config) => {
+  const { colors } = config
+
   const styles = {
     section__background: {
       backgroundColor: colors.navBarOptions.backgroundColor,
@@ -131,7 +137,9 @@ const renderObjectiveSection = () => {
 }
 
 
-const renderWelcomeSection = (history, loginButtonHover, setLoginButtonHover) => {
+const renderWelcomeSection = (history, loginButtonHover, setLoginButtonHover, config) => {
+  const { colors, appLogo } = config
+
   const styles = {
     button__login: {
       backgroundColor: 'transparent',
@@ -198,7 +206,8 @@ const PublicHome = () => {
   const [necessityTypes, setNecessityTypes] = useState([])
 
   const { state } = useContext(AppContext)
-
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
 
   const fetchCategories = async () => {
     const categoryService = new CategoryService()
@@ -223,10 +232,10 @@ const PublicHome = () => {
 
   return (
     <div>
-      { renderWelcomeSection(history, loginButtonHover, setLoginButtonHover) }
-      { renderObjectiveSection() }
-      { renderMappingCategoriesSection(categories) }
-      { renderMappingTypesSection(necessityTypes) }
+      { renderWelcomeSection(history, loginButtonHover, setLoginButtonHover, config) }
+      { renderObjectiveSection(config) }
+      { renderMappingCategoriesSection(categories, config) }
+      { renderMappingTypesSection(necessityTypes, config) }
     </div>
   )
 }

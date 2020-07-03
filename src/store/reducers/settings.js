@@ -37,7 +37,6 @@ const initialSettingsState = {
 export const getInitialSettingsState = () => initialSettingsState
 
 export const settings = (state = initialSettingsState, action) => {
-  console.log('REDUCER SETTINGS: ', action);
   switch (action.type) {
     case SETTINGS_TYPE.CHANGE_SETTINGS_STYLES: {
       return {
