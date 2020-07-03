@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import config from '../../config.js'
 
-const { colors } = config
-
+const storage = window.localStorage
 
 const CategoryForm = ({ onInputHandler, onClickHandler }) => {
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
+  const { colors } = config
+  
   const styles = {
     button__create: {
       backgroundColor: colors.buttonColor.backgroundColor,

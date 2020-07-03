@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import config from '../../config.js'
 
-const { colors } = config
+const storage = window.localStorage
 
 const Filter = ({data, onSelectFilter, type, enable}) => {
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
+  const { colors } = config
+  
   const styles = {
     filter__button: {
       backgroundColor: colors.backgroundColor,

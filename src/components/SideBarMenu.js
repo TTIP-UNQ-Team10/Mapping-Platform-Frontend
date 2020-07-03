@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useContext} from 'react'
+import { AppContext } from '../store/Store.js'
 import { Link } from "react-router-dom";
-import config from '../config.js'
+import { selectSettingsState } from '../store/selectors/settings.js'
 
-const { colors } = config
 
 const SideBarMenu = () => {
+  const { state } = useContext(AppContext)
+  const { config } = selectSettingsState(state)
+  const { colors } = config
 
   const styles = {
     sidebar__menu: {

@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { AppContext } from '../../store/Store.js'
 import { handlerInput } from '../../utils/utils.js'
-import config from '../../config.js'
-
-const { colors } = config
+import { selectSettingsState } from '../../store/selectors/settings.js'
 
 
 const CategoryTable = ({ categories, onDeleteCategory, onEditCategory}) => {
+  const { state } = useContext(AppContext)
+  const { config } = selectSettingsState(state)
+  const { colors } = config
+
   const styles = {
     table__head: {
       backgroundColor: colors.navBarOptions.backgroundColor,
