@@ -26,7 +26,6 @@ export const disabledFilter = (filter, filterState, setFilterFunction, idx) => {
 
 export const checkStylesSettings = (config, history, dispatch, setStylesFunction, objectToReturn) => {
   const storage = window.localStorage
-  console.log("ASDASD", config, objectToReturn);
   if(!config.__esModule) {
     history.push('/')
     const styles = storage.getItem('styles')
