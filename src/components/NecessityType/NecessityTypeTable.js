@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { handlerInput } from '../../utils/utils.js'
-import config from '../../config.js'
 
-const { colors } = config
+const storage = window.localStorage
 
 const renderCategoriesModal = (necessity, idx) => {
   const { categories } = necessity
@@ -39,7 +38,7 @@ const renderCategoriesModal = (necessity, idx) => {
 }
 
 
-const renderNecessityCategories = (necessity, idx) => {
+const renderNecessityCategories = (necessity, idx, colors) => {
   const styles = {
     button__show_categories: {
       backgroundColor: 'transparent',
@@ -70,6 +69,10 @@ const renderNecessityCategories = (necessity, idx) => {
 
 
 const NecessityTypeTable = ({ data, onDeleteNecessityType, onEditNeccesityType }) => {
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
+  const { colors } = config
+
   const styles = {
     table__head: {
       backgroundColor: colors.navBarOptions.backgroundColor,
@@ -131,7 +134,7 @@ const NecessityTypeTable = ({ data, onDeleteNecessityType, onEditNeccesityType }
                     /> :
                     <th>{necessityType.name}</th>
                 }
-                <th>{renderNecessityCategories(necessityType, idx)}</th>
+                <th>{renderNecessityCategories(necessityType, idx, colors)}</th>
                 <th className="row" data-toggle="tooltip" data-placement="right">
                   {
                     !editMode[idx] ?

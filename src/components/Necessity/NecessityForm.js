@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { handlerInput } from '../../utils/utils.js'
-import config from '../../config.js'
 
-const { colors } = config
+const storage = window.localStorage
 
 const NecessityForm = ({
   necessityTypes,
@@ -11,6 +10,10 @@ const NecessityForm = ({
   onSelectNecessityType,
   onHandlerSummit
 }) => {
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
+  const { colors } = config
+
   const styles = {
     button__create: {
       backgroundColor: colors.buttonColor.backgroundColor,

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import config from '../../config.js'
 
-const { colors } = config
+const storage = window.localStorage
 
 
 const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) => {
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
+  const { colors } = config
+  
   const styles = {
     button__create: {
       backgroundColor: colors.buttonColor.backgroundColor,
