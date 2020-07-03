@@ -19,17 +19,18 @@ import {
 } from "react-router-dom";
 import './App.css';
 import * as configFile from  './config.js'
-
+const storage = window.localStorage
 
 const App = () => {
 
   const { state, dispatch } = useContext(AppContext)
   const { showNotification } = selectNotificationState(state)
-  const { config } = selectSettingsState(state)
+  // const { config } = selectSettingsState(state)
 
   useEffect(() => {
-    dispatch(createChangeSettingsStylesAction(configFile))
-  }, [config])
+    const settings = storage.getItem('styles')
+    dispatch(createChangeSettingsStylesAction(JSON.parse(settings)))
+  }, [storage])
 
   return (
     <div className="App">

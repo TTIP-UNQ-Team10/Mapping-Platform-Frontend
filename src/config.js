@@ -63,6 +63,6 @@ if (customizationObj) {
   setFaviconAndTitle(config)
 
 }
-
-
+const storage = window.localStorage
+storage.setItem('styles', JSON.stringify(config))
 export default config

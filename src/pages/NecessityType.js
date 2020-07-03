@@ -7,10 +7,10 @@ import NecessityTypeTable from '../components/NecessityType/NecessityTypeTable.j
 import NecessityTypeForm from '../components/NecessityType/NecessityTypeForm.js'
 import { handlerInput } from '../utils/utils.js'
 import NecessityTypeService from '../services/NecessityType/NecessityTypeService'
-import config from '../config.js'
-const necessityTypeService = new NecessityTypeService()
+import { selectSettingsState } from '../store/selectors/settings.js'
 
-const { colors } = config
+
+const necessityTypeService = new NecessityTypeService()
 
 
 const NecessityType = () => {
@@ -20,6 +20,8 @@ const NecessityType = () => {
 
   const { state, dispatch } = useContext(AppContext)
   const history = useHistory()
+  const { config } = selectSettingsState(state)
+  const { colors } = config
 
   const checkingLoginStatus = (response, fn) => {
     response && !response.error ? fn(response) : history.push('/login')

@@ -23,3 +23,17 @@ export const disabledFilter = (filter, filterState, setFilterFunction, idx) => {
     setFilterFunction(filterState)
   }
 }
+
+export const checkStylesSettings = (config, history, dispatch, setStylesFunction, objectToReturn) => {
+  const storage = window.localStorage
+  console.log("ASDASD", config, objectToReturn);
+  if(!config.__esModule) {
+    history.push('/')
+    const styles = storage.getItem('styles')
+    dispatch(setStylesFunction(styles))
+  } else {
+    const { default: { objectToReturn } } = config
+    console.log(objectToReturn);
+    return objectToReturn
+  }
+}
