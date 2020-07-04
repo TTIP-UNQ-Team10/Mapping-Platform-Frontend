@@ -65,7 +65,6 @@ const ButtonSettings = ({ pickerButtonClass, onColorValuePicked }) => {
         {
           showPicker2 ?
           <ChromePicker
-            className="picker_color"
             color={pickedColor2}
             onChangeComplete={(color) => onPickedChangeComplete(color, 'buttonColor', 'textColor')}
             onChange={(color) => onPickedChange(color, setPickedColor2)}
