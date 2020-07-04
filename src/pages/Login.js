@@ -4,14 +4,18 @@ import { useHistory } from 'react-router-dom'
 import { AppContext } from '../store/Store.js'
 import { createLoginSuccessAction, createLoginErrorAction } from '../store/actions/user.js'
 import { createShowErrorNotificationAction } from '../store/actions/notification.js'
-import config from '../config.js'
-
-const { colors } = config
-
-const APP_LOGO = config.appLogo
+import { selectSettingsState } from '../store/selectors/settings.js'
 
 
-const LoginCard = () => {
+const LoginCard = ({ config }) => {
+  const history = useHistory()
+  const { dispatch } = useContext(AppContext)
+  const { colors } = config
+
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+
   const styles = {
     login__form: {
       marginBottom: 40
@@ -24,13 +28,6 @@ const LoginCard = () => {
       color: colors.buttonColor.textColor
     }
   }
-  const history = useHistory()
-
-  const { dispatch } = useContext(AppContext)
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
 
   const onClickLogin = async () => {
     const userData = {
@@ -108,6 +105,9 @@ const LoginCard = () => {
 
 
 const Login = () => {
+  const { state } = useContext(AppContext)
+  const { config } = selectSettingsState(state)
+  const { appLogo } = config
 
   const styles = {
     image: {
@@ -129,11 +129,11 @@ const Login = () => {
   return (
     <div style={styles.login__form__container}>
       <img
-        src={APP_LOGO}
+        src={appLogo}
         alt="mapping-platform-logo"
         style={styles.image}
       />
-      <LoginCard />
+      <LoginCard config={config}/>
     </div>
   )
 }
