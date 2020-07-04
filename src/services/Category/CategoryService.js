@@ -49,7 +49,7 @@ class CategoryService {
         const onError = error => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'Ha ocurrido un error cuando se intentaba crear una categoría'
+            message: error.message
           }))
         }
     
@@ -70,7 +70,7 @@ class CategoryService {
         const onError = error => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'Ha ocurrido un error cuando se intentaba eliminar una categoría'
+            message: error.message
           }))
         }
     
@@ -92,7 +92,7 @@ class CategoryService {
         const onError = error => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'Ha ocurrido un error cuando se intentaba modificar una categoría'
+            message: error.message
           }))
         }
     

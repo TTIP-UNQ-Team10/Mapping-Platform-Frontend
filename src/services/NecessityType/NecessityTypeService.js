@@ -52,7 +52,7 @@ class NecessityTypeService {
         const onError = error => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'Ha ocurrido un error cuando se intentaba crea un tipo de necesidad'
+            message: error.message
           }))
         }
     
@@ -73,7 +73,7 @@ class NecessityTypeService {
         const onError = error => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'Ha ocurrido un error cuando se intentaba eliminar un tipo de necesidad'
+            message: error.message
           }))
         }
     
@@ -95,7 +95,7 @@ class NecessityTypeService {
         const onError = error => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'Ha ocurrido un error cuando se intentaba modificar un tipo de necesidad'
+            message: error.message
           }))
         }
     
