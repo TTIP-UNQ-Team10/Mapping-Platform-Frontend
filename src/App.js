@@ -18,22 +18,40 @@ import {
   Route
 } from "react-router-dom";
 import './App.css';
-import * as configFile from  './config.js'
+import { changeAppName } from './utils/utils.js'
+import configFile from './config.js'
+
 const storage = window.localStorage
 
 const App = () => {
 
   const { state, dispatch } = useContext(AppContext)
   const { showNotification } = selectNotificationState(state)
-  // const { config } = selectSettingsState(state)
+  const { config } = selectSettingsState(state)
+  if (!config.appLogo) {
+    const settings = storage.getItem('styles')
+    dispatch(createChangeSettingsStylesAction(JSON.parse(settings)))
+  }
 
   useEffect(() => {
     const settings = storage.getItem('styles')
-    dispatch(createChangeSettingsStylesAction(JSON.parse(settings)))
-  }, [storage])
+    if (!config.appLogo) {
+      dispatch(createChangeSettingsStylesAction(JSON.parse(settings)))
+    }
+    if (config.name !== configFile.name) {
+      changeAppName(config.name)
+    }
+  }, [config])
+
+  const styles = {
+    body_app : {
+      backgroundColor: config.colors.appBackgroundColor.backgroundColor,
+      color: config.colors.primaryText.color
+    }
+  }
 
   return (
-    <div className="App">
+    <div className="App" style={styles.body_app}>
       <div>
         <Router>
           <Switch>
@@ -89,8 +107,8 @@ const App = () => {
             </Route>
             <Route path="/settings" exact={true}
               render={(props) => (
-                <Setting {...props}/>
-                )}
+                <AuthProvider Component={Setting} {...props}/>
+              )}
             >
             </Route>
           </Switch>
