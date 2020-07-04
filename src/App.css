@@ -24,6 +24,15 @@
   }
 }
 
+.settings__body {
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.picker_color {
+  position: absolute;
+}
 
 .img__card {
   max-width: 1200px;

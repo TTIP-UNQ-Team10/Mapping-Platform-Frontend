@@ -64,5 +64,8 @@ if (customizationObj) {
 
 }
 const storage = window.localStorage
-storage.setItem('styles', JSON.stringify(config))
+const storagedSettings = storage.getItem('styles')
+if (!storagedSettings) {
+  storage.setItem('styles', JSON.stringify(config))
+}
 export default config

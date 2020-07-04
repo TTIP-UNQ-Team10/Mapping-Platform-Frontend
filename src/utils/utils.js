@@ -32,7 +32,11 @@ export const checkStylesSettings = (config, history, dispatch, setStylesFunction
     dispatch(setStylesFunction(styles))
   } else {
     const { default: { objectToReturn } } = config
-    console.log(objectToReturn);
     return objectToReturn
   }
+}
+
+export const changeAppName = name => {
+  let title = document.getElementsByTagName('title')[0]
+  title.textContent = name
 }

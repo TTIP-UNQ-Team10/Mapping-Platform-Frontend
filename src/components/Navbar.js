@@ -36,7 +36,7 @@ const userInformation = (user, isLogged, history, colors) => {
           <i className="fa fa-user-circle" style={styles.user__icon} aria-hidden="true" />
           <span style={styles.user__name}>{user.name}</span>
         </div> :
-          <button className="btn" style={styles.button__login} onClick={goToLoginPage}>Login</button>
+          <button className="btn" style={styles.button__login} onClick={goToLoginPage}>Ingresar</button>
       }
     </div>
   )
@@ -69,8 +69,8 @@ const Navbar = () => {
     image__logo: {
       width: '6vm',
       height: '40px',
-      filter: 'invert(1)',
-      marginLeft: 10
+      fill: colors.buttonColor.textColor,
+      marginLeft: 10,
     },
     navbar: {
       backgroundColor: colors.navBarOptions.backgroundColor,

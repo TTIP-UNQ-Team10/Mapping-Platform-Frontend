@@ -4,14 +4,16 @@ import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import { createChangeSettingsStylesAction } from '../store/actions/settings.js'
 import { selectSettingsState } from '../store/selectors/settings.js'
-import { handlerInput } from '../utils/utils.js'
-import { ChromePicker } from 'react-color'
+
+import NavbarSettings from '../components/Settings/NavbarSettings.js'
+import ButtonSettings from '../components/Settings/ButtonSettings.js'
+import PageSettings from '../components/Settings/PageSettings.js'
+
 
 const storage = window.localStorage
 
 const Setting = () => {
   const initialSettings = {
-    appId: null,
     appLogo: null,
     favicon: null,
     colors: {
@@ -41,34 +43,39 @@ const Setting = () => {
   }
   const { state, dispatch } = useContext(AppContext)
   const { config } = selectSettingsState(state)
-  const { colors } = config
-  const [localSettings, setLocalSettings] = useState(initialSettings)
-  const [pickedColor, setPickedColor] = useState('white')
   const storageSettings = JSON.parse(storage.getItem('styles'))
+  const [localSettings, setLocalSettings] = useState(initialSettings)
+
+
+  useEffect(() => {
+    setLocalSettings(JSON.parse(storage.getItem('styles')))
+  }, [config])
 
   const styles = {
     body__title_background: {
       color: storageSettings.colors.buttonColor.textColor,
       backgroundColor: storageSettings.colors.navBarOptions.backgroundColor,
       filter: 'opacity(85%)'
+    },
+    picker__button: {
+      backgroundColor: storageSettings.colors.buttonColor.backgroundColor,
+      color: storageSettings.colors.buttonColor.textColor
     }
   }
 
-  useEffect(() => {
-    console.log('useEffect ', storageSettings);
-    setLocalSettings(storageSettings)
-  }, [config])
 
-  const onChangeHandler = (color, event) => {
-    setPickedColor(color.hex)
+  const saveSettings = settings => {
+    dispatch(createChangeSettingsStylesAction(settings))
+    storage.setItem('styles', JSON.stringify(settings))
   }
 
-  const onChangeCompleteHandler = (color, event) => {
-    console.log('complete');
-    localSettings.colors.navBarOptions.backgroundColor = pickedColor
+  const onColorPicked = (value, component) => {
+    const componentKeys = component.split('.')
+    componentKeys.length > 1 ?
+      localSettings[componentKeys[0]][componentKeys[1]][componentKeys[2]] = value :
+      localSettings[componentKeys[0]] = value
     setLocalSettings(localSettings)
-    storage.setItem('styles', JSON.stringify(localSettings))
-    dispatch(createChangeSettingsStylesAction(localSettings))
+    saveSettings(localSettings)
   }
 
 
@@ -81,12 +88,25 @@ const Setting = () => {
         <h2>Personalización de Colores</h2>
       </div>
       <div className="home__body container-fluid col col-md-12">
-        <div className="container">
-          <ChromePicker
-          color={pickedColor}
-          onChangeComplete={onChangeCompleteHandler}
-          onChange={onChangeHandler}
-          />
+        <div className="row settings__body">
+          <div className="col-md-6 pl-5">
+            <NavbarSettings
+              pickerButtonClass={styles.picker__button}
+              onColorValuePicked={onColorPicked}
+            />
+          </div>
+          <div className="col-md-6 pl-5">
+            <ButtonSettings
+              pickerButtonClass={styles.picker__button}
+              onColorValuePicked={onColorPicked}
+            />
+          </div>
+          <div className="col-md-6">
+            <PageSettings
+              pickerButtonClass={styles.picker__button}
+              onColorValuePicked={onColorPicked}
+            />
+          </div>
         </div>
       </div>
     </div>
