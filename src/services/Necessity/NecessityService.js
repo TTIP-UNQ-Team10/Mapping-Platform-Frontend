@@ -25,7 +25,7 @@ class NecessityService {
         const onError = async (error) => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'No se han podido obtener los tipos de necesidad'
+            message: error.message
           }))
         }
     
@@ -43,7 +43,7 @@ class NecessityService {
         const onError = async (error) => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'No se han podido obtener las necesidades'
+            message: error.message
           }))
         }
     
@@ -67,7 +67,7 @@ class NecessityService {
         const onError = async (error) => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'No se ha podido crear un mapeo'
+            message: error.message
           }))
         }
     
@@ -85,7 +85,7 @@ class NecessityService {
         const onError = async (error) => {
           dispatch(createShowErrorNotificationAction({
             header: '¡Error!',
-            message: 'No se han podido obtener las Necesidades'
+            message: error.message
           }))
         }
     
