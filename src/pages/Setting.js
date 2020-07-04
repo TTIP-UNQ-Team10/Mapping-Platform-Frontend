@@ -82,8 +82,8 @@ const Setting = () => {
 
   return (
     <div>
-      <SideBarMenu />
       <Navbar />
+      <SideBarMenu />
       <div className="body__title" style={styles.body__title_background}>
         <h2>Personalización de Colores</h2>
       </div>
