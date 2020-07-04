@@ -71,6 +71,7 @@ const Navbar = () => {
       height: '40px',
       fill: colors.buttonColor.textColor,
       marginLeft: 10,
+      filter: 'invert(1)'
     },
     navbar: {
       backgroundColor: colors.navBarOptions.backgroundColor,

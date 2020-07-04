@@ -35,16 +35,23 @@ const NecessitiesPublicMap = (props) => {
     setData(await fetchNecessitiesByCategory(category))
   }
 
-  const fetchFilteredData = async (category) => {
-    setPublicHomeFilter(category)
-    showNecessitiesByCategory(category)
+  const fetchFilteredData = async (category, necessityType) => {
+    if (category) {
+      setPublicHomeFilter(category)
+      showNecessitiesByCategory(category)
+    }
+    if (necessityType) {
+      setPublicHomeFilter(necessityType)
+
+    }
   }
 
 
   useEffect(() => {
     const { category } = props.match.params
-    if (category && !publicHomeFilter) {
-      fetchFilteredData(category)
+    const { necessityType } = props.match.params
+    if (!publicHomeFilter && (category || necessityType)) {
+      fetchFilteredData(category, necessityType)
     }
   })
 

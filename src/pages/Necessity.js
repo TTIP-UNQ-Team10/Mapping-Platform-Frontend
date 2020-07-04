@@ -56,7 +56,7 @@ const renderMiniNavbar = (mode, setMode, setDataToMap, colors) => {
   )
 }
 
-const Necessity = () => {
+const Necessity = (props) => {
 
   const [necessityList, setNecessityList] = useState(null);
   const [dataToMap, setDataToMap] = useState(null)
@@ -70,6 +70,7 @@ const Necessity = () => {
 
   const { state, dispatch } = useContext(AppContext)
 
+  const [publicHomeFilter, setPublicHomeFilter] = useState(null)
   const settings = storage.getItem('styles')
   const config = JSON.parse(settings)
   const { colors } = config
@@ -113,11 +114,39 @@ const Necessity = () => {
     setTitle(necessity)
   }
 
+  const fetchNecessitiesByCategory = async (category) => {
+    await necessityService.getNecessitiesByCategory(category, setDataToMap, dispatch, state)
+  }
+
+  const showNecessitiesByCategory = async (category) => {
+    setDataToMap(await fetchNecessitiesByCategory(category))
+  }
+
+  const fetchFilteredData = async (category, necessityType) => {
+    if (category) {
+      setPublicHomeFilter(category)
+      showNecessitiesByCategory(category)
+      onCategoryFilterOption(category)
+    }
+    if (necessityType) {
+      setPublicHomeFilter(necessityType)
+      onNecessityTypeFilterOption(necessityType)
+    }
+  }
+
 
   useEffect(() => {
-    if (!necessityList) {
+    if (!necessityList && !publicHomeFilter) {
       fetchNecessities()
       fetchCategories()
+    }
+  })
+
+  useEffect(() => {
+    const { category } = props.match.params
+    const { necessityType } = props.match.params
+    if (!dataToMap && !publicHomeFilter && (category || necessityType)) {
+      fetchFilteredData(category, necessityType)
     }
   })
 
