@@ -23,3 +23,20 @@ export const disabledFilter = (filter, filterState, setFilterFunction, idx) => {
     setFilterFunction(filterState)
   }
 }
+
+export const checkStylesSettings = (config, history, dispatch, setStylesFunction, objectToReturn) => {
+  const storage = window.localStorage
+  if(!config.__esModule) {
+    history.push('/')
+    const styles = storage.getItem('styles')
+    dispatch(setStylesFunction(styles))
+  } else {
+    const { default: { objectToReturn } } = config
+    return objectToReturn
+  }
+}
+
+export const changeAppName = name => {
+  let title = document.getElementsByTagName('title')[0]
+  title.textContent = name
+}

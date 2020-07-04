@@ -7,10 +7,9 @@ import CategoryTable from '../components/Category/CategoryTable.js'
 import CategoryForm from '../components/Category/CategoryForm.js'
 import CategoryService from '../services/Category/CategoryService'
 import { handlerInput } from '../utils/utils.js'
-import config from '../config.js'
+import { selectSettingsState } from '../store/selectors/settings.js'
 
 const categoryService = new CategoryService()
-const { colors } = config
 
 
 const Category = () => {
@@ -19,7 +18,8 @@ const Category = () => {
 
   const { state, dispatch } = useContext(AppContext)
   const history = useHistory()
-
+  const { config } = selectSettingsState(state)
+  const { colors } = config
 
   const fetchCategories = async () => {
     await categoryService.fetchCategories(setCategories, state, history)

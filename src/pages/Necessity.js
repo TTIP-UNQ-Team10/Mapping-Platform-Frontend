@@ -9,14 +9,12 @@ import SideBarMenu from '../components/SideBarMenu.js'
 import NecessityService from '../services/Necessity/NecessityService'
 import CategoryService from '../services/Category/CategoryService.js'
 import { disabledFilter } from '../utils/utils.js'
-import config from '../config.js'
 
 const necessityService = new NecessityService()
 const categoryService = new CategoryService()
-const { colors } = config
+const storage = window.localStorage
 
-
-const renderMiniNavbar = (mode, setMode, setDataToMap) => {
+const renderMiniNavbar = (mode, setMode, setDataToMap, colors) => {
   const styles = {
     nav__pill: {
       backgroundColor: colors.backgroundColor,
@@ -71,6 +69,10 @@ const Necessity = () => {
   const [filterEnable, setFilterEnable] = useState([true, true])
 
   const { state, dispatch } = useContext(AppContext)
+
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
+  const { colors } = config
 
 
   const fetchNecessities = () => {
@@ -184,7 +186,7 @@ const Necessity = () => {
             </div>
           </div>
           <div className="col-md-4">
-            {renderMiniNavbar(mode, setMode, setDataToMap)}
+            {renderMiniNavbar(mode, setMode, setDataToMap, colors)}
             {
               mode === 'form' ?
               <NecessityForm

@@ -8,13 +8,14 @@ import * as user from '../../../store/selectors/user'
 import Necessity from '../../../pages/Necessity.js';
 import NecessityTable from '../../../components/Necessity/NecessityTable.js';
 
+
 configure({ adapter: new Adapter() });
 
 describe('Necessity', function() {
   const setState = jest.fn();
   const useStateSpy = jest.spyOn(React, 'useState')
   useStateSpy.mockImplementation((init) => [init, setState]);
-  
+
   beforeEach(() => {
     const dispatch = sinon.stub()
     jest.spyOn(ReactAll, 'useContext').mockImplementation(() => { return { state: '', dispatch: dispatch } })
@@ -24,8 +25,44 @@ describe('Necessity', function() {
   afterEach(() => {
     jest.clearAllMocks();
   });
-  
+
   it('renders the NecessityTable wrapper', () => {
+    const config = {
+      appId:'kintun.wingu.org',
+      appLogo:  '/mapping-platform-logo.svg',
+      favicon: '',
+      colors: {
+        appBackgroundColor: {
+          backgroundColor: '#f3f3f3'
+        },
+        navBarOptions: {
+          activeColor: '#f3f3f3',
+          backgroundColor: '#343a40',
+          inactiveColor: '#808080'
+        },
+        panelBackgroundColor: {
+          backgroundColor: '#343a40'
+        },
+        buttonColor: {
+          backgroundColor: '#343a40',
+          textColor: '#f3f3f3'
+        },
+        primaryText: {
+          color: '#343a40'
+        },
+        secondaryText: {
+          color: '#04d38b'
+        }
+      },
+      name: 'kintun',
+    }
+    
+    const configStr = JSON.stringify(config)
+    Storage.prototype.getItem = jest.fn(() => {
+      return configStr
+    });
+
+
     const wrapper = shallow(<Necessity />);
     expect(wrapper.find(NecessityTable)).to.have.length(1);
   });
@@ -34,7 +71,7 @@ describe('Necessity', function() {
     const showNecessityIntoMap = jest.fn();
 
     const necessityTable = shallow(<NecessityTable data={[]} showNecessityIntoMap={showNecessityIntoMap} />);
-    
+
     const divTable = necessityTable.find('div.necessities__table');
 
     const table = divTable.find('span');

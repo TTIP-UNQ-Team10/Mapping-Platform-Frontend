@@ -2,12 +2,10 @@ import React, { useContext } from 'react'
 import { AppContext } from '../store/Store.js'
 import { useHistory } from 'react-router-dom'
 import { selectUserState } from '../store/selectors/user.js'
-import config from '../config.js'
-const APP_LOGO = config.appLogo
 
-const { colors } = config
+const storage = window.localStorage
 
-const userInformation = (user, isLogged, history) => {
+const userInformation = (user, isLogged, history, colors) => {
   const styles = {
     user__icon: {
       fontSize: 26,
@@ -38,13 +36,13 @@ const userInformation = (user, isLogged, history) => {
           <i className="fa fa-user-circle" style={styles.user__icon} aria-hidden="true" />
           <span style={styles.user__name}>{user.name}</span>
         </div> :
-          <button className="btn" style={styles.button__login} onClick={goToLoginPage}>Login</button>
+          <button className="btn" style={styles.button__login} onClick={goToLoginPage}>Ingresar</button>
       }
     </div>
   )
 }
 
-const openSideBarButton = () => {
+const openSideBarButton = (colors) => {
   const styles = {
     button__sidebar: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -63,13 +61,16 @@ const openSideBarButton = () => {
 
 
 const Navbar = () => {
+  const settings = storage.getItem('styles')
+  const config = JSON.parse(settings)
+  const { colors, appLogo } = config
 
   const styles = {
     image__logo: {
       width: '6vm',
       height: '40px',
-      filter: 'invert(1)',
-      marginLeft: 10
+      fill: colors.buttonColor.textColor,
+      marginLeft: 10,
     },
     navbar: {
       backgroundColor: colors.navBarOptions.backgroundColor,
@@ -84,11 +85,11 @@ const Navbar = () => {
   return (
     <nav className="navbar mb-0" style={styles.navbar}>
     <div className="ds-flex flex-row">
-      { isLogged ? openSideBarButton() : null}
-        <img src={APP_LOGO} alt="mapping-platform-logo" style={styles.image__logo}/>
+      { isLogged ? openSideBarButton(colors) : null}
+        <img src={appLogo} alt="mapping-platform-logo" style={styles.image__logo}/>
       </div>
       <div>
-        {userInformation(user, isLogged, history)}
+        {userInformation(user, isLogged, history, colors)}
       </div>
     </nav>
   )

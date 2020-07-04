@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import { Link } from "react-router-dom";
-import config from '../config.js'
+import { AppContext } from '../store/Store.js'
+import { selectSettingsState } from '../store/selectors/settings.js'
 
-const { colors } = config
-
-const renderOptions = (buttonsStates) => {
+const renderOptions = (buttonsStates, colors) => {
   const styles = {
     action__card: {
       backgroundColor: 'transparent',
@@ -47,6 +46,8 @@ const renderOptions = (buttonsStates) => {
         return buttonsStates.categoryButton ? styles.action__card_hover : styles.action__card
       case 'necessity':
         return buttonsStates.necessityButton ? styles.action__card_hover : styles.action__card
+      case 'style-setting':
+        return buttonsStates.styleSettingButton ? styles.action__card_hover : styles.action__card
       default:
     }
   }
@@ -95,22 +96,43 @@ const renderOptions = (buttonsStates) => {
             </div>
           </div>
         </Link>
+
+        <Link to="/settings"
+          className="card card__router"
+          style={getCardStyleClass('style-setting')}
+          onMouseEnter={() => buttonsStates.setStyleSettingButton(true)}
+          onMouseLeave={() => buttonsStates.setStyleSettingButton(false)}
+        >
+          <div className="col pt-1">
+            <img src="/chromatic-wheel.svg" alt="" style={styles.image__card} className="image__card"/>
+            <div>
+              <h4>Personalización</h4>
+            </div>
+          </div>
+        </Link>
       </div>
     </div>
   )
 }
 
 const BaseHome = () => {
+  const { state } = useContext(AppContext)
+  const { config } = selectSettingsState(state)
+  const { colors } = config
+
   const [necessityTypeHoverState, setNecessityTypeHoverState] = useState(false)
   const [categoryButtonHoverState, setCategoryButtonHoverState] = useState(false)
   const [necessityHoverState, setNecessityHoverButton] = useState(false)
+  const [styleSettingHoverState, setStyleSettingHoverState] = useState(false)
   const buttonsStates = {
     necessityTypeButton: necessityTypeHoverState,
     setNecessityTypeButton: setNecessityTypeHoverState,
     categoryButton: categoryButtonHoverState,
     setCategoryButton: setCategoryButtonHoverState,
     necessityButton: necessityHoverState,
-    setNecessityButton: setNecessityHoverButton
+    setNecessityButton: setNecessityHoverButton,
+    styleSettingButton: styleSettingHoverState,
+    setStyleSettingButton: setStyleSettingHoverState
   }
 
   const styles = {
@@ -131,7 +153,7 @@ const BaseHome = () => {
       <div className="home__body container-fluid">
         <div className="container">
           <div className="col col-md-12">
-            {renderOptions(buttonsStates)}
+            {renderOptions(buttonsStates, colors)}
           </div>
         </div>
       </div>

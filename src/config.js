@@ -63,6 +63,9 @@ if (customizationObj) {
   setFaviconAndTitle(config)
 
 }
-
-
+const storage = window.localStorage
+const storagedSettings = storage.getItem('styles')
+if (!storagedSettings) {
+  storage.setItem('styles', JSON.stringify(config))
+}
 export default config

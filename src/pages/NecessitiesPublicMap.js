@@ -5,15 +5,20 @@ import MapFilter from '../components/MapFilter.js'
 import Navbar from '../components/Navbar.js'
 import SideBarMenu from '../components/SideBarMenu.js'
 import { Popup } from 'react-leaflet'
-import config from '../config.js'
 import NecessityService from '../services/Necessity/NecessityService.js'
+import { selectSettingsState } from '../store/selectors/settings.js'
 
 const necessityService = new NecessityService()
 
-const { colors } = config
 
 
 const NecessitiesPublicMap = (props) => {
+
+  const [data, setData] = useState(null);
+  const [publicHomeFilter, setPublicHomeFilter] = useState(null)
+  const { state, dispatch } = useContext(AppContext)
+  const { config } = selectSettingsState(state)
+  const { default: { colors } } = config
 
   const styles = {
     buttons: {
@@ -21,10 +26,6 @@ const NecessitiesPublicMap = (props) => {
       color: colors.buttonColor.textColor
     }
   }
-
-  const [data, setData] = useState(null);
-  const [publicHomeFilter, setPublicHomeFilter] = useState(null)
-  const { state, dispatch } = useContext(AppContext)
 
   const showNecessities = () => {
     setData(getNecessities())
