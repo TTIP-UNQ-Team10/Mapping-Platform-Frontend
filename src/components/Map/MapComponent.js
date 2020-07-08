@@ -153,7 +153,7 @@ const MapComponent = (props) => {
                   location.type === 'polygon' ?
                     <Polygon
                       positions={location.coordinates}
-                      color={location}
+                      color={location.properties.color}
                     >
                       {generatePopupFunction(data)}
                     </Polygon> : null
