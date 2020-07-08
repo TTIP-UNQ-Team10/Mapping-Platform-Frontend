@@ -69,11 +69,11 @@ const MapComponent = (props) => {
 
   const onClickMap = (event) => {
     const { latlng, originalEvent } = event
-
+    setMatrixCoord([])
     const coords = Object.values(latlng)
     const onFlyMarker = { location: { type: 'select', coordinates: coords } }
 
-    if (originalEvent.ctrlKey) {
+    if (originalEvent.ctrlKey && matrixCoord.length > 0) {
       if (typeof(matrixCoord[0]) === 'number') {
         const fstCoords = [matrixCoord[0], matrixCoord[1]]
         matrixCoord.splice(0,2)
@@ -121,7 +121,7 @@ const MapComponent = (props) => {
           dataObject.map(
             data => {
               const { location } = data
-              
+
               return  location.type === 'marker' ?
                 <Marker position={location.coordinates}>
                   {generatePopupFunction(data)}
