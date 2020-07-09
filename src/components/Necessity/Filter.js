@@ -12,7 +12,8 @@ const Filter = ({data, onSelectFilter, type, enable}) => {
       backgroundColor: colors.backgroundColor,
       color: colors.buttonColor.backgroundColor,
       boderColor: `${colors.buttonColor.backgroundColor}`,
-      transition: '0.2s'
+      transition: '0.2s',
+      width: '100%'
     }
   }
 
@@ -39,8 +40,8 @@ const Filter = ({data, onSelectFilter, type, enable}) => {
         >
           {
             dataSelected ?
-              dataSelected :
-              type
+              <span>{dataSelected}</span> :
+              <span>{type}</span>
           }
         </button>
         <div className="dropdown-menu" aria-labelledby="dropdownFilterButton">
