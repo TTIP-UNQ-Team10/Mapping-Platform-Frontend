@@ -53,8 +53,7 @@ const renderOptions = (buttonsStates, colors) => {
   }
 
   return (
-    <div className="home__body">
-      <div className="row">
+      <div className="row col-md-12 home__body">
         <Link to="/necessity-types"
           className="card card__router"
           style={getCardStyleClass('necessity-type')}
@@ -111,7 +110,6 @@ const renderOptions = (buttonsStates, colors) => {
           </div>
         </Link>
       </div>
-    </div>
   )
 }
 
@@ -150,12 +148,10 @@ const BaseHome = () => {
       <div className="body__title" style={styles.body__title_background}>
         <h2>Panel de Administración</h2>
       </div>
-      <div className="home__body container-fluid">
-        <div className="container">
+      <div className="container-fluid base__home_body">
           <div className="col col-md-12">
             {renderOptions(buttonsStates, colors)}
           </div>
-        </div>
       </div>
     </div>
   )

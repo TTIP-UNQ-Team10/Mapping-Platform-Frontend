@@ -21,6 +21,7 @@ const LoginCard = ({ config }) => {
       marginBottom: 40
     },
     form__container: {
+      height: '100%',
       marginTop: 50
     },
     button__login: {
@@ -62,8 +63,8 @@ const LoginCard = ({ config }) => {
   }
 
   return (
-    <div className={styles.form__container}>
-        <div className={styles.login__form}>
+    <div style={styles.form__container}>
+        <div style={styles.login__form}>
           <div className="input-group mb-3">
             <div className="input-group-prepend">
               <span className="input-group-text" id="basic-addon1">
@@ -97,7 +98,7 @@ const LoginCard = ({ config }) => {
             />
           </div>
         </div>
-        <button type="submit" className="btn" style={styles.button__login} onClick={onClickLogin}>Iniciar Sesión</button>
+        <button type="submit" className="btn btn-block" style={styles.button__login} onClick={onClickLogin}>Iniciar Sesión</button>
     </div>
   )
 }
@@ -121,13 +122,14 @@ const Login = () => {
       maxWidth: '30vw',
       width: '30vm',
       height: '100%',
+      maxHeight: '100vh',
       margin: '0 auto',
       paddingTop: 50,
     }
   }
 
   return (
-    <div style={styles.login__form__container}>
+    <div className="container col-md-4" >
       <img
         src={appLogo}
         alt="mapping-platform-logo"

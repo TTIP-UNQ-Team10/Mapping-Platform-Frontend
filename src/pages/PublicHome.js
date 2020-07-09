@@ -15,12 +15,17 @@ const renderCategoryCard = (category, config) => {
       backgroundColor: 'transparent',
       color: colors.buttonColor.backgroundColor,
       transition: '0.17s'
+    },
+    cards: {
+      backgroundColor: colors.appBackgroundColor.backgroundColor,
+      width: '18rem',
+      color: colors.primaryText
     }
   }
 
   return (
-    <div className="card public__card mt-5" style={{width: '18rem'}}>
-      <div className="card-body">
+    <div className="card public__card mt-5" style={styles.cards}>
+      <div className="card-body" style={styles.cards}>
         <h4 className="card-title public__card_title">{category.name}</h4>
         <Link to={`/necessities/${category.name}`} >
           <button className="btn btn-md public__button"
@@ -110,11 +115,13 @@ const renderMappingTypesSection = (necessityTypes, config) => {
 
 const renderObjectiveSection = (config) => {
   const { colors } = config
-
   const styles = {
     section__background: {
       backgroundColor: colors.navBarOptions.backgroundColor,
-      color: colors.primaryText
+      color: colors.secondaryText.color
+    },
+    secondaryColorText: {
+      color: colors.secondaryText.color
     }
   }
 
@@ -122,9 +129,9 @@ const renderObjectiveSection = (config) => {
     <section id="section-2" style={styles.section__background}>
       <div className="container">
         <h1>Objetivo</h1>
-        <h4 className="mt-5">
-          <p align='center'>
-            Kintun es una aplicación de mapeo que permite visualizar diferentes necesidades sociales y ambientales. 
+        <h4 className="mt-5" styles={styles.secondaryColorText}>
+          <p align='center' styles={styles.secondaryColorText}>
+            Kintun es una aplicación de mapeo que permite visualizar diferentes necesidades sociales y ambientales.
             <br />
             <br />
             Este proyecto surgió como resultado de relevamientos realizados a organizaciones no gubernamentales. De esta forma, se detectó la posibilidad de unificar distintas plataformas de mapeo con diferentes problemáticas.
@@ -142,7 +149,7 @@ const renderWelcomeSection = (history, loginButtonHover, setLoginButtonHover, co
   const styles = {
     button__login: {
       backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
+      color: colors.primaryText.color,
       border: `.5px solid ${colors.buttonColor.backgroundColor}`,
       borderRadius: 15,
       padding: '1em 1em 1em 1em'
@@ -156,7 +163,7 @@ const renderWelcomeSection = (history, loginButtonHover, setLoginButtonHover, co
     },
     button__show_information: {
       backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
+      color: colors.primaryText.color,
       transition: '0.3s'
     }
   }

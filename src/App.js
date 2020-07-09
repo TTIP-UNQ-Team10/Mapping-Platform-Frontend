@@ -55,9 +55,15 @@ const App = () => {
       <div>
         <Router>
           <Switch>
-            <Route path="/login" exact={true}>
-              <Login />
-            </Route>
+            <Route
+              path="/login"
+              exact={true}
+              render={props => (
+                <div id="router">
+                  <Login />
+                </div>
+              )}
+            />
             <Route
               path="/"
               exact={true}

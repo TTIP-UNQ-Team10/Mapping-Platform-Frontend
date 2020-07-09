@@ -71,8 +71,7 @@ section h3 {
 }
 
 #section-2 {
-  background-color: black;
-  color: white;
+  color: invert();
 }
 
 #section-2 h4 {
@@ -134,11 +133,13 @@ section h3 {
 }
 
 .home__body {
-  margin-top: 5em;
+  height: 100%;
+  padding-top: 5em;
 }
 
 .base__home_body {
-  margin-top: 3em;
+
+  margin: 0;
 }
 
 
@@ -215,6 +216,10 @@ section h3 {
   transition: 0.2s;
   max-height: 30em;
   border-radius: 30px !important;
+  background-color: transparent !important;
+}
+
+.card-body {
   background-color: transparent !important;
 }
 
@@ -385,7 +390,7 @@ tbody th {
 }
 
 .necessities__table {
-  height: 60vh;
+  height: 50.8vh;
   overflow: scroll;
   overflow-x: hidden;
   overflow-y: visible;

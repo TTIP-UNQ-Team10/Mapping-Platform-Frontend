@@ -36,7 +36,10 @@ const ButtonSettings = ({ pickerButtonClass, onColorValuePicked }) => {
             <button className="btn btn-small"
               style={pickerButtonClass}
               onClick={() => setShowPicker1(!showPicker1)}>
-              {showPicker1 ? 'Cerrar Picker' : 'Abrir Picker'}
+              {showPicker1 ?
+                  <i class="fa fa-times" aria-hidden="true"></i> :
+                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              }
             </button>
           </div>
         </div>
@@ -58,7 +61,10 @@ const ButtonSettings = ({ pickerButtonClass, onColorValuePicked }) => {
             <button className="btn btn-small"
               style={pickerButtonClass}
               onClick={() => setShowPicker2(!showPicker2)}>
-              {showPicker2 ? 'Cerrar Picker' : 'Abrir Picker'}
+              {showPicker2 ?
+                  <i class="fa fa-times" aria-hidden="true"></i> :
+                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              }
             </button>
           </div>
         </div>
