@@ -87,7 +87,7 @@ const Setting = () => {
       <div className="body__title" style={styles.body__title_background}>
         <h2>Personalización de Colores</h2>
       </div>
-      <div className="home__body container-fluid col col-md-12">
+      <div id="router" className="home__body container-fluid col col-md-12">
         <div className="row settings__body">
           <div className="col-md-6 pl-5">
             <NavbarSettings

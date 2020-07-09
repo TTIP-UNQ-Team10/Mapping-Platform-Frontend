@@ -196,7 +196,7 @@ const Necessity = (props) => {
       <div className="body__title" style={styles.body__title_background}>
         <h2>Necesidades</h2>
       </div>
-      <div className="container-fluid home__body mb-5">
+      <div className="container-fluid home__body">
         <div className="row mt-5">
           <div className="row col-md-12 mb-3 top_body">
             <div className="col-md-2 pb-4">

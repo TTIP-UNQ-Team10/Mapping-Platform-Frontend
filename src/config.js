@@ -44,7 +44,7 @@ if (customizationObj) {
         color: primaryText || '#343a40'
       },
       secondaryText: {
-        color: secondaryText || '#04d38b'
+        color: secondaryText || '#f3f3f3'
       }
     },
     name: name,

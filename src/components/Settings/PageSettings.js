@@ -6,9 +6,11 @@ const PageSettings = ({ pickerButtonClass, onColorValuePicked }) => {
   const [pickedColor1, setPickedColor1] = useState(pickerButtonClass.backgroundColor)
   const [pickedColor2, setPickedColor2] = useState(pickerButtonClass.backgroundColor)
   const [pickedColor3, setPickedColor3] = useState('')
+  const [pickedColor4, setPickedColor4] = useState(pickerButtonClass.backgroundColor)
 
   const [showPicker1, setShowPicker1] = useState(false)
   const [showPicker2, setShowPicker2] = useState(false)
+  const [showPicker4, setShowPicker4] = useState(false)
 
 
   let objectData = {
@@ -16,6 +18,9 @@ const PageSettings = ({ pickerButtonClass, onColorValuePicked }) => {
       backgroundColor: null
     },
     primaryText: {
+      color: null
+    },
+    secondaryText: {
       color: null
     },
     appLogo: null,
@@ -55,7 +60,10 @@ const PageSettings = ({ pickerButtonClass, onColorValuePicked }) => {
             <button className="btn btn-small"
               style={pickerButtonClass}
               onClick={() => setShowPicker1(!showPicker1)}>
-              {showPicker1 ? 'Cerrar Picker' : 'Abrir Picker'}
+              {showPicker1 ?
+                  <i class="fa fa-times" aria-hidden="true"></i> :
+                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              }
             </button>
           </div>
         </div>
@@ -74,7 +82,10 @@ const PageSettings = ({ pickerButtonClass, onColorValuePicked }) => {
             <button className="btn btn-small"
               style={pickerButtonClass}
               onClick={() => setShowPicker2(!showPicker2)}>
-              {showPicker2 ? 'Cerrar Picker' : 'Abrir Picker'}
+              {showPicker2 ?
+                  <i class="fa fa-times" aria-hidden="true"></i> :
+                  <i class="fa fa-paint-brush" aria-hidden="true"></i>
+              }
             </button>
           </div>
         </div>
@@ -93,6 +104,28 @@ const PageSettings = ({ pickerButtonClass, onColorValuePicked }) => {
           />
         </div>
       </div>
+      <div className="input-group mb-3">
+        <label className="input-group-text" style={pickerButtonClass}>Texto Secundario</label>
+        <input type="text" className="form-control" value={pickedColor4} disabled/>
+        <div className="input-group-append">
+          <button className="btn btn-small"
+            style={pickerButtonClass}
+            onClick={() => setShowPicker4(!showPicker4)}>
+            {showPicker4 ?
+                <i class="fa fa-times" aria-hidden="true"></i> :
+                <i class="fa fa-paint-brush" aria-hidden="true"></i>
+            }
+          </button>
+        </div>
+      </div>
+      {
+        showPicker4 ?
+        <ChromePicker
+          color={pickedColor4}
+          onChangeComplete={(color) => onPickedChangeComplete(color, 'secondaryText', 'color')}
+          onChange={(color) => onPickedChange(color, setPickedColor4)}
+        /> : null
+      }
     </div>
   )
 }
