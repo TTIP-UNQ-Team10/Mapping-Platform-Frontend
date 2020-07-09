@@ -122,14 +122,13 @@ const renderObjectiveSection = (config) => {
     <section id="section-2" style={styles.section__background}>
       <div className="container">
         <h1>Objetivo</h1>
-        <h4 className="mt-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Venenatis tellus in metus vulputate eu scelerisque felis.
-        Eget egestas purus viverra accumsan. Nulla aliquet enim tortor at. Placerat duis ultricies lacus sed turpis tincidunt.
-        Purus sit amet volutpat consequat mauris. Viverra tellus in hac habitasse platea. Eget nulla facilisi etiam dignissim
-        diam quis enim lobortis scelerisque. Enim sit amet venenatis urna. Nullam eget felis eget nunc lobortis mattis aliquam faucibus.
-        Dictumst quisque sagittis purus sit amet volutpat consequat. Sagittis nisl rhoncus mattis rhoncus urna neque.
-        Bibendum enim facilisis gravida neque convallis a cras. Placerat in egestas erat imperdiet.
-        Duis ut diam quam nulla porttitor massa id neque aliquam. Vestibulum lorem sed risus ultricies.
+        <h4 className="mt-5">
+          <p align='center'>
+            Kintun es una aplicación de mapeo que permite visualizar diferentes necesidades sociales y ambientales. 
+            <br />
+            <br />
+            Este proyecto surgió como resultado de relevamientos realizados a organizaciones no gubernamentales. De esta forma, se detectó la posibilidad de unificar distintas plataformas de mapeo con diferentes problemáticas.
+          </p>
         </h4>
       </div>
     </section>
