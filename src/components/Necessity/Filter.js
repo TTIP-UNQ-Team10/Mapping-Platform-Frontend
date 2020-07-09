@@ -6,11 +6,11 @@ const Filter = ({data, onSelectFilter, type, enable}) => {
   const settings = storage.getItem('styles')
   const config = JSON.parse(settings)
   const { colors } = config
-  
+
   const styles = {
     filter__button: {
       backgroundColor: colors.backgroundColor,
-      color: colors.buttonColor.textColor,
+      color: colors.buttonColor.backgroundColor,
       boderColor: `${colors.buttonColor.backgroundColor}`,
       transition: '0.2s'
     }
