@@ -6,7 +6,7 @@ const Filter = ({data, onSelectFilter, type, enable}) => {
   const settings = storage.getItem('styles')
   const config = JSON.parse(settings)
   const { colors } = config
-  
+
   const styles = {
     filter__button: {
       backgroundColor: colors.backgroundColor,
