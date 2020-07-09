@@ -10,7 +10,7 @@ const Filter = ({data, onSelectFilter, type, enable}) => {
   const styles = {
     filter__button: {
       backgroundColor: colors.backgroundColor,
-      color: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor,
       boderColor: `${colors.buttonColor.backgroundColor}`,
       transition: '0.2s'
     }

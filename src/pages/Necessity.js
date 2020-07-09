@@ -18,7 +18,7 @@ const renderMiniNavbar = (mode, setMode, setDataToMap, colors) => {
   const styles = {
     nav__pill: {
       backgroundColor: colors.backgroundColor,
-      color: colors.buttonColor.backgroundColor
+      color: colors.buttonColor.textColor
     },
     active: {
       backgroundColor: colors.buttonColor.backgroundColor,

@@ -13,7 +13,7 @@ const renderCategoryCard = (category, config) => {
   const styles = {
     button__show_information: {
       backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor,
       transition: '0.17s'
     }
   }
@@ -143,7 +143,7 @@ const renderWelcomeSection = (history, loginButtonHover, setLoginButtonHover, co
   const styles = {
     button__login: {
       backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor,
       border: `.5px solid ${colors.buttonColor.backgroundColor}`,
       borderRadius: 15,
       padding: '1em 1em 1em 1em'
@@ -157,7 +157,7 @@ const renderWelcomeSection = (history, loginButtonHover, setLoginButtonHover, co
     },
     button__show_information: {
       backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
+      color: colors.buttonColor.textColor,
       transition: '0.3s'
     }
   }

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { handlerInput } from '../../utils/utils.js'
+import { mappingColors } from '../../utils/constants'
+import { CirclePicker } from 'react-color'
 
 const storage = window.localStorage
 
@@ -155,15 +157,16 @@ const renderExtraPropertiesForLocationType = (locationType, handlerInput, setSha
       locationType !== 'marker' ?
         <div>
           <label className="pull-left">Color</label>
-          <input type="text"
-            required
-            name="cilcleRadius"
-            className="form-control"
-            placeholder="Ingrese un color"
-            aria-label="Radio"
-            aria-describedby="basic-addon1"
-            onChange={e => handlerInput(e, setShapeColor)}
-          />
+          <br />
+          <div>
+            <CirclePicker
+              colors={mappingColors}
+              circleSize={28}
+              circleSpacing={8}
+              onChangeComplete={(color) => setShapeColor(color.hex)}
+              onChange={(color) => setShapeColor(color.hex)}
+            />
+          </div>
         </div> : null
     }
     {
