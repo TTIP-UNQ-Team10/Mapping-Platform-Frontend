@@ -6,7 +6,9 @@ const AuthProvider = ({ Component, ...props }) => {
   const { state } = useContext(AppContext)
 
   return state.userState.isLogged ? (
-    <Component {...props} />
+    <div id="router">
+      <Component {...props} />
+    </div>
   ) : (
     <Redirect to={"/login"} />
   )

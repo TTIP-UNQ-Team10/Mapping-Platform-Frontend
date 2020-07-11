@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
 
-const NecessityTable = ({ data, showNecessityIntoMap }) => {
+const NecessityTable = ({ data, showNecessityIntoMap, colors}) => {
   const [isData, setIsData] = useState(false)
+
+  const styles = {
+    items_color: {
+      color: colors.primaryText.color
+    }
+  }
 
   useEffect(() => {
       Promise.resolve(data)
@@ -17,13 +23,13 @@ const NecessityTable = ({ data, showNecessityIntoMap }) => {
     <div className="necessities__table col-md-12">
       {
         isData && data ?
-      <table className="table table-striped table-md" >
+      <table className="table table-striped table-md" style={styles.items_color}>
         <tbody>
           {
             data.map(necessity => {
               const idx = data.indexOf(necessity).toString()
               return (
-                <tr id={`necessity:${necessity.id}`} key={`necessity${idx}`}>
+                <tr id={`necessity:${necessity.id}`} key={`necessity${idx}`} style={styles.items_color}>
                   <th onClick={() => showNecessityIntoMap(idx, necessity)}>{necessity.name}</th>
                 </tr>
               )

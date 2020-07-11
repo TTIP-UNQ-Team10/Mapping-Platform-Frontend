@@ -62,28 +62,33 @@ const NecessityType = () => {
       color: colors.buttonColor.textColor,
       backgroundColor: colors.navBarOptions.backgroundColor,
       filter: 'opacity(85%)'
+    },
+    home_body: {
+      backgroundColor: colors.appBackgroundColor.backgroundColor
     }
   }
 
 
   return (
-    <div>
+    <div id="router">
       <Navbar />
       <SideBarMenu />
       <div className="body__title" style={styles.body__title_background}>
         <h2>Administración de Tipos de Necesidades</h2>
       </div>
-      <div className="home__body container-fluid">
+      <div className="home__body container-fluid" style={styles.home_body}>
         <div className="container-fluid row">
           <NecessityTypeForm
             onClickHandler={onCreateNecessityType}
             onInputHandler={handlerInput}
             categoriesData={categories}
+            colors={colors}
           />
           <div className="col-md-8">
             <NecessityTypeTable data={necessityTypes}
               onDeleteNecessityType={onDeleteNecessityType}
               onEditNeccesityType={onEditNeccesityType}
+              colors={colors}
             />
           </div>
         </div>

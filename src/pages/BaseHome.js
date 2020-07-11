@@ -9,7 +9,7 @@ const renderOptions = (buttonsStates, colors) => {
   const styles = {
     action__card: {
       backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
+      color: colors.primaryText.color,
       width: '20em',
       height: '12em',
       textAlign: 'center',
@@ -35,6 +35,9 @@ const renderOptions = (buttonsStates, colors) => {
       width: 150,
       opacity: 0.4,
       filter: 'grayscale(1)'
+    },
+    home_body: {
+      backgroundColor: colors.appBackgroundColor.backgroundColor
     }
   }
 
@@ -53,7 +56,7 @@ const renderOptions = (buttonsStates, colors) => {
   }
 
   return (
-      <div className="row col-md-12 home__body">
+      <div className="row col-md-12 home__body" style={styles.home_body}>
         <Link to="/necessity-types"
           className="card card__router"
           style={getCardStyleClass('necessity-type')}
@@ -138,6 +141,9 @@ const BaseHome = () => {
       color: colors.buttonColor.textColor,
       backgroundColor: colors.navBarOptions.backgroundColor,
       filter: 'opacity(85%)'
+    },
+    home_body: {
+      backgroundColor: colors.appBackgroundColor.backgroundColor
     }
   }
 
@@ -148,8 +154,8 @@ const BaseHome = () => {
       <div className="body__title" style={styles.body__title_background}>
         <h2>Panel de Administración</h2>
       </div>
-      <div className="container-fluid base__home_body">
-          <div className="col col-md-12">
+      <div className="container-fluid base__home_body" style={styles.home_body}>
+          <div className="col col-md-12" style={styles.home_body}>
             {renderOptions(buttonsStates, colors)}
           </div>
       </div>

@@ -13,13 +13,13 @@ const renderCategoryCard = (category, config) => {
   const styles = {
     button__show_information: {
       backgroundColor: 'transparent',
-      color: colors.buttonColor.backgroundColor,
+      color: colors.primaryText.color,
       transition: '0.17s'
     },
     cards: {
       backgroundColor: colors.appBackgroundColor.backgroundColor,
       width: '18rem',
-      color: colors.primaryText
+      color: colors.primaryText.color
     }
   }
 

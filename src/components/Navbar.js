@@ -9,13 +9,13 @@ const userInformation = (user, isLogged, history, colors) => {
   const styles = {
     user__icon: {
       fontSize: 26,
-      color: colors.primaryText.color,
+      color: colors.secondaryText.color,
       marginRight: 10,
       verticalAlign: 'middle'
     },
     user__name: {
       fontSize: 12,
-      color: colors.primaryText.color,
+      color: colors.secondaryText.color,
       margin: '0 auto',
       verticalAlign: 'middle'
     },

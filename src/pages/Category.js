@@ -51,6 +51,9 @@ const Category = () => {
       color: colors.buttonColor.textColor,
       backgroundColor: colors.navBarOptions.backgroundColor,
       filter: 'opacity(85%)'
+    },
+    home_body: {
+      backgroundColor: colors.appBackgroundColor.backgroundColor
     }
   }
 
@@ -61,16 +64,18 @@ const Category = () => {
       <div className="body__title" style={styles.body__title_background}>
         <h2>Administración de Categorías</h2>
       </div>
-      <div className="home__body container-fluid">
+      <div className="home__body container-fluid" style={styles.home_body}>
         <div className="row justify-content-between mt-5">
           <CategoryForm
             onInputHandler={handlerInput}
             onClickHandler={onCreateCategory}
+            colors={colors}
           />
           <div className="col-md-8 col-sm-12">
             <CategoryTable categories={categories}
               onDeleteCategory={onDeleteCategory}
               onEditCategory={onEditCategory}
+              colors={colors}
             />
           </div>
         </div>

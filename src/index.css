@@ -11,11 +11,12 @@ html, body {
 }
 
 #root {
-  height: inherit;
+  height: 100%;
 }
 
 #router {
   height: 100vh;
+  margin-bottom: 0;
 }
 
 .notification {

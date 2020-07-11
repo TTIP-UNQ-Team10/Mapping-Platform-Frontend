@@ -421,6 +421,10 @@ tbody th {
 
 @media (max-width: 576px) {
 
+  #router {
+    height: 100%;
+  }
+
   section {
     padding-right: 0;
     padding-left: 0;
@@ -449,6 +453,10 @@ tbody th {
     margin-top: 3em;
     width: 100%;
   }
+
+  #router {
+    height: 100%;
+  }
 }
 
 
@@ -458,6 +466,10 @@ tbody th {
   .card {
     margin-top: 2em;
     margin-bottom: 2em;
+  }
+
+  #router {
+    height: 100%;
   }
 }
 
@@ -470,4 +482,8 @@ tbody th {
   }
 }
 
-@media (max-width: 1200px) { }
+@media (max-width: 1200px) {
+  #router {
+    height: 100%;
+  }
+}

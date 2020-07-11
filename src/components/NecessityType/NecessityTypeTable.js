@@ -43,7 +43,7 @@ const renderNecessityCategories = (necessity, idx, colors) => {
     button__show_categories: {
       backgroundColor: 'transparent',
       border: `1px solid ${colors.buttonColor.backgroundColor}`,
-      color: colors.buttonColor.backgroundColor
+      color: colors.primaryText.color
     },
     badge: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -78,6 +78,9 @@ const NecessityTypeTable = ({ data, onDeleteNecessityType, onEditNeccesityType }
       backgroundColor: colors.navBarOptions.backgroundColor,
       color: colors.buttonColor.textColor,
       opacity: 0.9,
+    },
+    table_item: {
+      color: colors.primaryText.color
     }
   }
 
@@ -120,7 +123,7 @@ const NecessityTypeTable = ({ data, onDeleteNecessityType, onEditNeccesityType }
           data.map(necessityType => {
             const idx = data.indexOf(necessityType).toString()
             return (
-              <tr id={`necessityType:${necessityType.id}`} key={`necessity${idx}`}>
+              <tr id={`necessityType:${necessityType.id}`} key={`necessity${idx}`} style={styles.table_item}>
                 {
                   editMode[idx] ?
                     <input type="text"

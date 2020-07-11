@@ -18,7 +18,7 @@ const renderMiniNavbar = (mode, setMode, setDataToMap, colors) => {
   const styles = {
     nav__pill: {
       backgroundColor: colors.backgroundColor,
-      color: colors.buttonColor.backgroundColor
+      color: colors.primaryText.color
     },
     active: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -228,6 +228,7 @@ const Necessity = (props) => {
               <NecessityTable
                 data={necessityList}
                 showNecessityIntoMap={renderNecessityIntoMap}
+                colors={colors}
               />
             }
           </div>

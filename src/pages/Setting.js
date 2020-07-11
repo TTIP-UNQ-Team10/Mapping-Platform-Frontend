@@ -60,6 +60,9 @@ const Setting = () => {
     picker__button: {
       backgroundColor: storageSettings.colors.buttonColor.backgroundColor,
       color: storageSettings.colors.buttonColor.textColor
+    },
+    home_body: {
+      backgroundColor: storageSettings.colors.appBackgroundColor.backgroundColor
     }
   }
 
@@ -87,7 +90,7 @@ const Setting = () => {
       <div className="body__title" style={styles.body__title_background}>
         <h2>Personalización de Colores</h2>
       </div>
-      <div id="router" className="home__body container-fluid col col-md-12">
+      <div id="router" className="home__body container-fluid col col-md-12" style={styles.home_body}>
         <div className="row settings__body">
           <div className="col-md-6 pl-5">
             <NavbarSettings

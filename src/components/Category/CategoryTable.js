@@ -14,6 +14,9 @@ const CategoryTable = ({ categories, onDeleteCategory, onEditCategory}) => {
       backgroundColor: colors.navBarOptions.backgroundColor,
       color: colors.buttonColor.textColor,
       opacity: 0.9,
+    },
+    table_item: {
+      color: colors.primaryText.color
     }
   }
 
@@ -68,7 +71,7 @@ const CategoryTable = ({ categories, onDeleteCategory, onEditCategory}) => {
                       aria-describedby="basic-addon1"
                       onInput={e => handlerInput(e, setCategoryEditName)}
                     /> :
-                    <th>{category.name}</th>
+                    <th style={styles.table_item}>{category.name}</th>
                 }
                 <th/>
                 <th className="row">
