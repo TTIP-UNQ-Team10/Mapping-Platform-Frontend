@@ -164,9 +164,9 @@ const Necessity = (props) => {
   }
 
 
-  const saveNecessity = async (data) => {
-    await necessityService.saveNecessity(data, dispatch, necessityList, setNecessityList, state)
+  const onSaveNecessity = async (data) => {
     setDataToMap(null)
+    await necessityService.saveNecessity(data, dispatch, necessityList, setNecessityList, setDataToMap, state)
   }
 
   const onCategoryFilterOption = async (category) => {
@@ -223,7 +223,7 @@ const Necessity = (props) => {
                 categories={categories}
                 onSelectNecessityType={getCategoriesByNecessityType}
                 coordFromMap={coordinates}
-                onHandlerSummit={saveNecessity}
+                onHandlerSummit={onSaveNecessity}
               /> :
               <NecessityTable
                 data={necessityList}

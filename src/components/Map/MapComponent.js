@@ -63,6 +63,9 @@ const MapComponent = (props) => {
         .then(res => {
           setDataObject(res)
         })
+    } else {
+      setDataObject(null)
+      setMatrixCoord([])
     }
   }, [data])
 
@@ -71,7 +74,11 @@ const MapComponent = (props) => {
     const { latlng, originalEvent } = event
     setMatrixCoord([])
     const coords = Object.values(latlng)
-    const onFlyMarker = { location: { type: 'select', coordinates: coords } }
+    let onFlyMarker = {}
+    if (matrixCoord.length === 0) {
+      onFlyMarker = { location: { type: 'select', coordinates: [] } }
+    }
+    onFlyMarker = { location: { type: 'select', coordinates: coords } }
 
     if (originalEvent.ctrlKey && matrixCoord.length > 0) {
       if (typeof(matrixCoord[0]) === 'number') {
