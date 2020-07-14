@@ -14,6 +14,10 @@ const Filter = ({data, onSelectFilter, type, enable}) => {
       boderColor: `${colors.buttonColor.backgroundColor}`,
       transition: '0.2s',
       width: '100%'
+    },
+    dropdown_item: {
+      backgroundColor: colors.appBackgroundColor.backgroundColor,
+      color: colors.primaryText.color
     }
   }
 
@@ -44,12 +48,12 @@ const Filter = ({data, onSelectFilter, type, enable}) => {
               <span>{type}</span>
           }
         </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownFilterButton">
-          <button className="dropdown-item" onClick={() => onCategorySelected(null)}>Todas</button>
+        <div className="dropdown-menu" aria-labelledby="dropdownFilterButton" style={styles.dropdown_item}>
+          <button className="dropdown-item" style={styles.dropdown_item} onClick={() => onCategorySelected(null)}>Todas</button>
           {
             data ?
               data.map( dataObject =>
-                <button className="dropdown-item" onClick={() => onCategorySelected(dataObject.name)}>{dataObject.name}</button>
+                <button className="dropdown-item" style={styles.dropdown_item} onClick={() => onCategorySelected(dataObject.name)}>{dataObject.name}</button>
               ) : null
           }
         </div>

@@ -42,6 +42,11 @@
   text-align: center;
 }
 
+.checkbox {
+  padding: 0px 0px 15px 0px;
+  width: 300px;
+}
+
 section {
   min-height: 30em;
   padding: 3.5em;

@@ -7,7 +7,7 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) =
   const settings = storage.getItem('styles')
   const config = JSON.parse(settings)
   const { colors } = config
-  
+
   const styles = {
     button__create: {
       backgroundColor: colors.buttonColor.backgroundColor,
@@ -70,22 +70,22 @@ const NecessityTypeForm = ({ onInputHandler, onClickHandler, categoriesData }) =
         />
       </div>
 
-      <div className="mb-3 row col-md-12">
+      <div className="mb-3">
         <label className="pull-left">Categorías</label>
-        <div className="col-md-4">
+        <div className="row pl-5">
         {
           hasCategories ?
           categoriesData.map(category => {
             return (
-              <div className="custom-control custom-checkbox col-md-6">
+              <div className="custom-control custom-checkbox checkbox">
                 <input
-                className="custom-control-input"
-                type="checkbox"
-                id={`${category.id}`}
-                value={category.name}
-                onChange={handleCategoryInput}
+                  className="custom-control-input"
+                  type="checkbox"
+                  id={`${category.id}`}
+                  value={category.name}
+                  onChange={handleCategoryInput}
                 />
-                <label className="custom-control-label" for={`${category.id}`}>{category.name}</label>
+                <label className="custom-control-label pull-left" for={`${category.id}`}>{category.name}</label>
               </div>
             )
           }) :

@@ -3,27 +3,33 @@ import { handlerInput } from '../../utils/utils.js'
 
 const storage = window.localStorage
 
-const renderCategoriesModal = (necessity, idx) => {
+const renderCategoriesModal = (necessity, idx, colors) => {
   const { categories } = necessity
+  const styles = {
+    custom__model: {
+      backgroundColor: colors.appBackgroundColor.backgroundColor,
+      color: colors.primaryText.color
+    }
+  }
 
   return (
     <div className="modal fade" id={`modal-${idx}`} tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div className="modal-dialog">
-        <div className="modal-content">
+        <div className="modal-content" style={styles.custom__model}>
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">Categorías de la Necesidad {necessity.name}</h5>
             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
+              <span aria-hidden="true" style={{color: colors.primaryText.color}}>&times;</span>
             </button>
           </div>
           <div className="modal-body">
             {
               categories && categories.length > 0 ?
-              <ul class="list-group">
+              <ul className="list-group" style={styles.custom__model}>
                 {
                   categories.map(category => {
                     return (
-                      <li class="list-group-item">{category.name}</li>
+                      <li className="list-group-item" style={styles.custom__model}>{category.name}</li>
                     )
                   })
                 }
@@ -62,7 +68,7 @@ const renderNecessityCategories = (necessity, idx, colors) => {
       >
         <span>Ver </span><i className="fa fa-eye"/>
       </button>
-      {renderCategoriesModal(necessity, idx)}
+      {renderCategoriesModal(necessity, idx, colors)}
     </div>
   )
 }
