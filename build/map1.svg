@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="541.87mm" height="308.52mm" version="1.1" viewBox="0 0 1919.9999 1093.1821" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="a" x1="1587.1" x2="1587.1" y1="1465.4" y2="1873.2" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#ef0000" offset="0"/>
+   <stop stop-color="#c80000" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g transform="translate(-238.07 791.59)">
+  <g transform="matrix(48.183 0 0 48.183 -4976.6 -47091)">
+   <g transform="matrix(1 0 .42142 .42314 -470.95 553.28)">
+    <g transform="matrix(1 -.37123 0 1 -16.739 71.852)">
+     <path transform="translate(0 548.36)" d="m180 433.53v13.531h10v-13.531h-10z" fill="#7fc94c"/>
+     <path transform="translate(0 548.36)" d="m180.03 447.06v2.9062h9.9688v-2.9062h-9.9688z" fill="#f9f792"/>
+     <path transform="translate(0 548.36)" d="m180 449.97v13.562h10v-13.562h-10z" fill="#4ca0c9"/>
+    </g>
+    <g transform="matrix(1 .30494 0 1 -16.771 -56.621)">
+     <path transform="translate(0 548.36)" d="m190 433.53v13.531h10v-13.531h-10z" fill="#7fc94c"/>
+     <path transform="translate(0 548.36)" d="m190 447.06v2.9062h3.5625v13.562h2.9062v-13.562h3.5312v-2.9062h-9.9999z" fill="#f9f792"/>
+     <path transform="translate(0 548.36)" d="m196.47 449.97v13.562h3.5312v-13.562h-3.5312z" fill="#c9a14c"/>
+     <path transform="translate(0 548.36)" d="m190 449.97v13.562h3.5625v-13.562h-3.5625z" fill="#4ca0c9"/>
+    </g>
+    <g transform="matrix(1 -.55243 0 1 -.1875 104.3)">
+     <path d="m183.26 999.64v13.562h10v-13.562h-10z" fill="#c9a14c"/>
+     <path d="m183.26 983.2v13.531h10v-13.531h-10z" fill="#7fc94c"/>
+     <path d="m183.26 996.73v2.9062h10v-2.9062h-10z" fill="#f9f792"/>
+    </g>
+    <path d="m173.24 983.23-0.0132 13.526 5e-3 2.9293-0.0132 13.526 3.5746 1.12 2.918 0.8616 3.538 1.0339-0.0232-13.526 0.0314-2.9293-0.0232-13.526-9.9941-3.0154z" fill-opacity=".15217"/>
+   </g>
+   <g transform="matrix(.033414 0 0 .033414 77.2 945.19)">
+    <path transform="translate(0 -995.64)" d="m1731.4 1612.3c0 79.687-144.29 266.52-144.29 324.14 0-57.579-144.29-244.45-144.29-324.14s64.599-144.29 144.29-144.29 144.29 64.599 144.29 144.29z" fill="url(#a)" stroke="#a00000" stroke-linecap="square" stroke-linejoin="round" stroke-width="4.7895"/>
+    <circle transform="matrix(.83958 0 0 .83958 239.09 -741.47)" cx="1605.6" cy="1614.1" r="59.094" fill="#a00000"/>
+   </g>
+  </g>
+ </g>
+</svg>
